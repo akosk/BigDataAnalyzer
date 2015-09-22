@@ -1,0 +1,15 @@
+# phpstorm project files
+.idea
+*.iml
+
+# netbeans project files
+nbproject
+
+*.class
+*.classpath
+*.project
+*.settings
+*.springBeans
+
+target/
+bin/
