@@ -23,8 +23,7 @@
     "animate.css": "~3.3.0",
     "angular-sanitize": "~1.4.1",
     "wow": "~1.1.2",
-    "jquery-easing": "*"
-
+    "jquery-easing": "*",
+    "bootstrap": "3.3.4"
   }
-
 }
