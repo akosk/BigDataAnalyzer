@@ -10,6 +10,7 @@ nbproject
 *.project
 *.settings
 *.springBeans
-
+vendor
 target/
 bin/
+node_modules
