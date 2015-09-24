@@ -1,0 +1,48 @@
+<div class="row">
+    <div class="col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Adatforrások kiválasztása</h3>
+            </div>
+            <div class="panel-body">
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="text-center"><h3>Elérhető</h3></div>
+                        <ul class="nav nav-datasource" dragula='"first-bag"'>
+                            <li class="datasource-card" ng-repeat="item in availableDataSources">
+                                <i class="fa fa-server"></i>
+                                <span class="datasource">{{item.dataSource.name}}</span>
+                                <i class="fa fa-database"></i>
+                                <span class="database">{{item.database.sql_name}}</span>
+                                <i class="fa fa-table"></i>
+                                <span class="table">{{item.table.sql_name}}</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="text-center"><h3>Kiválasztott</h3></div>
+                        <ul class="nav nav-datasource" dragula='"first-bag"'>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Paraméterek</h3>
+            </div>
+            <div class="panel-body">
+                <div>
+                    {{availableDataSources | json}}
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>

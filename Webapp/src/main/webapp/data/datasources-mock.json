@@ -1,0 +1,45 @@
+{
+  "datasources": [
+    {
+      "id": 1,
+      "name": "Helyi MySQL",
+      "databases": [
+        {
+          "sql_name": "kozetpalast",
+          "tables": [
+            {
+              "sql_name": "fluidium",
+              "columns": [
+                {
+                  "sql_name": "field1",
+                  "sql_type": "int(11)"
+                },
+                {
+                  "sql_name": "field2",
+                  "sql_type": "int(11)"
+                },
+                {
+                  "sql_name": "field3",
+                  "sql_type": "int(11)"
+                }
+              ]
+            },
+            {
+              "sql_name": "measurement_result",
+              "columns": [
+                {
+                  "sql_name": "val1",
+                  "sql_type": "int(11)"
+                },
+                {
+                  "sql_name": "val2",
+                  "sql_type": "int(11)"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

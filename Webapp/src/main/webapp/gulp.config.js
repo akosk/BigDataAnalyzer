@@ -7,14 +7,16 @@ module.exports = function () {
     var client = './';
     var clientApp = client + 'app';
 
+    console.log(clientApp);
+
     var config = {
         client: client,
         temp: './.tmp/',
         alljs: [],
         js: [
-            clientApp + '**/*.module.js',
-            clientApp + '**/*.js',
-            '!' + clientApp + '**/*.spec.js',
+            clientApp + '/**/app.js',
+            clientApp + '/**/*.js',
+            '!' + clientApp + '/**/*.spec.js',
         ],
         index: client + 'index.jsp',
 

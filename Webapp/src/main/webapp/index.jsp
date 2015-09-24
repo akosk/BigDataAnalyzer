@@ -1,13 +1,16 @@
+<%@ page contentType="text/html; charset=UTF-8" %>
+
 <html lang="hu-HU">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- bower:css -->
-    <link rel="stylesheet" href="vendor/bower/bootstrap-sweetalert/lib/sweet-alert.css"/>
-    <link rel="stylesheet" href="vendor/bower/fontawesome/css/font-awesome.css"/>
-    <link rel="stylesheet" href="vendor/bower/animate.css/animate.css"/>
-    <link rel="stylesheet" href="vendor/bower/bootstrap/dist/css/bootstrap.css"/>
+    <link rel="stylesheet" href="vendor/bower/bootstrap-sweetalert/lib/sweet-alert.css" />
+    <link rel="stylesheet" href="vendor/bower/fontawesome/css/font-awesome.css" />
+    <link rel="stylesheet" href="vendor/bower/animate.css/animate.css" />
+    <link rel="stylesheet" href="vendor/bower/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="vendor/bower/angular-dragula/dist/dragula.css" />
     <!-- endbower -->
 
     <link rel="stylesheet" href="css/site.css"/>
@@ -42,12 +45,13 @@
 
 
     <div class="container">
-        <h2>Jersey RESTful Web Application!</h2>
-
-        <p><a href="webapi/myresource">Jersey resource</a>
-
-        <p>Visit <a href="http://jersey.java.net">Project Jersey website</a>
-            for more information on Jersey!
+        <div class="row">
+            <div id='spinner' class="text-center col-md-12">
+                <i class="fa fa-circle-o-notch fa-spin fa-5x"></i>
+            </div>
+        </div>
+        <div ng-app="app" ng-view>
+        </div>
 
     </div>
 
@@ -75,10 +79,15 @@
 <script src="vendor/bower/jquery-easing/jquery.easing.js"></script>
 <script src="vendor/bower/jquery-easing/jquery.easing.min.js"></script>
 <script src="vendor/bower/bootstrap/dist/js/bootstrap.js"></script>
+<script src="vendor/bower/angular-dragula/dist/angular-dragula.js"></script>
 <!-- endbower -->
 
 <!-- inject:js -->
-<script src="/app/test.js"></script>
+<script src="/app/calculation-configuration/app.js"></script>
+<script src="/app/calculation-configuration/config.js"></script>
+<script src="/app/calculation-configuration/config.route.js"></script>
+<script src="/app/calculation-configuration/controller.js"></script>
+<script src="/app/calculation-configuration/services/dataService.js"></script>
 <!-- endinject -->
 
 
