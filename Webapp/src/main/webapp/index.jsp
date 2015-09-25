@@ -80,6 +80,7 @@
 <script src="vendor/bower/jquery-easing/jquery.easing.min.js"></script>
 <script src="vendor/bower/bootstrap/dist/js/bootstrap.js"></script>
 <script src="vendor/bower/angular-dragula/dist/angular-dragula.js"></script>
+<script src="vendor/bower/angular-bootstrap/ui-bootstrap-tpls.js"></script>
 <!-- endbower -->
 
 <!-- inject:js -->
@@ -87,6 +88,7 @@
 <script src="/app/calculation-configuration/config.js"></script>
 <script src="/app/calculation-configuration/config.route.js"></script>
 <script src="/app/calculation-configuration/controller.js"></script>
+<script src="/app/calculation-configuration/directives/dsCard.js"></script>
 <script src="/app/calculation-configuration/services/dataService.js"></script>
 <!-- endinject -->
 

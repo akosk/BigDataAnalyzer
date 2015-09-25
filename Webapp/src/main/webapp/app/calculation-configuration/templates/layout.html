@@ -1,48 +1,63 @@
 <div class="row">
-    <div class="col-md-6">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title">Adatforrások kiválasztása</h3>
-            </div>
-            <div class="panel-body">
+    <div class="col-md-12">
 
+        <tabset>
+            <tab heading="Adatforrások kiválasztása">
                 <div class="row">
                     <div class="col-md-6">
-                        <div class="text-center"><h3>Elérhető</h3></div>
-                        <ul class="nav nav-datasource" dragula='"first-bag"'>
+                        <div class="text-center"><h3>Elérhető adatforrások</h3></div>
+
+                        <ul id="available-datasources" class="nav nav-datasource" dragula='"first-bag"'
+                            dragula-model="availableDataSources">
                             <li class="datasource-card" ng-repeat="item in availableDataSources">
-                                <i class="fa fa-server"></i>
-                                <span class="datasource">{{item.dataSource.name}}</span>
-                                <i class="fa fa-database"></i>
-                                <span class="database">{{item.database.sql_name}}</span>
-                                <i class="fa fa-table"></i>
-                                <span class="table">{{item.table.sql_name}}</span>
+                                <ds-card></ds-card>
                             </li>
                         </ul>
+
                     </div>
                     <div class="col-md-6">
-                        <div class="text-center"><h3>Kiválasztott</h3></div>
-                        <ul class="nav nav-datasource" dragula='"first-bag"'>
+                        <div class="text-center"><h3>Kiválasztott adatforrások</h3></div>
+                        <ul id="selected-datasources" class="nav nav-datasource" dragula='"first-bag"'
+                            dragula-model="selectedDataSources">
+
+                            <div ng-show="selectedDataSources.length==0" class="ul-empty">Húzzon bele egy adatforrást!
+                            </div>
+                            <li class="datasource-card" ng-repeat="item in selectedDataSources">
+                                <ds-card></ds-card>
+                            </li>
+
                         </ul>
                     </div>
                 </div>
-
-            </div>
-        </div>
-    </div>
-
-    <div class="col-md-6">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title">Paraméterek</h3>
-            </div>
-            <div class="panel-body">
-                <div>
-                    {{availableDataSources | json}}
+            </tab>
+            <tab heading="Adatok szűrése" disable="selectedDataSources.length==0">
+            </tab>
+            <tab heading="Számítás típusa" disable="selectedDataSources.length==0">
+            </tab>
+            <tab heading="Adatmezők kiválasztása" disable="selectedDataSources.length==0">
+                <div class="row">
+                    <div class="col-md-12">
+                        <table class="table table-bordered">
+                            <tr>
+                                <th>Tábla neve</th>
+                            </tr>
+                            <tr ng-repeat="ds in selectedDataSources">
+                                <th>{{ds.table.sql_name}}</th>
+                                <td ng-repeat="column in ds.table.columns">
+                                    {{column.sql_name}}
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
                 </div>
+            </tab>
+        </tabset>
 
-            </div>
-        </div>
+
     </div>
+
+
+</div>
+
 
 </div>

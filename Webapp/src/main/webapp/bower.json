@@ -25,6 +25,7 @@
     "wow": "~1.1.2",
     "jquery-easing": "*",
     "bootstrap": "3.3.4",
-    "angular-dragula": "~1.0.12"
+    "angular-dragula": "~1.0.12",
+    "angular-bootstrap": "~0.13.4"
   }
 }

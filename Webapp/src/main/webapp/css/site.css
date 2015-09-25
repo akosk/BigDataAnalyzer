@@ -18,11 +18,23 @@ body {
   padding: 0px 15px 20px; }
 
 li.datasource-card {
-  cursor: pointer;
-  margin-bottom: 6px; }
-  li.datasource-card span.table {
+  cursor: move;
+  margin: 8px 8px 8px 8px; }
+  li.datasource-card h1, li.datasource-card h2, li.datasource-card h3, li.datasource-card h4, li.datasource-card h5, li.datasource-card h6 {
+    margin-bottom: 0px;
+    margin-top: 0px; }
+  li.datasource-card .ds-table {
     font-weight: bold; }
 
 .nav-datasource {
   border: dashed #e0e0e0;
   min-height: 100px; }
+
+.ul-empty {
+  color: #e0e0e0;
+  font-size: 25px;
+  margin: 30px auto auto 0px;
+  text-align: center; }
+
+div.tab-content {
+  margin-top: 10px; }
