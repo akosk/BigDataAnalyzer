@@ -15,6 +15,17 @@
         $scope.dataService = dataService;
         $scope.availableDataSources = [];
         $scope.selectedDataSources = [];
+        $scope.selectedCalculation = null;
+        $scope.calculations = [
+            {
+                id: 'COUNT',
+                name: 'Számolás'
+            },
+            {
+                id: 'REGRESSION',
+                name: 'Regresszió számítás'
+            }
+        ];
 
         $scope.queryDataSources = function () {
             $scope.isBusy = true;
@@ -82,7 +93,10 @@
 
         });
 
-
+        $scope.selectCalculation = function (calculation) {
+            console.dir(calculation);
+            $scope.selectedCalculation = calculation;
+        }
 
     }
 
