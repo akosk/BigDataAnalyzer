@@ -38,7 +38,7 @@
                 <h2>Fejlesztés alatt!</h2>
             </tab>
             <tab heading="Számítás típusa" disable="selectedDataSources.length==0">
-                                       <h2 class="text-center">Válassza ki a számítás típusát!</h2>
+                <h2 class="text-center">Válassza ki a számítás típusát!</h2>
 
                 <div class="col-md-3" ng-repeat="calculation in calculations">
                     <button
@@ -54,21 +54,7 @@
             </tab>
             <tab heading="Adatmezők kiválasztása"
                  disable="selectedDataSources.length==0 || selectedCalculation==null">
-                <div class="row">
-                    <div class="col-md-12">
-                        <table class="table table-bordered">
-                            <tr>
-                                <th>Tábla neve</th>
-                            </tr>
-                            <tr ng-repeat="ds in selectedDataSources">
-                                <th>{{ds.table.sql_name}}</th>
-                                <td ng-repeat="column in ds.table.columns">
-                                    {{column.sql_name}}
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-                </div>
+                    <div ng-include="getCalculationTemplate()"></div>
             </tab>
         </tabset>
 

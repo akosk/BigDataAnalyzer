@@ -16,13 +16,23 @@
         $scope.availableDataSources = [];
         $scope.selectedDataSources = [];
         $scope.selectedCalculation = null;
+        $scope.calculationConfiguration = {};
+
         $scope.calculations = [
             {
-                id: 'COUNT',
-                name: 'Számolás'
+                id: 'count',
+                name: 'Számolás',
+                groups: [
+                    {
+                        id: 'count',
+                        name: 'Számolandó mező',
+                        min: 1,
+                        max: 1
+                    }
+                ]
             },
             {
-                id: 'REGRESSION',
+                id: 'regression',
                 name: 'Regresszió számítás'
             }
         ];
@@ -94,10 +104,40 @@
         });
 
         $scope.selectCalculation = function (calculation) {
-            console.dir(calculation);
             $scope.selectedCalculation = calculation;
+            $scope.calculationConfiguration = getDefaultCalculationConfiguration($scope.selectedDataSources, calculation);
         }
 
+        $scope.getCalculationTemplate = function () {
+            var path = 'app/calculation-configuration/templates/calculations/';
+            var template = $scope.selectedCalculation != null ? $scope.selectedCalculation.id : 'empty';
+            var templateUrl = path + template + '.html';
+            return templateUrl;
+        }
+
+    }
+
+
+    function getDefaultCalculationConfiguration(selectedDataSources, calculation) {
+        var config = {};
+        config.numberOfColumns = getNumberOfColumns(selectedDataSources);
+
+        config.columns = [];
+        for (var i = 0; i < config.numberOfColumns; i++) config.columns.push({});
+
+        return config;
+    }
+
+    function getNumberOfColumns(selectedDataSources) {
+        var max = 0;
+        selectedDataSources.forEach(
+            function (item) {
+                var columnsCount = item.table.columns.length;
+                if (max < columnsCount) max = columnsCount;
+            }
+        );
+
+        return max;
     }
 
 

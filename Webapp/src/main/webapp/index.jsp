@@ -88,6 +88,7 @@
 <script src="/app/calculation-configuration/config.js"></script>
 <script src="/app/calculation-configuration/config.route.js"></script>
 <script src="/app/calculation-configuration/controller.js"></script>
+<script src="/app/calculation-configuration/directives/columnSelector.js"></script>
 <script src="/app/calculation-configuration/directives/dsCard.js"></script>
 <script src="/app/calculation-configuration/services/dataService.js"></script>
 <!-- endinject -->
