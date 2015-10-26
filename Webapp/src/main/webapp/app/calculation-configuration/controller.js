@@ -33,7 +33,21 @@
             },
             {
                 id: 'regression',
-                name: 'Regresszió számítás'
+                name: 'Regresszió számítás',
+                groups: [
+                    {
+                        id: 'x',
+                        name: 'X',
+                        min: 1
+                    },
+                    {
+                        id: 'y',
+                        name: 'Y',
+                        min: 1,
+                        max: 1
+                    }
+
+                ]
             }
         ];
 

@@ -3,12 +3,11 @@
         <table class="table table-bordered">
             <tr>
                 <th>Tábla neve</th>
-                {{selectedCalculation}}
                 <th ng-repeat="column in calculationConfiguration.columns">
-                    {{column}}
                     <select class="form-control"
                             ng-model="column.selectedCalculationId"
-                            ng-options="group.id as group.name for group in selectedCalculation.groups">
+                            ng-options="group.id as group.name for group in selectedCalculation.groups"
+                            >
                         <option value=""></option>
                     </select>
                 </th>
