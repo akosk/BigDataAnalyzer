@@ -1,6 +1,5 @@
 package hu.innocenter.bigdata.webapp;
 
-import hu.innocenter.bigdata.analyzer.RegressionCalculator;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
