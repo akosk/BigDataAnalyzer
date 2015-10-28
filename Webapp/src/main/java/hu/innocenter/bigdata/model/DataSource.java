@@ -10,7 +10,7 @@ import java.util.List;
  * Created by Ákos on 2015.10.27..
  */
 
-@XmlRootElement
+
 public class DataSource {
 
     private int id;

@@ -12,6 +12,7 @@ public class DataBase {
 
     @XmlElement(name = "sql_name")
     private String sqlName;
+    @XmlElement(name = "tables")
     private List<Table> tables;
 
 

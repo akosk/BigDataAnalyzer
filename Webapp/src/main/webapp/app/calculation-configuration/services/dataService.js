@@ -16,7 +16,7 @@
         var _queryDataSources = function () {
             var deferred = $q.defer();
             $http({
-                url: 'data/datasources-mock.json',
+                url: 'webapi/datasources',
                 method: "GET",
                 params: {}
             })
