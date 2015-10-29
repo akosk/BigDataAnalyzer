@@ -1,0 +1,24 @@
+.pageHeader {
+  height: 160px;
+  padding: 0;
+  margin: 0; }
+  .pageHeader .row .headerLogoUniMiskolc {
+    line-height: 150px; }
+  .pageHeader .row .headerGeoTeam {
+    line-height: 150px; }
+  .pageHeader .row #headerUniMiskolc {
+    height: 80px;
+    margin: 10px auto 20px auto;
+    display: table; }
+  .pageHeader .row .headerLogoInnocenter {
+    padding-top: 25px; }
+  .pageHeader .row #geoTeamLogo {
+    margin-top: 25px; }
+  .pageHeader .row .headerLogo img {
+    max-width: 100%; }
+  .pageHeader .row .headerLogoSz2020 {
+    text-align: right; }
+  .pageHeader .row .col-md-5 {
+    text-align: center;
+    padding-top: 30px;
+    font-weight: bold; }

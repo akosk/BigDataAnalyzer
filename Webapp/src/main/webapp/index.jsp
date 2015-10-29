@@ -14,35 +14,18 @@
     <!-- endbower -->
 
     <link rel="stylesheet" href="css/site.css"/>
+    <link rel="stylesheet" href="css/header.css"/>
+    <link rel="stylesheet" href="css/navbar.css"/>
 </head>
 
 <body>
 
 
 <div class="wrap">
-    <nav class="navbar navbar-default">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-                        data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="#"><i class="fa fa-cloud"></i> Big Data Analyzer</a>
-            </div>
 
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
-                    <li><a href="/"><i class="fa fa-cog"></i> Számítási konfigurációk</a></li>
-                    <li><a href="/"><i class="fa fa-tasks"></i> Feladatok</a></li>
+    <jsp:include page="_header.jsp" />
 
-                </ul>
 
-            </div>
-        </div>
-    </nav>
 
 
     <div class="container">
@@ -62,6 +45,7 @@
     </div>
 
 </div>
+
 <footer class="footer">
     <div class="container">
         <p class="pull-left">&copy; Innocenter Kft. 2015</p>
