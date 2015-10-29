@@ -37,7 +37,7 @@ public class DataSourceRepositoryLocalMySql implements DataSourceRepository {
             conn = ds.getConnection();
 
             st = conn.createStatement();
-            rs = st.executeQuery("SHOW DATABASES LIKE '%bigdata%'");
+            rs = st.executeQuery("SHOW DATABASES LIKE '%d%'  ");
 
             List<DataBase> databases = new ArrayList<DataBase>();
             dataSource.setDatabases(databases);

@@ -54,3 +54,15 @@ li.datasource-card {
 div.tab-content {
     margin-top:10px;
 }
+
+.modal-dialog {
+  width: 95%;
+  height: 90%;
+  padding: 0;
+}
+
+.modal-content {
+  height: 100%;
+  overflow-y: auto;
+  border-radius: 0;
+}
