@@ -40,7 +40,8 @@
                 <td style="width:10%">{{c.job_done}}</td>
                 <td style="width:10%">{{c.job_in_progress}}</td>
                 <td style="width:10%">
-                    <a ng-hide="c.job_done>0 || c.job_in_progress>0" href="#" title="Szerkesztés" aria-label="Szerkesztés"
+                    <a ng-hide="c.job_done>0 || c.job_in_progress>0" href="#" title="Szerkesztés"
+                       aria-label="Szerkesztés"
                        data-pjax="0"><span class="glyphicon glyphicon-pencil"></span></a>
                     <a ng-hide="c.job_done>0 || c.job_in_progress>0" href="#" title="Törlés" aria-label="Törlés"
                        data-confirm="Biztos benne, hogy törli ezt az elemet?" data-method="post" data-pjax="0"><span
@@ -82,8 +83,15 @@
                                     <div class="col-md-6">
                                         <div class="text-center"><h3>Elérhető adatforrások</h3></div>
 
+
+
                                         <ul id="available-datasources" class="nav nav-datasource" dragula='"first-bag"'
                                             dragula-model="availableDataSources">
+                                            <div class="row" ng-show="isBusy">
+                                                <div class="text-center col-md-12">
+                                                    <i class="fa fa-circle-o-notch fa-spin fa-5x"></i>
+                                                </div>
+                                            </div>
                                             <li class="datasource-card" ng-repeat="item in availableDataSources">
                                                 <ds-card></ds-card>
                                             </li>

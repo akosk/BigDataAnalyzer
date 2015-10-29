@@ -38,8 +38,8 @@
             <div class="form-group" ng-show="calculationConfiguration.regression_type=='kmeans'">
                 <label for="clusters" class="col-sm-2 control-label">Klaszterek száma</label>
 
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" id="clusters" placeholder="Klaszterek száma"
+                <div class="col-sm-2">
+                    <input type="number" class="form-control" id="clusters" placeholder="Klaszterek száma"
                            ng-model="calculationConfiguration.clusters">
                 </div>
             </div>
@@ -57,8 +57,8 @@
             <div class="form-group" ng-show="calculationConfiguration.principal">
                 <label for="princpal_components" class="col-sm-2 control-label">Főkomponensek száma</label>
 
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" id="princpal_components" placeholder="Főkomponensek száma"
+                <div class="col-sm-2">
+                    <input type="number" class="form-control" id="princpal_components" placeholder="Főkomponensek száma"
                            ng-model="calculationConfiguration.princpal_components">
                 </div>
             </div>
