@@ -17,6 +17,7 @@
         $scope.selectedDataSources = [];
         $scope.selectedCalculation = null;
         $scope.calculationConfiguration = {};
+        $scope.calculationConfigurations = [];
 
         $scope.calculations = [
             {
@@ -120,15 +121,20 @@
         $scope.selectCalculation = function (calculation) {
             $scope.selectedCalculation = calculation;
             $scope.calculationConfiguration = getDefaultCalculationConfiguration($scope.selectedDataSources, calculation);
-        }
+        };
 
         $scope.getCalculationTemplate = function () {
             var path = 'app/calculation-configuration/templates/calculations/';
             var template = $scope.selectedCalculation != null ? $scope.selectedCalculation.id : 'empty';
-            var templateUrl = path + template + '.html';
-            return templateUrl;
-        }
+            return path + template + '.html';
+        };
 
+        $scope.saveConfiguration = function () {
+            $scope.calculationConfiguration.create_time = moment().format("YYYY-MM-DD HH:mm:ss");
+            //$scope.calculationConfiguration.job_done = 2;
+            $scope.calculationConfigurations.push($scope.calculationConfiguration);
+            $('.modal-conf').modal('hide');
+        };
     }
 
 

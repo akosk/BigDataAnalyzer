@@ -30,14 +30,15 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">Big Data Analyzer</a>
+                <a class="navbar-brand" href="#"><i class="fa fa-cloud"></i> Big Data Analyzer</a>
             </div>
 
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <%--<ul class="nav navbar-nav">--%>
-                    <%--<li><a href="#">Link</a></li>--%>
+                <ul class="nav navbar-nav">
+                    <li><a href="/"><i class="fa fa-cog"></i> Számítási konfigurációk</a></li>
+                    <li><a href="/"><i class="fa fa-tasks"></i> Feladatok</a></li>
 
-                <%--</ul>--%>
+                </ul>
 
             </div>
         </div>
@@ -45,12 +46,17 @@
 
 
     <div class="container">
+        <ul class="breadcrumb"><li><a href="/">Főoldal</a></li>
+            <li class="active">Számítási konfigurációk</li>
+        </ul>
+
+        <div ng-app="app" ng-view>
+        </div>
+
         <div class="row">
             <div id='spinner' class="text-center col-md-12">
                 <i class="fa fa-circle-o-notch fa-spin fa-5x"></i>
             </div>
-        </div>
-        <div ng-app="app" ng-view>
         </div>
 
     </div>
@@ -58,7 +64,7 @@
 </div>
 <footer class="footer">
     <div class="container">
-        <p class="pull-left">&copy; Innocenter Kft. 2005</p>
+        <p class="pull-left">&copy; Innocenter Kft. 2015</p>
 
         <p class="pull-right"></p>
     </div>
@@ -81,6 +87,7 @@
 <script src="vendor/bower/bootstrap/dist/js/bootstrap.js"></script>
 <script src="vendor/bower/angular-dragula/dist/angular-dragula.js"></script>
 <script src="vendor/bower/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+<script src="vendor/bower/moment/moment.js"></script>
 <!-- endbower -->
 
 <!-- inject:js -->

@@ -18,7 +18,7 @@
     "bootstrap-sweetalert": "~0.4.5",
     "underscore": "~1.8.3",
     "angular-route": "~1.4.1",
-    "fontawesome": "~4.3.0",
+    "fontawesome": ">=4.4.0",
     "angular-animate": "~1.4.1",
     "animate.css": "~3.3.0",
     "angular-sanitize": "~1.4.1",
@@ -26,6 +26,14 @@
     "jquery-easing": "*",
     "bootstrap": "3.3.4",
     "angular-dragula": "~1.0.12",
-    "angular-bootstrap": "~0.13.4"
+    "angular-bootstrap": "~0.13.4",
+    "moment": "~2.10.6"
+  },
+  "overrides": {
+    "fontawesome": {
+      "main": [
+        "css/font-awesome.css"
+      ]
+    }
   }
 }
