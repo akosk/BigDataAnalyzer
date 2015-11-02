@@ -31,16 +31,12 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 /**
  * Created by Ákos on 2015.09.22..
  */
-public class RegressionCalculator extends Calculator implements Calculator {
+public class RegressionCalculator implements Calculator {
 
     private static SparkConf sparkConf;
     private static JavaSparkContext sc;
     private static PrintStream out = System.out;
 
-    private static String url;
-    private static String user;
-    private static String password;
-    private static String schema;
 
     static class ParsePoint implements Function<LabeledPoint, Vector> {
 
@@ -52,7 +48,7 @@ public class RegressionCalculator extends Calculator implements Calculator {
     }
 
 
-    static JavaRDD<LabeledPoint> readDataFromDB(String query) {
+    static JavaRDD<LabeledPoint> readDataFromDB(final Connection connection, String query) {
 
         System.out.println(query);
 
@@ -62,7 +58,7 @@ public class RegressionCalculator extends Calculator implements Calculator {
 
                     @Override
                     public Connection getConnection() throws Exception {
-                        return DriverManager.getConnection(url, user, password);
+                        return connection;
                     }
                 },
                 query + " AND 0 >= ? AND 2 <= ?",
@@ -119,62 +115,11 @@ public class RegressionCalculator extends Calculator implements Calculator {
         return sc.parallelize(newPointsArray);
     }
 
-    static void runPredictionTests(GeneralizedLinearModel model, JavaRDD<LabeledPoint> testPoints) {
-        Iterator<LabeledPoint> testIterNew = testPoints.toLocalIterator();
-
-        int counter = 0;
-        int success = 0;
-        while (testIterNew.hasNext()) {
-            LabeledPoint testPoint = testIterNew.next();
-            double result = model.predict(Vectors.dense(testPoint.features().toArray()));
-
-            out.print("Testing point " + (++counter) + " - expected: " + testPoint.label() + ", result: " + result);
-            if (result == testPoint.label()) {
-                out.println(" OK");
-                success++;
-            } else {
-                out.println(" FAILED");
-            }
-        }
-
-        out.println("\nSuccess crate: " + success + "/" + counter);
-    }
-
-    public static void initialize(String driver, String url, String user, String password, String schema) throws ClassNotFoundException {
-        initialize(driver, url, user, password, schema, null);
-    }
-
-    public static void initialize(String driver, String url, String user, String password, String schema, PrintStream s) throws ClassNotFoundException {
-
-        if (s != null) {
-            out = s;
-        }
-
-        try {
-            Class.forName("org.postgresql.Driver");
-        } catch (ClassNotFoundException e) {
-            System.err.println("Could not load database driver");
-            throw e;
-        }
-
-        RegressionCalculator.url = url;
-        RegressionCalculator.user = user;
-        RegressionCalculator.password = password;
-        RegressionCalculator.schema = schema;
-    }
-
 
     @Override
     public Result calculate(Connection connection, String sqlQuery, HashMap<String, Object> params) {
-        throw new NotImplementedException();
-    }
-
-
-    public Result calculate(String baseQuery, String testQuery, String algorithm, int pcaNum) {
         JavaRDD<Vector> points = null;
         JavaRDD<LabeledPoint> labeledPoints = null;
-        JavaRDD<Vector> testPoints = null;
-        JavaRDD<LabeledPoint> testLabeledPoints = null;
 
         sparkConf = new SparkConf().setAppName("JavaLR").setMaster("local");
         sc = new JavaSparkContext(sparkConf);
@@ -184,7 +129,7 @@ public class RegressionCalculator extends Calculator implements Calculator {
 
 
         try {
-            labeledPoints = readDataFromDB(baseQuery);
+            labeledPoints = readDataFromDB(connection , sqlQuery);
             StandardScalerModel scalerModel = scaler.fit(labeledPoints.map(new ParsePoint()).rdd());
             out.println("%%%%%%%% SCALER MODEL: " + scalerModel.withMean() + "--" + scalerModel.withStd());
             // scaler.
@@ -193,12 +138,8 @@ public class RegressionCalculator extends Calculator implements Calculator {
             points = labeledPoints.map(new ParsePoint()).cache();
 
             points = scalerModel.transform(points);
-            if (testQuery != null && testQuery != "") {
-                testLabeledPoints = readDataFromDB(testQuery);
-                testPoints = testLabeledPoints.map(new ParsePoint()).cache();
-            }
 
-
+/*
             if (pcaNum > 0) { // Run Principal Component Analysis
                 // Create a RowMatrix from JavaRDD<Vector>.
                 RowMatrix mat = new RowMatrix(points.rdd());
@@ -215,45 +156,18 @@ public class RegressionCalculator extends Calculator implements Calculator {
 
                 labeledPoints = transformPointsToPCs(mat, pc, labeledPoints);
 
-                if (testQuery != null && testQuery != "") {
-                    RowMatrix testMat = new RowMatrix(testPoints.rdd());
-                    RowMatrix testProjected = testMat.multiply(pc);
-
-
-                    testLabeledPoints = transformPointsToPCs(testMat, pc, testLabeledPoints);
-                }
             }
+*/
+            // Run Logistic regression
+            double stepSize = 2;//Double.parseDouble(args[1]);
+            int iterations = 200;//Integer.parseInt(args[2]);
+            LogisticRegressionModel model = LogisticRegressionWithSGD.train(labeledPoints.rdd(), iterations, stepSize);
+            out.println("Regression weights: " + model.weights());
 
-            if ("LR".equals(algorithm)) {
-                double stepSize = 2;//Double.parseDouble(args[1]);
-                int iterations = 200;//Integer.parseInt(args[2]);
-                LogisticRegressionModel model = LogisticRegressionWithSGD.train(labeledPoints.rdd(), iterations, stepSize);
-                out.println("Regression weights: " + model.weights());
+            out.println("System trained");
+            
 
-                out.println("System trained");
-            }
-            if ("KMEANS".equals(algorithm)) {
-                int k = 2;
-                int iterations = 3;
-                int runs = 10;
-
-                KMeansModel model;
-                model = KMeans.train(points.rdd(), k, iterations, runs, KMeans.K_MEANS_PARALLEL());
-
-                out.println("Cluster centers:");
-                for (Vector center : model.clusterCenters()) {
-                    out.println(" " + center);
-                }
-
-                double cost = model.computeCost(points.rdd());
-                out.println("Cost: " + cost);
-
-                out.println("System trained");
-            }
-            if (testQuery != null && testQuery != "")
-                //      runPredictionTests ( model, testLabeledPoints);
-
-                sc.stop();
+            sc.stop();
 
         } catch (Exception e) {
             out.println("****** " + e.getMessage());
