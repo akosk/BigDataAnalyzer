@@ -38,7 +38,7 @@ public class SiteController {
         RegressionCalculator regressionCalculator = new RegressionCalculator();
         HashMap<String, Object> params = new HashMap<String, Object>();
 
-        Result s = regressionCalculator.calculate("java:comp/env/jdbc/bigdata", "SELECT id, user_id, year, month, amount FROM payment WHERE 1=1 ", params);
+        Result s = regressionCalculator.calculate("java:comp/env/jdbc/bigdata", "SELECT 1.0 valami, id, user_id, year, month, amount FROM payment WHERE 1=1 ", params);
         model.addAttribute("result", s);
 
         return "spark-test.jsp";
