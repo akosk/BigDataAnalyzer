@@ -1,6 +1,7 @@
 package hu.innocenter.bigdata.analyzer;
 
-import scala.collection.immutable.HashMap;
+import javax.sql.DataSource;
+import java.util.HashMap;
 
 import java.sql.Connection;
 
@@ -9,5 +10,5 @@ import java.sql.Connection;
  * akos.kiszely@gmail.com
  */
 public interface Calculator {
-    Result calculate(Connection connection, String sqlQuery, HashMap<String, Object> params);
+    Result calculate(String dataSource, String sqlQuery, HashMap<String, Object> params);
 }

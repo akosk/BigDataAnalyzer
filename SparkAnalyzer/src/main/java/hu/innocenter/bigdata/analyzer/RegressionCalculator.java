@@ -2,8 +2,8 @@ package hu.innocenter.bigdata.analyzer;
 
 import java.io.PrintStream;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -14,19 +14,20 @@ import org.apache.spark.api.java.JavaSparkContext;
 import org.apache.spark.api.java.function.Function;
 import org.apache.spark.mllib.classification.LogisticRegressionModel;
 import org.apache.spark.mllib.classification.LogisticRegressionWithSGD;
-import org.apache.spark.mllib.clustering.KMeans;
-import org.apache.spark.mllib.clustering.KMeansModel;
 import org.apache.spark.mllib.feature.StandardScaler;
 import org.apache.spark.mllib.feature.StandardScalerModel;
 import org.apache.spark.mllib.linalg.Matrix;
 import org.apache.spark.mllib.linalg.Vector;
 import org.apache.spark.mllib.linalg.Vectors;
 import org.apache.spark.mllib.linalg.distributed.RowMatrix;
-import org.apache.spark.mllib.regression.GeneralizedLinearModel;
 import org.apache.spark.mllib.regression.LabeledPoint;
 import org.apache.spark.rdd.JdbcRDD;
-import scala.collection.immutable.HashMap;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+
+import java.util.HashMap;
+
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
 
 /**
  * Created by Ákos on 2015.09.22..
@@ -48,7 +49,7 @@ public class RegressionCalculator implements Calculator {
     }
 
 
-    static JavaRDD<LabeledPoint> readDataFromDB(final Connection connection, String query) {
+    static JavaRDD<LabeledPoint> readDataFromDB(final String dataSource, String query) {
 
         System.out.println(query);
 
@@ -58,7 +59,21 @@ public class RegressionCalculator implements Calculator {
 
                     @Override
                     public Connection getConnection() throws Exception {
+                        InitialContext ctx = null;
+                        Connection connection = null;
+                        try {
+                            ctx = new InitialContext();
+                            javax.sql.DataSource ds = (javax.sql.DataSource) ctx.lookup(dataSource);
+
+                            connection = ds.getConnection();
+
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        } catch (NamingException e) {
+                            e.printStackTrace();
+                        }
                         return connection;
+
                     }
                 },
                 query + " AND 0 >= ? AND 2 <= ?",
@@ -117,7 +132,7 @@ public class RegressionCalculator implements Calculator {
 
 
     @Override
-    public Result calculate(Connection connection, String sqlQuery, HashMap<String, Object> params) {
+    public Result calculate(String dataSource, String sqlQuery, HashMap<String, Object> params) {
         JavaRDD<Vector> points = null;
         JavaRDD<LabeledPoint> labeledPoints = null;
 
@@ -129,7 +144,7 @@ public class RegressionCalculator implements Calculator {
 
 
         try {
-            labeledPoints = readDataFromDB(connection , sqlQuery);
+            labeledPoints = readDataFromDB(dataSource, sqlQuery);
             StandardScalerModel scalerModel = scaler.fit(labeledPoints.map(new ParsePoint()).rdd());
             out.println("%%%%%%%% SCALER MODEL: " + scalerModel.withMean() + "--" + scalerModel.withStd());
             // scaler.
@@ -165,7 +180,7 @@ public class RegressionCalculator implements Calculator {
             out.println("Regression weights: " + model.weights());
 
             out.println("System trained");
-            
+
 
             sc.stop();
 

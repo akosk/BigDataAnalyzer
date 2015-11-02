@@ -49,9 +49,9 @@
 
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li><a href="/"><i class="fa fa-cloud-upload"></i> Adatfeltöltés</a></li>
-                <li class="active"><a href="/"><i class="fa fa-cog"></i> Számítási konfigurációk</a></li>
-                <li><a href="/"><i class="fa fa-tasks"></i> Feladatok</a></li>
+                <li><a href="/data-manager.html"><i class="fa fa-cloud-upload"></i> Adatfeltöltés</a></li>
+                <li><a href="/calculation-config.html"><i class="fa fa-cog"></i> Számítási konfigurációk</a></li>
+                <li><a href="/tasks.html"><i class="fa fa-tasks"></i> Feladatok</a></li>
             </ul>
         </div>
     </div>

@@ -30,6 +30,9 @@
     <servlet-mapping>
         <servlet-name>default</servlet-name>
         <url-pattern>/app/*</url-pattern>
+        <url-pattern>/vendor/*</url-pattern>
+        <url-pattern>/css/*</url-pattern>
+        <url-pattern>/data/*</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>springDispatcherServlet</servlet-name>
