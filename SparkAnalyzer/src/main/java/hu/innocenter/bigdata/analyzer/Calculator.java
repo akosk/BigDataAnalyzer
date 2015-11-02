@@ -1,8 +1,13 @@
 package hu.innocenter.bigdata.analyzer;
 
-/**
- * Created by Ákos on 2015.09.22..
- */
-public abstract class Calculator {
+import scala.collection.immutable.HashMap;
 
+import java.sql.Connection;
+
+/**
+ * Created by Ákos Kiszely on 2015.11.02..
+ * akos.kiszely@gmail.com
+ */
+public interface Calculator {
+    Result calculate(Connection connection, String sqlQuery, HashMap<String, Object> params);
 }

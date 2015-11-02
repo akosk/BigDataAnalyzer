@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+
 import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.JavaSparkContext;
@@ -24,12 +25,13 @@ import org.apache.spark.mllib.linalg.distributed.RowMatrix;
 import org.apache.spark.mllib.regression.GeneralizedLinearModel;
 import org.apache.spark.mllib.regression.LabeledPoint;
 import org.apache.spark.rdd.JdbcRDD;
+import scala.collection.immutable.HashMap;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  * Created by Ákos on 2015.09.22..
  */
-public class RegressionCalculator extends Calculator {
+public class RegressionCalculator extends Calculator implements Calculator {
 
     private static SparkConf sparkConf;
     private static JavaSparkContext sc;
@@ -39,141 +41,141 @@ public class RegressionCalculator extends Calculator {
     private static String user;
     private static String password;
     private static String schema;
-    
-        static class ParsePoint implements Function<LabeledPoint, Vector> {
+
+    static class ParsePoint implements Function<LabeledPoint, Vector> {
 
         @Override
         public Vector call(LabeledPoint point) {
 
-          return point.features();
+            return point.features();
         }
     }
-    
+
 
     static JavaRDD<LabeledPoint> readDataFromDB(String query) {
 
         System.out.println(query);
-        
+
         return JdbcRDD.create(
-            sc, 
-            new JdbcRDD.ConnectionFactory() {
+                sc,
+                new JdbcRDD.ConnectionFactory() {
 
-                @Override
-                public Connection getConnection() throws Exception {
-                    return DriverManager.getConnection(url, user, password);
-                }
-            },
-            query + " AND 0 >= ? AND 2 <= ?",
-            0, 2, 1,
-            new Function<ResultSet, LabeledPoint> (){
-
-                int columnCount = 0;
-                @Override
-                public LabeledPoint call(ResultSet r) throws Exception {
-                    if (columnCount == 0) {
-                         columnCount = r.getMetaData().getColumnCount();
+                    @Override
+                    public Connection getConnection() throws Exception {
+                        return DriverManager.getConnection(url, user, password);
                     }
+                },
+                query + " AND 0 >= ? AND 2 <= ?",
+                0, 2, 1,
+                new Function<ResultSet, LabeledPoint>() {
 
-                    double y = 0.0;
-                    double[] x = new double[columnCount - 1];
+                    int columnCount = 0;
+
+                    @Override
+                    public LabeledPoint call(ResultSet r) throws Exception {
+                        if (columnCount == 0) {
+                            columnCount = r.getMetaData().getColumnCount();
+                        }
+
+                        double y = 0.0;
+                        double[] x = new double[columnCount - 1];
 
 
-                    for (int i = 1; i <= columnCount; i++) {
-                        if (i == 1)
-                            y = r.getDouble(i);
-                        else
-                            x[i - 2] = r.getDouble(i);
+                        for (int i = 1; i <= columnCount; i++) {
+                            if (i == 1)
+                                y = r.getDouble(i);
+                            else
+                                x[i - 2] = r.getDouble(i);
 
+                        }
+                        LabeledPoint lp = new LabeledPoint(y, Vectors.dense(x));
+                        out.println(lp.toString());
+                        return lp;
                     }
-                    LabeledPoint lp = new LabeledPoint(y, Vectors.dense(x));
-                    out.println(lp.toString());
-                    return lp;
                 }
-            }
 
         ).cache();
-    } 
-    
-     
+    }
+
+
     static JavaRDD<LabeledPoint> transformPointsToPCs(RowMatrix pointsMatrix, Matrix PCs, JavaRDD<LabeledPoint> labeledPoints) {
         RowMatrix projected = pointsMatrix.multiply(PCs);
-        
+
         out.println("***Rows: " + projected.numRows());
         out.println("***Cols: " + projected.numCols());
         out.println("\nProjected:");
-        out.println(projected.toString());        
+        out.println(projected.toString());
 
-        
+
         Iterator<Vector> iter = projected.rows().toJavaRDD().toLocalIterator();
         Iterator<LabeledPoint> iterOrig = labeledPoints.toLocalIterator();
-        
+
         List<LabeledPoint> newPointsArray = new ArrayList<LabeledPoint>();
-        
+
         while (iter.hasNext() && iterOrig.hasNext()) {
             newPointsArray.add(new LabeledPoint(iterOrig.next().label(), iter.next()));
         }
-        
-        return sc.parallelize(newPointsArray);     
+
+        return sc.parallelize(newPointsArray);
     }
-    
-    static void runPredictionTests (GeneralizedLinearModel model, JavaRDD<LabeledPoint> testPoints) {
-                Iterator<LabeledPoint> testIterNew = testPoints.toLocalIterator();
-        
+
+    static void runPredictionTests(GeneralizedLinearModel model, JavaRDD<LabeledPoint> testPoints) {
+        Iterator<LabeledPoint> testIterNew = testPoints.toLocalIterator();
+
         int counter = 0;
         int success = 0;
         while (testIterNew.hasNext()) {
             LabeledPoint testPoint = testIterNew.next();
             double result = model.predict(Vectors.dense(testPoint.features().toArray()));
-      
+
             out.print("Testing point " + (++counter) + " - expected: " + testPoint.label() + ", result: " + result);
             if (result == testPoint.label()) {
                 out.println(" OK");
                 success++;
-            }
-            else {
+            } else {
                 out.println(" FAILED");
             }
         }
-        
+
         out.println("\nSuccess crate: " + success + "/" + counter);
     }
-  
+
     public static void initialize(String driver, String url, String user, String password, String schema) throws ClassNotFoundException {
         initialize(driver, url, user, password, schema, null);
     }
-    
+
     public static void initialize(String driver, String url, String user, String password, String schema, PrintStream s) throws ClassNotFoundException {
-        
+
         if (s != null) {
             out = s;
         }
-       
+
         try {
             Class.forName("org.postgresql.Driver");
-        }
-        catch (ClassNotFoundException e) {
+        } catch (ClassNotFoundException e) {
             System.err.println("Could not load database driver");
             throw e;
         }
-        
+
         RegressionCalculator.url = url;
         RegressionCalculator.user = user;
         RegressionCalculator.password = password;
         RegressionCalculator.schema = schema;
     }
 
-    
-    public Result calculate() {
+
+    @Override
+    public Result calculate(Connection connection, String sqlQuery, HashMap<String, Object> params) {
         throw new NotImplementedException();
     }
 
-    
+
     public Result calculate(String baseQuery, String testQuery, String algorithm, int pcaNum) {
         JavaRDD<Vector> points = null;
-        JavaRDD<LabeledPoint> labeledPoints = null;   
+        JavaRDD<LabeledPoint> labeledPoints = null;
         JavaRDD<Vector> testPoints = null;
-        JavaRDD<LabeledPoint> testLabeledPoints = null;  
-    
+        JavaRDD<LabeledPoint> testLabeledPoints = null;
+
         sparkConf = new SparkConf().setAppName("JavaLR").setMaster("local");
         sc = new JavaSparkContext(sparkConf);
 
@@ -181,12 +183,11 @@ public class RegressionCalculator extends Calculator {
         out.println("%%%%%%%% SCALER: " + scaler);
 
 
-        try {    
+        try {
             labeledPoints = readDataFromDB(baseQuery);
             StandardScalerModel scalerModel = scaler.fit(labeledPoints.map(new ParsePoint()).rdd());
-            out.println("%%%%%%%% SCALER MODEL: " + scalerModel.withMean() + "--" + scalerModel.withStd());    
-           // scaler.
-
+            out.println("%%%%%%%% SCALER MODEL: " + scalerModel.withMean() + "--" + scalerModel.withStd());
+            // scaler.
 
 
             points = labeledPoints.map(new ParsePoint()).cache();
@@ -195,7 +196,7 @@ public class RegressionCalculator extends Calculator {
             if (testQuery != null && testQuery != "") {
                 testLabeledPoints = readDataFromDB(testQuery);
                 testPoints = testLabeledPoints.map(new ParsePoint()).cache();
-            }    
+            }
 
 
             if (pcaNum > 0) { // Run Principal Component Analysis
@@ -215,7 +216,7 @@ public class RegressionCalculator extends Calculator {
                 labeledPoints = transformPointsToPCs(mat, pc, labeledPoints);
 
                 if (testQuery != null && testQuery != "") {
-                    RowMatrix testMat =  new RowMatrix(testPoints.rdd());
+                    RowMatrix testMat = new RowMatrix(testPoints.rdd());
                     RowMatrix testProjected = testMat.multiply(pc);
 
 
@@ -232,7 +233,7 @@ public class RegressionCalculator extends Calculator {
                 out.println("System trained");
             }
             if ("KMEANS".equals(algorithm)) {
-               int k = 2;
+                int k = 2;
                 int iterations = 3;
                 int runs = 10;
 
@@ -247,19 +248,18 @@ public class RegressionCalculator extends Calculator {
                 double cost = model.computeCost(points.rdd());
                 out.println("Cost: " + cost);
 
-                out.println("System trained");            
+                out.println("System trained");
             }
             if (testQuery != null && testQuery != "")
-          //      runPredictionTests ( model, testLabeledPoints);
+                //      runPredictionTests ( model, testLabeledPoints);
 
-            sc.stop();        
+                sc.stop();
+
+        } catch (Exception e) {
+            out.println("****** " + e.getMessage());
 
         }
-        catch (Exception e) {
-            out.println ("****** " + e.getMessage());
 
-        }
-        
         return new RegressionResult();
     }
 }
