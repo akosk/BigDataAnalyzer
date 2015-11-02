@@ -12,6 +12,8 @@ import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.JavaSparkContext;
 import org.apache.spark.api.java.function.Function;
+import org.apache.spark.mllib.classification.LogisticRegressionModel;
+import org.apache.spark.mllib.classification.LogisticRegressionWithSGD;
 import org.apache.spark.mllib.feature.StandardScaler;
 import org.apache.spark.mllib.feature.StandardScalerModel;
 import org.apache.spark.mllib.linalg.Matrix;
@@ -25,13 +27,14 @@ import java.util.HashMap;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import org.apache.spark.mllib.clustering.KMeans;
-import org.apache.spark.mllib.clustering.KMeansModel;
+import javax.sql.DataSource;
+import org.apache.spark.mllib.regression.LinearRegressionModel;
+import org.apache.spark.mllib.regression.LinearRegressionWithSGD;
 
 /**
  * Created by Ákos on 2015.09.22..
  */
-public class ClusterCalculator implements Calculator {
+public class LinearRegressionCalculator implements Calculator {
 
     private static SparkConf sparkConf;
     private static JavaSparkContext sc;
@@ -135,7 +138,7 @@ public class ClusterCalculator implements Calculator {
         JavaRDD<Vector> points = null;
         JavaRDD<LabeledPoint> labeledPoints = null;
         
-        RegressionResult result = new RegressionResult();
+        LinearRegressionResult result = new LinearRegressionResult();
         result.setResultText("");
         
 
@@ -176,30 +179,17 @@ public class ClusterCalculator implements Calculator {
 
             }
 */
-            // Run clustering
-           int k = 2;
-            int iterations = 3;
-            int runs = 10;
+            // Run Logistic regression
+            double stepSize = 2;//Double.parseDouble(args[1]);
+            int iterations = 200;//Integer.parseInt(args[2]);
+            LinearRegressionModel model = LinearRegressionWithSGD.train(labeledPoints.rdd(), iterations, stepSize);
+            out.println("Regression weights: " + model.weights());
 
-            KMeansModel model;
-            model = KMeans.train(points.rdd(), k, iterations, runs, KMeans.K_MEANS_PARALLEL());
-        
-            StringBuffer resultText = new StringBuffer();
+            result.setResultText("Regression weights: " + model.weights());
             
-            out.println("Cluster centers:");
-            resultText.append("Cluster centers:\n");
-            for (Vector center : model.clusterCenters()) {
-                out.println(" " + center);
-                resultText.append(" " + center + "\n");
-            }
-            
-            double cost = model.computeCost(points.rdd());
-            out.println("Cost: " + cost);
-            resultText.append("Cost: " + cost + "\n");
+            out.println("System trained");
 
-            out.println("System trained");    
 
-            result.setResultText(resultText.toString());
             sc.stop();
 
         } catch (Exception e) {
