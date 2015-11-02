@@ -135,6 +135,10 @@ public class RegressionCalculator implements Calculator {
     public Result calculate(String dataSource, String sqlQuery, HashMap<String, Object> params) {
         JavaRDD<Vector> points = null;
         JavaRDD<LabeledPoint> labeledPoints = null;
+        
+        RegressionResult result = new RegressionResult();
+        result.setResultText("");
+        
 
         sparkConf = new SparkConf().setAppName("JavaLR").setMaster("local");
         sc = new JavaSparkContext(sparkConf);
@@ -179,6 +183,8 @@ public class RegressionCalculator implements Calculator {
             LogisticRegressionModel model = LogisticRegressionWithSGD.train(labeledPoints.rdd(), iterations, stepSize);
             out.println("Regression weights: " + model.weights());
 
+            result.setResultText("Regression weights: " + model.weights());
+            
             out.println("System trained");
 
 
@@ -186,9 +192,10 @@ public class RegressionCalculator implements Calculator {
 
         } catch (Exception e) {
             out.println("****** " + e.getMessage());
+            result.setResultText(e.getMessage());
 
         }
 
-        return new RegressionResult();
+        return result;
     }
 }
