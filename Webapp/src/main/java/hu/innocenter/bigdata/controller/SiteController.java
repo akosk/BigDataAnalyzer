@@ -6,10 +6,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
-import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.HashMap;
 
 
@@ -21,15 +17,15 @@ import java.util.HashMap;
 @Controller
 public class SiteController {
 
-    @RequestMapping(value = "/index")
+    @RequestMapping("/index")
     public String sayHello(Model model) {
         model.addAttribute("greeting", "Hello World");
-        return "welcome.jsp";
+        return "welcome";
     }
 
     @RequestMapping(value = "/calculation-config")
     public String calculationConfig(Model model) {
-        return "calculation-config.jsp";
+        return "calculation-config";
     }
 
     @RequestMapping(value = "/spark-test")
@@ -41,6 +37,6 @@ public class SiteController {
         Result s = regressionCalculator.calculate("java:comp/env/jdbc/bigdata", "SELECT 1.0 valami, id, user_id, year, month, amount FROM payment WHERE 1=1 ", params);
         model.addAttribute("result", s);
 
-        return "spark-test.jsp";
+        return "spark-test";
     }
 }

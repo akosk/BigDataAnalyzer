@@ -1,4 +1,4 @@
-package hu.innocenter.bigdata.hu.innocenter.bigdata.repository;
+package hu.innocenter.bigdata.repository;
 
 
 import hu.innocenter.bigdata.model.Column;

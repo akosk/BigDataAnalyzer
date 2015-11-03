@@ -1,5 +1,28 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 
+<html lang="hu-HU">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- bower:css -->
+    <link rel="stylesheet" href="vendor/bower/bootstrap-sweetalert/lib/sweet-alert.css" />
+    <link rel="stylesheet" href="vendor/bower/fontawesome/css/font-awesome.css" />
+    <link rel="stylesheet" href="vendor/bower/animate.css/animate.css" />
+    <link rel="stylesheet" href="vendor/bower/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="vendor/bower/angular-dragula/dist/dragula.css" />
+    <!-- endbower -->
+
+    <link rel="stylesheet" href="css/site.css"/>
+    <link rel="stylesheet" href="css/header.css"/>
+    <link rel="stylesheet" href="css/navbar.css"/>
+</head>
+
+<body>
+
+
+<div class="wrap">
+
 <div class="pageHeader" id="pageHeader">
     <div class="container">
         <div class="row">

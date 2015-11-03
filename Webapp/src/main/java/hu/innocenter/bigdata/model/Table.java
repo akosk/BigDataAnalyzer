@@ -1,5 +1,8 @@
 package hu.innocenter.bigdata.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import java.util.List;
 
@@ -8,11 +11,10 @@ import java.util.List;
  */
 public class Table {
 
-    @XmlElement(name="sql_name")
     private String sqlName;
     private List<Column> columns;
 
-
+    @JsonProperty("sql_name")
     public String getSqlName() {
         return sqlName;
     }
