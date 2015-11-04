@@ -18,5 +18,5 @@ gulp.task('wiredep', function () {
         .src(config.index)
         .pipe(wiredep(options))
         .pipe($.inject(gulp.src(config.js)))
-        .pipe(gulp.dest(config.client));
+        .pipe(gulp.dest(config.layoutPath));
 });

@@ -6,11 +6,13 @@
 module.exports = function () {
     var client = './';
     var clientApp = client + 'app';
+    var layoutPath = client + 'WEB-INF/html/';
 
     console.log(clientApp);
 
     var config = {
         client: client,
+        layoutPath: layoutPath,
         temp: './.tmp/',
         alljs: [],
         js: [
@@ -18,7 +20,7 @@ module.exports = function () {
             clientApp + '/**/*.js',
             '!' + clientApp + '/**/*.spec.js',
         ],
-        index: client + 'index.jsp',
+        index: layoutPath + 'layout.html',
 
         bower: {
             json: require('./bower.json'),
