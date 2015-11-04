@@ -27,7 +27,12 @@
     "bootstrap": "3.3.4",
     "angular-dragula": "~1.0.12",
     "angular-bootstrap": "~0.13.4",
-    "moment": "~2.10.6"
+    "moment": "~2.10.6",
+    "angular": "~1.4.7",
+    "api-check": "~7.5.5",
+    "angular-formly": "~7.3.2",
+    "angular-formly-templates-bootstrap": "~6.1.5",
+    "ngMask": "angular-mask#~3.0.16"
   },
   "overrides": {
     "fontawesome": {

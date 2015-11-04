@@ -1,0 +1,26 @@
+<div class="panel panel-primary">
+    <div class="panel-heading">Új adat</div>
+    <div class="panel-body">
+
+        <formly-form model="user" fields="userFields">
+            <button type="submit" class="btn btn-default">Submit</button>
+        </formly-form>
+    </div>
+</div>
+
+<script type="text/ng-template" id="datepicker.html">
+    <p class="input-group">
+        <input  type="text"
+                id="{{::id}}"
+                name="{{::id}}"
+                ng-model="model[options.key]"
+                class="form-control"
+                ng-click="datepicker.open($event)"
+                datepicker-popup="{{to.datepickerOptions.format}}"
+                is-open="datepicker.opened"
+                datepicker-options="to.datepickerOptions" />
+        <span class="input-group-btn">
+            <button type="button" class="btn btn-default" ng-click="datepicker.open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+        </span>
+    </p>
+</script>

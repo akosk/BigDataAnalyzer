@@ -4,6 +4,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
+
     <!-- bower:css -->
     <link rel="stylesheet" href="/vendor/bower/bootstrap-sweetalert/lib/sweet-alert.css" />
     <link rel="stylesheet" href="/vendor/bower/fontawesome/css/font-awesome.css" />
@@ -71,8 +72,8 @@
 
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li><a href="/data-manager.html"><i class="fa fa-cloud-upload"></i> Adatfeltöltés</a></li>
-                    <li><a href="/calculation-config.html"><i class="fa fa-cog"></i> Számítási konfigurációk</a></li>
+                    <li><a href="/data-manager.html#/data-manager"><i class="fa fa-cloud-upload"></i> Adatfeltöltés</a></li>
+                    <li><a href="/calculation-config.html#/calculation-configuration"><i class="fa fa-cog"></i> Számítási konfigurációk</a></li>
                     <li><a href="/tasks.html"><i class="fa fa-tasks"></i> Feladatok</a></li>
                 </ul>
             </div>
@@ -126,13 +127,18 @@
 <script src="/vendor/bower/angular-dragula/dist/angular-dragula.js"></script>
 <script src="/vendor/bower/angular-bootstrap/ui-bootstrap-tpls.js"></script>
 <script src="/vendor/bower/moment/moment.js"></script>
+<script src="/vendor/bower/api-check/dist/api-check.js"></script>
+<script src="/vendor/bower/angular-formly/dist/formly.js"></script>
+<script src="/vendor/bower/angular-formly-templates-bootstrap/dist/angular-formly-templates-bootstrap.js"></script>
+<script src="/vendor/bower/ngMask/dist/ngMask.js"></script>
 <!-- endbower -->
 
 <!-- inject:js -->
-<script src="/app/calculation-configuration/app.js"></script>
-<script src="/app/calculation-configuration/config.js"></script>
-<script src="/app/calculation-configuration/config.route.js"></script>
+<script src="/app/app.js"></script>
+<script src="/app/config.js"></script>
+<script src="/app/config.route.js"></script>
 <script src="/app/calculation-configuration/controller.js"></script>
+<script src="/app/data-manager/controller.js"></script>
 <script src="/app/calculation-configuration/directives/columnSelector.js"></script>
 <script src="/app/calculation-configuration/directives/dsCard.js"></script>
 <script src="/app/calculation-configuration/services/dataService.js"></script>

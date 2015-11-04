@@ -39,4 +39,10 @@ public class SiteController {
 
         return "spark-test";
     }
+
+    @RequestMapping("/data-manager")
+    public String dataUploadKozetpalast(Model model) {
+        return "data-manager";
+    }
+
 }
