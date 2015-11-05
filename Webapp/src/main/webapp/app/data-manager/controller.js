@@ -38,13 +38,14 @@
                 templateOptions: {
                     type: 'numeric',
                     label: 'Külső átmérő (mm)',
+                    min: 25,
+                    max: 100,
                     placeholder: 'Adja meg a külső átmérőt mm-ben 25 és 100 között...',
                     required: true
                 },
                 validators: {
                     inRange: {
                         expression: '$viewValue>=25 && $viewValue<=100',
-                        message: 'Az értéknek 25 és 100 közé kell esnie.'
                     }
                 }
             },
@@ -54,13 +55,15 @@
                 templateOptions: {
                     type: 'numeric',
                     label: 'Belső kőzetmag átmérő (mm)',
+                    min: 0,
+                    max: 10,
+
                     placeholder: 'Adja meg a belső átmérőt mm-ben 0 és 10 között...',
                     required: true
                 },
                 validators: {
                     inRange: {
                         expression: '$viewValue>=0 && $viewValue<=10',
-                        message: 'Az értéknek 0 és 10 közé kell esnie.'
                     }
                 }
             },
@@ -70,13 +73,14 @@
                 templateOptions: {
                     type: 'numeric',
                     label: 'Hossz (mm)',
+                    min: 40,
+                    max: 100,
                     placeholder: 'Adja meg a hosszt mm-ben 40 és 100 között...',
                     required: true
                 },
                 validators: {
                     inRange: {
                         expression: '$viewValue>=40 && $viewValue<=100',
-                        message: 'Az értéknek 40 és 100 közé kell esnie.'
                     }
                 }
             },
@@ -86,20 +90,24 @@
                 templateOptions: {
                     type: 'numeric',
                     label: 'Befúrási mélység (m)',
+                    min: 10,
+                    max: 20,
+
                     placeholder: 'Adja meg a befúrási mélységet m-ben 10 és 20 között...',
                     required: true
                 },
                 validators: {
                     inRange: {
                         expression: '$viewValue>=10 && $viewValue<=20',
-                        message: 'Az értéknek 10 és 20 közé kell esnie.'
                     }
                 }
             },
             {
                 key: 'furasi_forma',
                 type: 'radio',
+                wrapper:[],
                 templateOptions: {
+                    wrapper:[],
                     label: 'Fúrási forma',
                     required: true,
                     "options": [
@@ -130,12 +138,13 @@
                         type: 'numeric',
                         label: 'Homok frakció ' + i + '. (%)',
                         placeholder: 'Adja meg a homok frakciót 0 és 100% között...',
+                        min: 0,
+                        max: 100,
                         required: true
                     },
                     validators: {
                         inRange: {
                             expression: '$viewValue>=0 && $viewValue<=100',
-                            message: 'Az értéknek 0 és 100 közé kell esnie.'
                         }
                     }
                 }
@@ -150,12 +159,13 @@
                     type: 'numeric',
                     label: 'Anyag frakció 1. (%)',
                     placeholder: 'Adja meg az anyag frakciót 0 és 40% között...',
+                    min: 0,
+                    max: 40,
                     required: true
                 },
                 validators: {
                     inRange: {
                         expression: '$viewValue>=0 && $viewValue<=40',
-                        message: 'Az értéknek 0 és 40 közé kell esnie.'
                     }
                 }
             },
@@ -166,12 +176,13 @@
                     type: 'numeric',
                     label: 'Anyag frakció 2. (%)',
                     placeholder: 'Adja meg az anyag frakciót 0 és 40% között...',
+                    min: 0,
+                    max: 40,
                     required: true
                 },
                 validators: {
                     inRange: {
                         expression: '$viewValue>=0 && $viewValue<=40',
-                        message: 'Az értéknek 0 és 40 közé kell esnie.'
                     }
                 }
             },
@@ -192,13 +203,14 @@
                 templateOptions: {
                     type: 'numeric',
                     label: 'Préselési nyomás (bar)',
+                    min: 0,
+                    max: 100,
                     placeholder: 'Adja meg az préselási nyomást 0 és 100bar között...',
                     required: true
                 },
                 validators: {
                     inRange: {
                         expression: '$viewValue>=0 && $viewValue<=100',
-                        message: 'Az értéknek 0 és 100 közé kell esnie.'
                     }
                 }
             },
@@ -208,13 +220,14 @@
                 templateOptions: {
                     type: 'numeric',
                     label: 'Préselési hőmérséklet (C)',
+                    min: 0,
+                    max: 40,
                     placeholder: 'Adja meg az préselási hőmértékletet 0 és 40C között...',
                     required: true
                 },
                 validators: {
                     inRange: {
                         expression: '$viewValue>=0 && $viewValue<=40',
-                        message: 'Az értéknek 0 és 40 közé kell esnie.'
                     }
                 }
             },

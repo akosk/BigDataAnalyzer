@@ -13,12 +13,57 @@ var VERSION = '1';
         'ui.bootstrap',
         angularDragula(angular),
         'formly',
+        'ngMessages',
         'formlyBootstrap',
-        'ngMask'])
+        'ngMask'], config)
         .run(formlyInit);
 
 
-    function formlyInit(formlyConfig) {
+    function config(formlyConfigProvider) {
+
+        formlyConfigProvider.setWrapper([
+            {
+                template: [
+                    '<div class="formly-template-wrapper form-group"',
+                    'ng-class="{\'has-error\': options.validation.errorExistsAndShouldBeVisible}">',
+                    //'<label for="{{::id}}">{{options.templateOptions.label}} {{options.templateOptions.required ? \'*\' : \'\'}}</label>',
+                    '<formly-transclude></formly-transclude>',
+                    '<div class="validation"',
+                    'ng-if="options.validation.errorExistsAndShouldBeVisible"',
+                    'ng-messages="options.formControl.$error">',
+                    '<div ng-messages-include="validation.html"></div>',
+                    '<div ng-message="{{::name}}" ng-repeat="(name, message) in ::options.validation.messages">',
+                    '{{message(options.formControl.$viewValue, options.formControl.$modelValue, this)}}',
+                    '</div>',
+                    '</div>',
+                    '</div>'
+                ].join(' ')
+            }
+
+        ]);
+    }
+
+
+    function formlyInit(formlyConfig, formlyValidationMessages) {
+        setNgMask(formlyConfig);
+        setDatePicker(formlyConfig);
+
+        formlyConfig.extras.ngModelAttrsManipulatorPreferBound = true;
+
+
+    };
+
+    function camelize(string) {
+        string = string.replace(/[\-_\s]+(.)?/g, function (match, chr) {
+            return chr ? chr.toUpperCase() : '';
+        });
+        // Ensure 1st char is always lowercase
+        return string.replace(/^([A-Z])/, function (match, chr) {
+            return chr ? chr.toLowerCase() : '';
+        });
+    }
+
+    function setNgMask(formlyConfig) {
         formlyConfig.setType({
             name: 'maskedInput',
             extends: 'input',
@@ -37,7 +82,7 @@ var VERSION = '1';
                 // You have to display these messages yourself.
                 validation: {
                     messages: {
-                        mask: '"Invalid input"'
+                        mask: '"Nem megfelelő formátum"'
                     }
                 }
             }
@@ -51,12 +96,15 @@ var VERSION = '1';
             defaultOptions: {
                 validation: {
                     messages: {
-                        mask: '"Invalid input"'
+                        mask: '"Nem megfelelő formátum"'
                     }
                 }
             }
         });
 
+    }
+
+    function setDatePicker(formlyConfig) {
         var attributes = [
             'date-disabled',
             'custom-class',
@@ -90,11 +138,11 @@ var VERSION = '1';
 
         var ngModelAttrs = {};
 
-        angular.forEach(attributes, function(attr) {
+        angular.forEach(attributes, function (attr) {
             ngModelAttrs[camelize(attr)] = {attribute: attr};
         });
 
-        angular.forEach(bindings, function(binding) {
+        angular.forEach(bindings, function (binding) {
             ngModelAttrs[camelize(binding)] = {bound: binding};
         });
 
@@ -102,13 +150,13 @@ var VERSION = '1';
 
         formlyConfig.setType({
             name: 'datepicker',
-            templateUrl:  'datepicker.html',
+            templateUrl: 'datepicker.html',
             wrapper: ['bootstrapLabel', 'bootstrapHasError'],
             defaultOptions: {
                 ngModelAttrs: ngModelAttrs,
                 templateOptions: {
                     datepickerOptions: {
-                        format: 'yyyy.MM.dd',
+                        format: 'yyyy-MM-dd',
                         initDate: new Date()
                     }
                 }
@@ -122,22 +170,6 @@ var VERSION = '1';
                     $scope.datepicker.opened = true;
                 };
             }]
-        });
-
-        formlyConfig.setType({
-            name: 'rangeInput',
-            template:'halló'
-        });
-
-    };
-
-    function camelize(string) {
-        string = string.replace(/[\-_\s]+(.)?/g, function(match, chr) {
-            return chr ? chr.toUpperCase() : '';
-        });
-        // Ensure 1st char is always lowercase
-        return string.replace(/^([A-Z])/, function(match, chr) {
-            return chr ? chr.toLowerCase() : '';
         });
     }
 

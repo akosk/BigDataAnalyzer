@@ -3,7 +3,7 @@
     <div class="panel-body">
 
         <formly-form model="user" fields="userFields">
-            <button type="submit" class="btn btn-default">Submit</button>
+            <button type="submit" class="btn btn-default">Mentés</button>
         </formly-form>
     </div>
 </div>
@@ -24,3 +24,13 @@
         </span>
     </p>
 </script>
+
+<!-- Put custom templates here -->
+<script type="text/ng-template" id="validation.html">
+    <div ng-message="required">A mező kitöltése kötelező.</div>
+    <div ng-message="inRange">Az értéknek {{options.templateOptions.min}} és {{options.templateOptions.max}} közé kell esnie.</div>
+    <div ng-message="minlength">Túl rövid.</div>
+    <div ng-message="maxlength">Túlhosszú.</div>
+    <div ng-message="email">Az email cím formátuma nem megfelelő.</div>
+</script>
+
