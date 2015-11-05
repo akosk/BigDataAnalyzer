@@ -19,7 +19,7 @@ public class SiteController {
 
     @RequestMapping("/index")
     public String sayHello(Model model) {
-        model.addAttribute("greeting", "Hello World");
+        model.addAttribute("actionId", "Hello World");
         return "welcome";
     }
 
