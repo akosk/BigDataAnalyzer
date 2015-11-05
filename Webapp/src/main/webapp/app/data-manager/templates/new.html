@@ -2,25 +2,34 @@
     <div class="panel-heading">Új adat</div>
     <div class="panel-body">
 
-        <formly-form model="user" fields="userFields">
-            <button type="submit" class="btn btn-default">Mentés</button>
-        </formly-form>
+        <form ng-submit="submit()" name="form" novalidate>
+            <formly-form model="kozetModell" fields="kozetModellFields" form="form">
+                <button type="submit" class="btn btn-default" ng-disabled="form.$invalid">Mentés</button>
+            </formly-form>
+        </form>
     </div>
 </div>
 
+{{form.$error}}
+<br/><br/>
+{{form.$invalid}}
+<br/><br/>
+{{kozetModell}}
+
 <script type="text/ng-template" id="datepicker.html">
     <p class="input-group">
-        <input  type="text"
-                id="{{::id}}"
-                name="{{::id}}"
-                ng-model="model[options.key]"
-                class="form-control"
-                ng-click="datepicker.open($event)"
-                datepicker-popup="{{to.datepickerOptions.format}}"
-                is-open="datepicker.opened"
-                datepicker-options="to.datepickerOptions" />
+        <input type="text"
+               id="{{::id}}"
+               name="{{::id}}"
+               ng-model="model[options.key]"
+               class="form-control"
+               ng-click="datepicker.open($event)"
+               datepicker-popup="{{to.datepickerOptions.format}}"
+               is-open="datepicker.opened"
+               datepicker-options="to.datepickerOptions"/>
         <span class="input-group-btn">
-            <button type="button" class="btn btn-default" ng-click="datepicker.open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+            <button type="button" class="btn btn-default" ng-click="datepicker.open($event)"><i
+                    class="glyphicon glyphicon-calendar"></i></button>
         </span>
     </p>
 </script>
@@ -28,7 +37,9 @@
 <!-- Put custom templates here -->
 <script type="text/ng-template" id="validation.html">
     <div ng-message="required">A mező kitöltése kötelező.</div>
-    <div ng-message="inRange">Az értéknek {{options.templateOptions.min}} és {{options.templateOptions.max}} közé kell esnie.</div>
+    <div ng-message="inRange">Az értéknek {{options.templateOptions.min}} és {{options.templateOptions.max}} közé kell
+        esnie.
+    </div>
     <div ng-message="minlength">Túl rövid.</div>
     <div ng-message="maxlength">Túlhosszú.</div>
     <div ng-message="email">Az email cím formátuma nem megfelelő.</div>

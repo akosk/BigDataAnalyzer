@@ -14,6 +14,7 @@ var VERSION = '1';
         angularDragula(angular),
         'formly',
         'ngMessages',
+        'ngResource',
         'formlyBootstrap',
         'ngMask'], config)
         .run(formlyInit);

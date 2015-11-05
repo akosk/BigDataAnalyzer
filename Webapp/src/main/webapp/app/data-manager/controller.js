@@ -9,20 +9,49 @@
         .controller('DataManagerController', DataManagerController);
 
 
-    function DataManagerController($scope, $route, dataService, dragulaService) {
+    function DataManagerController($scope, $route, dataService, dragulaService, kozetModellsService) {
 
         $scope.isBusy = false;
         $scope.dataService = dataService;
 
-        $scope.user = {};
-        $scope.userFields = getUserFieldConfig();
+        $scope.kozetModell = getDefaultKozetModell();
+        $scope.kozetModellFields = getKozetModellFieldConfig();
+
+
+        $scope.submit = submit;
+
+        $scope.queryAll = kozetModellsService.query().$promise.then(
+            function (kozetModellCollection) {
+                kozetModellCollection.forEach(function (kozetModell) {
+
+                });
+            }
+        );
+
+        $scope.save = function () {
+            var kozetModell = new kozetModellsService();
+                debugger;
+
+            for (var attrname in $scope.kozetModell) { kozetModell[attrname] = $scope.kozetModell[attrname]; }
+
+            //kozetModell = $.extend({}, kozetModell, $scope.kozetModell);
+
+            kozetModellsService.save(kozetModell, function () {
+                console.log('hahó');
+            });
+        };
+
+        function submit() {
+            console.log('save...');
+            $scope.save();
+        }
 
 
         $('#spinner').hide();
     }
 
 
-    function getUserFieldConfig() {
+    function getKozetModellFieldConfig() {
         var part1 = [
             {
                 key: 'kozetmodell_kod',
@@ -105,9 +134,9 @@
             {
                 key: 'furasi_forma',
                 type: 'radio',
-                wrapper:[],
+                wrapper: [],
                 templateOptions: {
-                    wrapper:[],
+                    wrapper: [],
                     label: 'Fúrási forma',
                     required: true,
                     "options": [
@@ -192,7 +221,7 @@
                 templateOptions: {
                     type: 'text',
                     label: 'Belső kőzetmag készítési dátum',
-                    "datepickerPopup": "yyyy-MMMM-dd",
+                    datepickerPopup: "yyyy-MM-dd",
                     required: true
                 },
                 validators: {}
@@ -257,7 +286,7 @@
                 templateOptions: {
                     type: 'text',
                     label: 'Belső átmérő készítési dátum',
-                    "datepickerPopup": "yyyy-MMMM-dd",
+                    datepickerPopup: "yyyy-MM-dd",
                     required: true
                 },
                 validators: {}
@@ -279,7 +308,7 @@
                 templateOptions: {
                     type: 'text',
                     label: 'Lézeres befúrás készítési dátum',
-                    "datepickerPopup": "yyyy-MMMM-dd",
+                    datepickerPopup: "yyyy-MM-dd",
                     required: true
                 },
                 validators: {}
@@ -301,7 +330,7 @@
                 templateOptions: {
                     type: 'text',
                     label: 'Külső kőzetköpeny készítési dátum',
-                    "datepickerPopup": "yyyy-MMMM-dd",
+                    datepickerPopup: "yyyy-MM-dd",
                     required: true
                 },
                 validators: {}
@@ -321,6 +350,42 @@
 
         ];
         return part1.concat(part2);
+    }
+
+    function getDefaultKozetModell() {
+        return {
+            "kulso_kozetkopeny_keszito_neve": "kkk llll",
+            "kozetmodell_kod": "a12b34",
+            "kulso_atmero": "25",
+            "belso_atmero": "4",
+            "hossz": "45",
+            "befurasi_melyseg": "11",
+            "furasi_forma": "2S",
+            "homok_frakcio_1": "3",
+            "homok_frakcio_2": "4",
+            "homok_frakcio_3": "4",
+            "homok_frakcio_4": "4",
+            "homok_frakcio_5": "4",
+            "homok_frakcio_6": "4",
+            "homok_frakcio_7": "4",
+            "homok_frakcio_8": "4",
+            "homok_frakcio_9": "4",
+            "homok_frakcio_10": "4",
+            "homok_frakcio_11": "4",
+            "homok_frakcio_12": "4",
+            "anyag_frakcio_1": "4",
+            "anyag_frakcio_2": "4",
+            "belso_kozetmag_keszitesi_datum": "2015-11-04T23:00:00.000Z",
+            "preselesi_nyomas": "4",
+            "preselesi_homerseklet": "4",
+            "preselesi_ido": "1000",
+            "preseles_keszito_neve": "aaa bbb",
+            "belso_atmero_keszitesi_datum": "2015-11-05",
+            "belso_atmero_keszito_neve": "ccc ddd",
+            "lezeres_befuras_keszitesi_datum": "2015-11-05T23:00:00.000Z",
+            "lezeres_befuras_keszito_neve": "hhh jjj",
+            "kulso_kozetkopeny_keszitesi_datum": "2015-11-05T23:00:00.000Z"
+        };
     }
 
 })();
