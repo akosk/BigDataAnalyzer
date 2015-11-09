@@ -25,6 +25,11 @@
             templateUrl: 'app/data-manager/templates/new.html?ver=' + VERSION,
         });
 
+        $routeProvider.when("/data-manager/:id/edit", {
+            controller: "DataManagerController",
+            templateUrl: 'app/data-manager/templates/edit.html?ver=' + VERSION,
+        });
+
         $routeProvider.otherwise("/");
     }
 

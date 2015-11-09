@@ -1,0 +1,40 @@
+<div class="alert alert-danger" ng-show="formErrors.length>0">
+    <h3>Hiba történt a mentés során!</h3>
+</div>
+
+<form ng-submit="submit()" name="form" novalidate>
+    <formly-form model="kozetModell" fields="kozetModellFields" form="form">
+        <button type="submit" class="btn btn-default" ng-disabled="form.$invalid">Mentés</button>
+    </formly-form>
+</form>
+
+
+
+<script type="text/ng-template" id="datepicker.html">
+    <p class="input-group">
+        <input type="text"
+               id="{{::id}}"
+               name="{{::id}}"
+               ng-model="model[options.key]"
+               class="form-control"
+               ng-click="datepicker.open($event)"
+               datepicker-popup="{{to.datepickerOptions.format}}"
+               is-open="datepicker.opened"
+               datepicker-options="to.datepickerOptions"/>
+        <span class="input-group-btn">
+            <button type="button" class="btn btn-default" ng-click="datepicker.open($event)"><i
+                    class="glyphicon glyphicon-calendar"></i></button>
+        </span>
+    </p>
+</script>
+
+<!-- Put custom templates here -->
+<script type="text/ng-template" id="validation.html">
+    <div ng-message="required">A mező kitöltése kötelező.</div>
+    <div ng-message="inRange">Az értéknek {{options.templateOptions.min}} és {{options.templateOptions.max}} közé kell
+        esnie.
+    </div>
+    <div ng-message="minlength">Túl rövid.</div>
+    <div ng-message="maxlength">Túlhosszú.</div>
+    <div ng-message="email">Az email cím formátuma nem megfelelő.</div>
+</script>

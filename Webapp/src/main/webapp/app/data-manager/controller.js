@@ -9,45 +9,69 @@
         .controller('DataManagerController', DataManagerController);
 
 
-    function DataManagerController($scope, $route, dataService, dragulaService, kozetModellsService) {
+    function DataManagerController($scope, $route, $routeParams, $location, dataService, dragulaService, kozetModellsService) {
 
         $scope.isBusy = false;
         $scope.dataService = dataService;
 
-        $scope.kozetModell = getDefaultKozetModell();
-        $scope.kozetModellFields = getKozetModellFieldConfig();
+        $scope.formErrors = [];
 
-
-        $scope.submit = submit;
-
-        $scope.queryAll = kozetModellsService.query().$promise.then(
-            function (kozetModellCollection) {
-                kozetModellCollection.forEach(function (kozetModell) {
-
-                });
-            }
-        );
-
-        $scope.save = function () {
-            var kozetModell = new kozetModellsService();
-                debugger;
-
-            for (var attrname in $scope.kozetModell) { kozetModell[attrname] = $scope.kozetModell[attrname]; }
-
-            //kozetModell = $.extend({}, kozetModell, $scope.kozetModell);
-
-            kozetModellsService.save(kozetModell, function () {
-                console.log('hahó');
-            });
-        };
-
-        function submit() {
-            console.log('save...');
-            $scope.save();
+        if ($routeParams.id) {
+            $scope.kozetModell = kozetModellsService.get({id: $routeParams.id});
+        } else {
+            $scope.kozetModell = getDefaultKozetModell();
         }
 
+        $scope.kozetModellFields = getKozetModellFieldConfig();
+        $scope.kozetModells = kozetModellsService.query();
+
+        $scope.submit = submit;
+        $scope.save = save;
+        $scope.update = update;
+
+        function save() {
+            $scope.formErrors=[];
+            var kozetModell = new kozetModellsService();
+
+            for (var attrname in $scope.kozetModell) {
+                kozetModell[attrname] = $scope.kozetModell[attrname];
+            }
+
+
+            kozetModellsService.save(kozetModellFormatVerification(kozetModell), function () {
+                $location.path('/data-manager');
+            });
+        }
+
+        function update() {
+            $scope.formErrors=[];
+            kozetModellsService.update({id: $routeParams.id}, kozetModellFormatVerification($scope.kozetModell), function () {
+                $location.path('/data-manager');
+            }, function () {
+                $scope.formErrors.push({'message': 'Hiba történt a mentés során!'});
+            });
+        }
+
+        function submit() {
+            if ($routeParams.id) {
+                $scope.update();
+            } else {
+                $scope.save();
+            }
+        }
 
         $('#spinner').hide();
+    }
+
+    function kozetModellFormatVerification(km) {
+        km.belso_kozetmag_keszitesi_datum = moment(km.belso_kozetmag_keszitesi_datum).toISOString();
+        km.belso_atmero_keszitesi_datum = moment(km.belso_atmero_keszitesi_datum).toISOString();
+        km.lezeres_befuras_keszitesi_datum = moment(km.lezeres_befuras_keszitesi_datum).toISOString();
+        km.kulso_kozetkopeny_keszitesi_datum = moment(km.kulso_kozetkopeny_keszitesi_datum).toISOString();
+        km.updated = moment(km.updated).toISOString();
+        km.created = moment(km.created).toISOString();
+        km.preselesi_ido = moment(km.preselesi_ido, 'HH:mm:ss').format('HH:mm:ss');
+        return km;
     }
 
 
@@ -375,16 +399,16 @@
             "homok_frakcio_12": "4",
             "anyag_frakcio_1": "4",
             "anyag_frakcio_2": "4",
-            "belso_kozetmag_keszitesi_datum": "2015-11-04T23:00:00.000Z",
+            "belso_kozetmag_keszitesi_datum": "2015-11-04",
             "preselesi_nyomas": "4",
             "preselesi_homerseklet": "4",
             "preselesi_ido": "1000",
             "preseles_keszito_neve": "aaa bbb",
             "belso_atmero_keszitesi_datum": "2015-11-05",
             "belso_atmero_keszito_neve": "ccc ddd",
-            "lezeres_befuras_keszitesi_datum": "2015-11-05T23:00:00.000Z",
+            "lezeres_befuras_keszitesi_datum": "2015-11-05",
             "lezeres_befuras_keszito_neve": "hhh jjj",
-            "kulso_kozetkopeny_keszitesi_datum": "2015-11-05T23:00:00.000Z"
+            "kulso_kozetkopeny_keszitesi_datum": "2015-11-05"
         };
     }
 

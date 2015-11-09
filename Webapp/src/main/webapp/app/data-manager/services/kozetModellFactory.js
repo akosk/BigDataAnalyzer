@@ -10,7 +10,9 @@
         .factory('kozetModellsService', kozetModellsService);
 
     function kozetModellsService($resource) {
-       return $resource('/webapi/kozet-modells/:id', {id:"@id"})
+        return $resource('/webapi/kozet-modells/:id', {id: "@id"}, {
+            'update': {method: 'PUT'}
+        })
     }
 
 })

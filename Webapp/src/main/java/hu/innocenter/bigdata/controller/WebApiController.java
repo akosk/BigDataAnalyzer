@@ -5,14 +5,20 @@ import hu.innocenter.bigdata.model.DataSourcesResponse;
 import hu.innocenter.bigdata.model.KozetModell;
 import hu.innocenter.bigdata.repository.DataSourceRepository;
 import hu.innocenter.bigdata.repository.DataSourceRepositoryLocalMySql;
+import hu.innocenter.bigdata.service.KozetModellService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -24,6 +30,9 @@ import java.util.List;
 public class WebApiController {
 
     private DataSourceRepository dataSourceRepository = new DataSourceRepositoryLocalMySql();
+
+    @Autowired
+    private KozetModellService service;
 
     @RequestMapping(value = "/webapi/datasources", produces = "application/json")
     public DataSourcesResponse getAllDataSources(Model model) {
@@ -38,7 +47,7 @@ public class WebApiController {
     @RequestMapping(value = "/webapi/kozet-modells", method = RequestMethod.GET, produces = "application/json")
     public List<KozetModell> queryKozetModell(Model model) {
 
-        List<KozetModell> kozetModells = new ArrayList<KozetModell>();
+        List<KozetModell> kozetModells = service.findAllKozetModells();
         return kozetModells;
 
     }
@@ -47,7 +56,27 @@ public class WebApiController {
     @ResponseStatus(HttpStatus.OK)
     public void createKozetModell(@RequestBody KozetModell kozetModell) {
 
-        System.out.println("hehe");
+        Date now = new Date();
+        kozetModell.setCreated(now);
+        kozetModell.setUpdated(now);
+        service.saveKozetModell(kozetModell);
     }
 
+    @RequestMapping(value = {"/webapi/kozet-modells/{id}"}, method = RequestMethod.GET, produces = "application/json")
+    public KozetModell getKozetModell(@PathVariable Integer id, Model model) {
+        KozetModell kozetModell = service.findById(id);
+        return kozetModell;
+    }
+
+    @ResponseStatus(HttpStatus.OK)
+    @RequestMapping(value = {"/webapi/kozet-modells/{id}"}, method = RequestMethod.PUT)
+    public KozetModell editKozetModell(@RequestBody KozetModell kozetModell, Model model, @PathVariable String id) {
+
+        Date now = new Date();
+        kozetModell.setUpdated(now);
+
+        service.updateKozetModell(kozetModell);
+
+        return kozetModell;
+    }
 }
