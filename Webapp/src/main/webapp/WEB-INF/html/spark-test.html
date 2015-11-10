@@ -1,0 +1,17 @@
+<div layout:decorator="layout" layout:fragment="content" class="container">
+
+    <ul class="breadcrumb">
+        <li><a href="/">Főoldal</a></li>
+        <li class="active">Spark teszt</li>
+    </ul>
+
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">Spark kimenet</h3>
+        </div>
+        <div class="panel-body">
+            <div th:text="${result}"></div>
+        </div>
+    </div>
+</div>
+

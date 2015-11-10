@@ -1,0 +1,29 @@
+<h1><a href="#data-manager/new" class="btn btn-primary"><i class="fa fa-plus"> Új feladat létrehozása</i></a></h1>
+
+<div class="panel panel-primary">
+    <div class="panel-heading">Feladatok listája</div>
+    <div class="panel-body">
+
+        <table class="table ">
+            <tr>
+                <th>Próba konfiguráció</th>
+                <th>Indítás ideje</th>
+                <th>Befejezés ideje</th>
+                <th>Állapot</th>
+                <th>Eredmény</th>
+                <th></th>
+
+            </tr>
+            <tr ng-repeat="task in tasks">
+                <td>{{task.name}}</td>
+                <td>{{task.start_time}}</td>
+                <td>{{task.completed_time}}</td>
+                <td>{{task.status}}</td>
+                <td>{{task.result}}</td>
+                <td><a href="#" title="Eredmény megtekintése"> <i class="fa fa-eye"></i></a></td>
+
+            </tr>
+        </table>
+
+    </div>
+</div>

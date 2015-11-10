@@ -15,6 +15,11 @@
             templateUrl: 'app/calculation-configuration/templates/layout.html?ver=' + VERSION,
         });
 
+        $routeProvider.when("/tasks", {
+            controller: "TasksController",
+            templateUrl: 'app/tasks/templates/index.html?ver=' + VERSION,
+        });
+
         $routeProvider.when("/data-manager", {
             controller: "DataManagerController",
             templateUrl: 'app/data-manager/templates/index.html?ver=' + VERSION,

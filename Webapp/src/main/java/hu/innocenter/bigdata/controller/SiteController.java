@@ -19,7 +19,6 @@ public class SiteController {
 
     @RequestMapping("/index")
     public String sayHello(Model model) {
-        model.addAttribute("actionId", "Hello World");
         return "welcome";
     }
 
@@ -28,16 +27,21 @@ public class SiteController {
         return "calculation-config";
     }
 
-    @RequestMapping(value = "/spark-test")
+    @RequestMapping(value = "/spark-test-regression")
     public String sparkTest(Model model) {
 
         RegressionCalculator regressionCalculator = new RegressionCalculator();
         HashMap<String, Object> params = new HashMap<String, Object>();
 
         Result s = regressionCalculator.calculate("java:comp/env/jdbc/bigdata", "SELECT 1.0 valami, id, user_id, year, month, amount FROM payment WHERE 1=1 ", params);
-        model.addAttribute("result", s);
+        model.addAttribute("result", s.getResultText());
 
         return "spark-test";
+    }
+
+    @RequestMapping(value = "/tasks")
+    public String tasks(Model model) {
+        return "tasks";
     }
 
     @RequestMapping("/data-manager")

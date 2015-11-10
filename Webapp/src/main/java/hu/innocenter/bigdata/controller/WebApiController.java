@@ -20,7 +20,6 @@ import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
 /**
  * Created by Ákos Kiszely on 2015.11.03..
  * akos.kiszely@gmail.com
