@@ -43,7 +43,46 @@ public abstract class Calculator {
             return point.features();
         }
     }
+
+    static class ResultSetToLabeledPoint implements Function<ResultSet, LabeledPoint> {
+
+        int columnCount = 0;
+
+        @Override
+        public LabeledPoint call(ResultSet r) throws Exception {
+            if (columnCount == 0) {
+                columnCount = r.getMetaData().getColumnCount();
+            }
+
+            double y = 0.0;
+            double[] x = new double[columnCount - 1];
+
+
+            for (int i = 1; i <= columnCount; i++) {
+                if (i == 1)
+                    y = r.getDouble(i);
+                else
+                    x[i - 2] = r.getDouble(i);
+
+            }
+            LabeledPoint lp = new LabeledPoint(y, Vectors.dense(x));
+            out.println(lp.toString());
+            return lp;
+       }
+    }
     
+    static class ResultSetToDouble implements Function<ResultSet, Double> {
+
+        @Override
+        public Double call(ResultSet r) throws Exception {
+            double y = 0.0;
+            y = r.getDouble(1);
+
+            out.println(y);
+            return y;
+        }
+    }
+
     static JavaRDD<Double> readDoublesFromDB(final String dataSource, String query) {
 
         System.out.println(query);
@@ -73,18 +112,7 @@ public abstract class Calculator {
                 },
                 query + " AND 0 >= ? AND 2 <= ?",
                 0, 2, 1,
-                new Function<ResultSet, Double>() {
-
-                    @Override
-                    public Double call(ResultSet r) throws Exception {
-                        double y = 0.0;
-                        y = r.getDouble(1);
-                        
-                        out.println(y);
-                        return y;
-                    }
-                }
-
+                new ResultSetToDouble()
         ).cache();
     }
     
@@ -117,32 +145,7 @@ public abstract class Calculator {
                 },
                 query + " AND 0 >= ? AND 2 <= ?",
                 0, 2, 1,
-                new Function<ResultSet, LabeledPoint>() {
-
-                    int columnCount = 0;
-
-                    @Override
-                    public LabeledPoint call(ResultSet r) throws Exception {
-                        if (columnCount == 0) {
-                            columnCount = r.getMetaData().getColumnCount();
-                        }
-
-                        double y = 0.0;
-                        double[] x = new double[columnCount - 1];
-
-
-                        for (int i = 1; i <= columnCount; i++) {
-                            if (i == 1)
-                                y = r.getDouble(i);
-                            else
-                                x[i - 2] = r.getDouble(i);
-
-                        }
-                        LabeledPoint lp = new LabeledPoint(y, Vectors.dense(x));
-                        out.println(lp.toString());
-                        return lp;
-                    }
-                }
+                new ResultSetToLabeledPoint()
 
         ).cache();
     }
