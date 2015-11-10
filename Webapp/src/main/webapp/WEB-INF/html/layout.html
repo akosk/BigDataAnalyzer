@@ -72,7 +72,16 @@
 
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li th:classappend="${#httpServletRequest.getRequestURI() == '/data-manager.html' ? 'active':''}"><a href="/data-manager.html#/data-manager"><i class="fa fa-cloud-upload"></i> Adatfeltöltés</a></li>
+                    <li  th:classappend="${#httpServletRequest.getRequestURI() == '/data-manager.html' ? 'active':''}" class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cloud-upload"></i> Adatfeltöltés <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/data-manager.html#/data-manager">Kőzetmodell adatbázis</a></li>
+                            <li><a href="#">Fluidum adatbázis</a></li>
+                            <li><a href="#">Laboratóriumi kísérleti körülmények adatbázis</a></li>
+                            <li><a href="#">Laboratóriumi mérési eredmények adatbázis</a></li>
+                        </ul>
+                    </li>
+
                     <li th:classappend="${#httpServletRequest.getRequestURI() == '/calculation-config.html' ? 'active':''}"><a href="/calculation-config.html#/calculation-configuration"><i class="fa fa-cog"></i> Számítási konfigurációk</a></li>
                     <li th:classappend="${#httpServletRequest.getRequestURI() == '/tasks.html' ? 'active':''}"><a href="/tasks.html#/tasks"><i class="fa fa-tasks"></i> Feladatok</a></li>
                 </ul>
