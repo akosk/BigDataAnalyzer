@@ -1,6 +1,7 @@
 package hu.innocenter.bigdata.analyzer;
 
 
+import org.apache.log4j.Logger;
 import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.JavaSparkContext;
@@ -19,6 +20,7 @@ import java.util.HashMap;
  */
 public class LogisticRegressionCalculator extends Calculator {
 
+    private Logger log=Logger.getLogger(LogisticRegressionCalculator.class);
 
     @Override
     public Result calculate(String dataSource, String sqlQuery, HashMap<String, Object> params) {
@@ -77,12 +79,15 @@ public class LogisticRegressionCalculator extends Calculator {
             out.println("System trained");
 
 
-            sc.stop();
+
 
         } catch (Exception e) {
+            log.error(e.getMessage());
             out.println("****** " + e.getMessage());
             result.setResultText(e.getMessage());
 
+        } finally {
+            sc.stop();
         }
 
         return result;

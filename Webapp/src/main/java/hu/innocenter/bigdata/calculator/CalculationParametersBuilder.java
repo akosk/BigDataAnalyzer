@@ -28,7 +28,11 @@ public class CalculationParametersBuilder {
     );
 
     Map<String, List<String>> groupOrders = ImmutableMap.of(
-            "linear-regression", Arrays.asList("x", "y")
+            "linear-regression", Arrays.asList("x", "y"),
+            "min", Arrays.asList("min"),
+            "max", Arrays.asList("max"),
+            "mean", Arrays.asList("mean"),
+            "variance", Arrays.asList("variance")
     );
 
     Map<String, List<String>> propertyConfig = ImmutableMap.of(

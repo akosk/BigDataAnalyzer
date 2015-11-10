@@ -38,6 +38,8 @@ public class Job implements Serializable {
     private Date job_start;
     private Date job_end;
 
+    @Column(name="status", length=15)
+    @Enumerated(EnumType.STRING)
     private STATUS status;
 
     @Type(type="text")

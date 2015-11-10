@@ -2,14 +2,12 @@ package hu.innocenter.bigdata.analyzer;
 
 import java.io.PrintStream;
 import javax.sql.DataSource;
-import java.util.HashMap;
+import java.io.Serializable;
+import java.util.*;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import org.apache.spark.SparkConf;
@@ -31,8 +29,14 @@ public abstract class Calculator {
     protected static SparkConf sparkConf;
     protected static JavaSparkContext sc;
     protected static PrintStream out = System.out;
-    
-    
+
+    protected static class DoubleComparator implements Comparator<Double>, Serializable {
+        @Override
+        public int compare(Double d1, Double d2) {
+            return d1.compareTo(d2);
+        }
+    }
+
     public abstract Result calculate(String dataSource, String sqlQuery, HashMap<String, Object> params);
 
     static class ParsePoint implements Function<LabeledPoint, Vector> {

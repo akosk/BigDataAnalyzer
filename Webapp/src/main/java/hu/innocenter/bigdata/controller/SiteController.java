@@ -1,10 +1,7 @@
 package hu.innocenter.bigdata.controller;
 
 import hu.innocenter.bigdata.ApplicationConfig;
-import hu.innocenter.bigdata.analyzer.KMeansClusterCalculator;
-import hu.innocenter.bigdata.analyzer.LinearRegressionCalculator;
-import hu.innocenter.bigdata.analyzer.LogisticRegressionCalculator;
-import hu.innocenter.bigdata.analyzer.Result;
+import hu.innocenter.bigdata.analyzer.*;
 import hu.innocenter.bigdata.model.CalculationConfiguration;
 import hu.innocenter.bigdata.service.CementesKozetModellService;
 import org.apache.log4j.Logger;
@@ -96,6 +93,67 @@ public class SiteController {
 
         return "spark-test";
     }
+
+    @RequestMapping(value = "/spark-test-min")
+    public String sparkMinTest(Model model) {
+        model.addAttribute("layout", ApplicationConfig.layout);
+
+        MinimumCalculator minCalculator = new MinimumCalculator();
+        HashMap<String, Object> params = new HashMap<String, Object>();
+
+
+        String q = "SELECT id FROM payment WHERE 1=1 ";
+        Result s = minCalculator.calculate("java:comp/env/jdbc/bigdata", q, params);
+        model.addAttribute("result", s.getResultText());
+
+        return "spark-test";
+    }
+
+    @RequestMapping(value = "/spark-test-max")
+    public String sparkMaxTest(Model model) {
+        model.addAttribute("layout", ApplicationConfig.layout);
+
+        Calculator calculator = new MaximumCalculator();
+        HashMap<String, Object> params = new HashMap<String, Object>();
+
+
+        String q = "SELECT id FROM payment WHERE 1=1 ";
+        Result s = calculator.calculate("java:comp/env/jdbc/bigdata", q, params);
+        model.addAttribute("result", s.getResultText());
+
+        return "spark-test";
+    }
+
+    @RequestMapping(value = "/spark-test-mean")
+    public String sparkMeanTest(Model model) {
+        model.addAttribute("layout", ApplicationConfig.layout);
+
+        MeanCalculator meanCalculator = new MeanCalculator();
+        HashMap<String, Object> params = new HashMap<String, Object>();
+
+
+        String q = "SELECT id FROM payment WHERE 1=1 ";
+        Result s = meanCalculator.calculate("java:comp/env/jdbc/bigdata", q, params);
+        model.addAttribute("result", s.getResultText());
+
+        return "spark-test";
+    }
+
+    @RequestMapping(value = "/spark-test-variance")
+    public String sparkVarianceTest(Model model) {
+        model.addAttribute("layout", ApplicationConfig.layout);
+
+        Calculator calculator = new VarianceCalculator();
+        HashMap<String, Object> params = new HashMap<String, Object>();
+
+
+        String q = "SELECT id FROM payment WHERE 1=1 ";
+        Result s = calculator.calculate("java:comp/env/jdbc/bigdata", q, params);
+        model.addAttribute("result", s.getResultText());
+
+        return "spark-test";
+    }
+
 
     @RequestMapping(value = "/spark-test-cluster-regression")
     public String sparkClusterTest(Model model) {

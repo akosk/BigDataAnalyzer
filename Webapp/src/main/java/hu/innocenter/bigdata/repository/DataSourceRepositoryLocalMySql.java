@@ -26,10 +26,10 @@ public class DataSourceRepositoryLocalMySql implements DataSourceRepository {
         switch (ApplicationConfig.mode) {
             case CEMENT:
                 allowedTables = Arrays.asList("fluidum", "cementes_kozetmodell", "meresi_korulmeny",
-                        "meresi_eredmeny_cement");
+                        "meresi_eredmeny_cement", "payment");
                 break;
             case LASER:
-                allowedTables = Arrays.asList("fluidum", "lezeres_kozetmodell", "meresi_korulmeny", "meresi_eredmeny_lezer");
+                allowedTables = Arrays.asList("fluidum", "lezeres_kozetmodell", "meresi_korulmeny", "meresi_eredmeny_lezer", "payment");
                 break;
         }
     }

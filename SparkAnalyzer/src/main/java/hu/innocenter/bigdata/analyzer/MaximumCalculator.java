@@ -2,6 +2,8 @@ package hu.innocenter.bigdata.analyzer;
 
 
 import java.util.Comparator;
+
+import org.apache.log4j.Logger;
 import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.JavaSparkContext;
@@ -14,6 +16,8 @@ import org.apache.spark.api.java.JavaDoubleRDD;
  * Created by Ákos on 2015.09.22..
  */
 public class MaximumCalculator extends Calculator {
+
+    private Logger log=Logger.getLogger(MaximumCalculator.class);
 
     @Override
     public Result calculate(String dataSource, String sqlQuery, HashMap<String, Object> params) {
@@ -32,23 +36,21 @@ public class MaximumCalculator extends Calculator {
             
             dblPoints = points.mapToDouble(d -> d);
             
-            double max = dblPoints.max(new Comparator<Double>() {
-
-                public int compare(Double a, Double b) {
-                    return a.compareTo(b);
-                }
-            });
+            double max = dblPoints.max(new DoubleComparator());
             
             out.println("Maximum value: " + max);
 
             result.setResultText("Maximum value:" + max);
             
-            sc.stop();
+
 
         } catch (Exception e) {
+            log.error(e.getMessage());
             out.println("****** " + e.getMessage());
             result.setResultText(e.getMessage());
 
+        } finally {
+            sc.stop();
         }
 
         return result;
