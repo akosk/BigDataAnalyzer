@@ -1,0 +1,25 @@
+$gap-vertical: 3px;
+$gap-horizontal: 5px;
+.condition-editor {
+  .remove {
+    text-decoration: none;
+    cursor: hand;
+    opacity: 0.9;
+  }
+  .remove:hover {
+    opacity: 0.4;
+  }
+  .label {
+    white-space: nowrap;
+    float: left;
+    display: block;
+    margin: $gap-vertical $gap-horizontal $gap-vertical $gap-horizontal;
+  }
+
+  .open-parenthesis {
+    margin: $gap-vertical 0px $gap-vertical $gap-horizontal !important;
+  }
+  .close-parenthesis {
+    margin: $gap-vertical $gap-horizontal $gap-vertical 0px !important;
+  }
+}

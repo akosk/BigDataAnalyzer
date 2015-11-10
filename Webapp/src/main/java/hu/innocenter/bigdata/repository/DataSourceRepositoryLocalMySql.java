@@ -1,6 +1,7 @@
 package hu.innocenter.bigdata.repository;
 
 
+import hu.innocenter.bigdata.ApplicationConfig;
 import hu.innocenter.bigdata.model.Column;
 import hu.innocenter.bigdata.model.DataBase;
 import hu.innocenter.bigdata.model.DataSource;
@@ -9,6 +10,7 @@ import hu.innocenter.bigdata.model.Table;
 import javax.naming.InitialContext;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -17,6 +19,20 @@ import java.util.List;
 public class DataSourceRepositoryLocalMySql implements DataSourceRepository {
 
     private Connection conn;
+
+    private List<String> allowedTables;
+
+    public DataSourceRepositoryLocalMySql() {
+        switch (ApplicationConfig.mode) {
+            case CEMENT:
+                allowedTables = Arrays.asList("fluidum", "cementes_kozetmodell", "meresi_korulmeny",
+                        "meresi_eredmeny_cement");
+                break;
+            case LASER:
+                allowedTables = Arrays.asList("fluidum", "lezeres_kozetmodell", "meresi_korulmeny", "meresi_eredmeny_lezer");
+                break;
+        }
+    }
 
     @Override
     public List<DataSource> findAllDataSources() {
@@ -37,7 +53,7 @@ public class DataSourceRepositoryLocalMySql implements DataSourceRepository {
             conn = ds.getConnection();
 
             st = conn.createStatement();
-            rs = st.executeQuery("SHOW DATABASES LIKE '%d%'  ");
+            rs = st.executeQuery("SHOW DATABASES LIKE '%bigdata%'  ");
 
             List<DataBase> databases = new ArrayList<DataBase>();
             dataSource.setDatabases(databases);
@@ -88,10 +104,12 @@ public class DataSourceRepositoryLocalMySql implements DataSourceRepository {
 
             while (rs.next()) {
                 String tableName = rs.getString(1);
-                Table table = new Table();
-                table.setSqlName(tableName);
-                table.setColumns(getColumns(databaseName, tableName));
-                tables.add(table);
+                if (allowedTables.contains(tableName)) {
+                    Table table = new Table();
+                    table.setSqlName(tableName);
+                    table.setColumns(getColumns(databaseName, tableName));
+                    tables.add(table);
+                }
             }
 
         } catch (Exception ex) {

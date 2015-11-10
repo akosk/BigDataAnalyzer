@@ -23,31 +23,38 @@ var VERSION = '1';
     function config(formlyConfigProvider) {
 
         formlyConfigProvider.setWrapper([
-            {
-                template: [
-                    '<div class="formly-template-wrapper form-group"',
-                    'ng-class="{\'has-error\': options.validation.errorExistsAndShouldBeVisible}">',
-                    //'<label for="{{::id}}">{{options.templateOptions.label}} {{options.templateOptions.required ? \'*\' : \'\'}}</label>',
-                    '<formly-transclude></formly-transclude>',
-                    '<div class="validation"',
-                    'ng-if="options.validation.errorExistsAndShouldBeVisible"',
-                    'ng-messages="options.formControl.$error">',
-                    '<div ng-messages-include="validation.html"></div>',
-                    '<div ng-message="{{::name}}" ng-repeat="(name, message) in ::options.validation.messages">',
-                    '{{message(options.formControl.$viewValue, options.formControl.$modelValue, this)}}',
-                    '</div>',
-                    '</div>',
-                    '</div>'
-                ].join(' ')
-            }
-
+            {name: 'testWrapper', template: '<div>Halló<formly-transclude></formly-transclude>Lajos</div>'}
         ]);
+
+        //formlyConfigProvider.setWrapper([
+        //    {
+        //        template: [
+        //            '<div class="formly-template-wrapper form-group"',
+        //            'ng-class="{\'has-error\': options.validation.errorExistsAndShouldBeVisible}">',
+        //            //'<label for="{{::id}}">{{options.templateOptions.label}} {{options.templateOptions.required ? \'*\' : \'\'}}</label>',
+        //            '<formly-transclude></formly-transclude>',
+        //            '<div class="validation"',
+        //            'ng-if="options.validation.errorExistsAndShouldBeVisible"',
+        //            'ng-messages="options.formControl.$error">',
+        //            '<div>Hahó</div>',
+        //            '<div ng-messages-include="validation.html"></div>',
+        //            '<div ng-message="{{::name}}" ng-repeat="(name, message) in ::options.validation.messages">',
+        //            '{{message(options.formControl.$viewValue, options.formControl.$modelValue, this)}}',
+        //            '</div>',
+        //            '</div>',
+        //            '</div>'
+        //        ].join(' ')
+        //    }
+        //
+        //]);
     }
 
 
     function formlyInit(formlyConfig, formlyValidationMessages) {
         setNgMask(formlyConfig);
         setDatePicker(formlyConfig);
+        setSelectXhr(formlyConfig);
+        setRangeInput(formlyConfig);
 
         formlyConfig.extras.ngModelAttrsManipulatorPreferBound = true;
 
@@ -61,6 +68,38 @@ var VERSION = '1';
         // Ensure 1st char is always lowercase
         return string.replace(/^([A-Z])/, function (match, chr) {
             return chr ? chr.toLowerCase() : '';
+        });
+    }
+
+    function setSelectXhr(formlyConfig) {
+        formlyConfig.setType({
+            name: 'selectXhr',
+            extends: 'select',
+            wrapper: 'testWrapper'
+        });
+    }
+
+    function setRangeInput(formlyConfig) {
+        formlyConfig.setType({
+            name: 'rangeInput',
+            extends: 'input',
+            defaultOptions: {
+                templateOptions: {
+                    type: 'numeric',
+                },
+                validators: {
+                    inRange: {
+                        expression: function ($viewValue, $modelValue, scope) {
+                            return !($viewValue) || ($viewValue >= scope.to.min && $viewValue <= scope.to.max);
+                        }
+                    }
+                },
+                controller: /* @ngInject */ function ($scope) {
+                    var label = $scope.to.label.charAt(0).toLowerCase() + $scope.to.label.slice(1);
+                    $scope.to.placeholder = 'Adja meg a ' + label + ' értékét ' +
+                        $scope.to.min + ' és ' + $scope.to.max + ' között...';
+                }
+            }
         });
     }
 

@@ -1,0 +1,41 @@
+<div layout:decorator="${layout}" layout:fragment="content" class="container">
+
+
+    <div class="row">
+        <div class="col-sm-10 col-sm-offset-1 text">
+            <!--<h1 th:utext="${title}"></h1>-->
+
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6 col-sm-offset-3 form-box">
+            <div class="form-top">
+                <div class="form-top-left">
+                    <h3>Bejelentkezés</h3>
+
+                    <p>Adja meg a felhasználónevét és jelszavát:</p>
+                </div>
+                <div class="form-top-right">
+                    <i class="fa fa-lock"></i>
+                </div>
+            </div>
+            <div class="form-bottom">
+                <form role="form" th:action="@{/login}"  method="post" class="login-form">
+                    <div class="form-group">
+                        <label class="sr-only" for="username">Felhasználónév</label>
+                        <input type="text" name="username" placeholder="Felhasználónév..." class="form-username form-control" id="username"/>
+                    </div>
+                    <div class="form-group">
+                        <label class="sr-only" for="password">Jelszó</label>
+                        <input type="password" name="password" placeholder="Jelszó..."
+                               class="form-password form-control" id="password"/>
+                    </div>
+                    <button type="submit" class="btn">Bejelentkezés!</button>
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>

@@ -1,33 +1,51 @@
-<h1><a href="#data-manager/new" class="btn btn-primary"><i class="fa fa-plus"> Kőzetmodell adat létrehozása</i></a></h1>
+<h1><a href="#data-manager/new" class="btn btn-primary"><i class="fa fa-plus"> {{config.name}} adat létrehozása</i></a></h1>
 
 <div class="panel panel-primary">
-    <div class="panel-heading">Kőzetmodell adatok listája</div>
+    <div class="panel-heading">{{config.name}} adatok listája</div>
     <div class="panel-body">
 
         <table class="table ">
             <tr>
-                <th>Id</th>
-                <th>Belső kőzetmag készítési dátum</th>
-                <th>Préselés készítő neve</th>
-                <th>Belső átmérő készítési dátum</th>
-                <th>Belső átmérő készítő neve</th>
-                <th>Létrehozás ideje</th>
-                <th>Módosítás ideje</th>
-                <th></th>
+                <th ng-repeat="head in gridConfig.dataColumns">{{head.name}}</th>
+                <th ng-if="gridConfig.actions===undefined || (gridConfig.actions && gridConfig.actions.length>0)" style="min-width: 50px"></th>
             </tr>
-            <tr ng-repeat="kozetModell in kozetModells">
-                <td>{{kozetModell.id}}</td>
-                <td>{{kozetModell.belso_kozetmag_keszitesi_datum}}</td>
-                <td>{{kozetModell.preseles_keszito_neve}}</td>
-                <td>{{kozetModell.belso_atmero_keszitesi_datum}}</td>
-                <td>{{kozetModell.belso_atmero_keszito_neve}}</td>
-                <td>{{kozetModell.created}}</td>
-                <td>{{kozetModell.updated}}</td>
+            <tr ng-repeat="item in modells">
+                <td ng-repeat="col in gridConfig.dataColumns">{{item[col.id]}}</td>
 
-                <td><a ng-href="#/data-manager/{{kozetModell.id}}/edit"><i class="fa fa-pencil"></i> </a></td>
+                <td ng-if="gridConfig.actions===undefined">
+                    <a ng-href="#/data-manager/{{item.id}}/edit"><i class="fa fa-pencil"></i> </a>
+                    <a href="" ng-click="delete(item)"><i class="fa fa-trash"></i> </a>
+                </td>
+
+                <td ng-if="gridConfig.actions && gridConfig.actions.length>0">
+                    <span ng-repeat="action in gridConfig.actions">
+                        <a href="" title="{{action.name}}" ng-click="action.click(item)">
+                            <i ng-class="action.icon"></i>
+                        </a>
+                    </span>
+                </td>
 
             </tr>
         </table>
 
     </div>
 </div>
+
+<div class="modal fade modal-grid" tabindex="-1" role="dialog" aria-labelledby="modallabel-grid">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="modallabel-grid"></h4>
+            </div>
+
+            <div class="panel-body">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

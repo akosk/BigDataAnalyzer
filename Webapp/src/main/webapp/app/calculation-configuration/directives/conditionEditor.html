@@ -1,0 +1,104 @@
+<div class="row condition-editor">
+    <div class="col-md-12">
+
+        <!-- Feltétel hozzáadás -->
+
+        <div class="panel panel-primary">
+            <div class="panel-heading">Új feltétel hozzáadása</div>
+            <div class="panel-body">
+                <div class="row" ng-repeat="conditionItem in newConditionItems">
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <select class="form-control"
+                                    ng-model="conditionItem.property"
+                                    ng-change="selectedPropertyChanged(conditionItem.property)"
+                                    ng-options="item.id as item.name for item in config.properties">
+                                <option value=""></option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-1">
+                        <div class="form-group">
+                            <select class="form-control"
+                                    ng-model="conditionItem.operator"
+                                    ng-change="selectedPropertyChanged(conditionItem.operator)"
+                                    ng-options="item.id as item.name for item in operators">
+                                <option value=""></option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <input class="form-control" type="text" ng-model="conditionItem.value"/>
+                        </div>
+                    </div>
+
+                    <div class="col-md-7">
+                        <button ng-show="$index==newConditionItems.length-1"
+                                ng-click="addBlankConditionItem()" class="btn btn-default"><i class="fa fa-plus"></i>
+                            VAGY
+                            feltétel hozzáadása
+                        </button>
+                        <button ng-show="$index==newConditionItems.length-1 && newConditionItems.length>1"
+                                ng-click="removeLastConditionItem()" class="btn btn-default"><i class="fa fa-minus"></i>
+                            Törlés
+                        </button>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <h2>
+                            <button ng-click="addCondition()" class="btn btn-primary btn-lg"><i class="fa fa-plus"></i>
+                                Hozzáad
+                            </button>
+                        </h2>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+        <!--Beállított feltételek-->
+        <div class="panel panel-primary">
+            <div class="panel-heading">Szűrő</div>
+            <div class="panel-body">
+                <h2>
+                    <div ng-repeat="c in columnConditions">
+
+                        <!-- ÉS feltétel-->
+                        <div ng-if="c.property"
+                             class="label label-info">{{c.property}} {{c.operator}} {{c.value}}
+                            <span class="remove" aria-hidden="true" ng-click="removeLvl1(c)">×</span>
+                        </div>
+
+                        <div ng-if="$index<columnConditions.length-1 && c.property"
+                             class="label label-info">ÉS
+                        </div>
+
+                        <!-- VAGY feltétel-->
+                        <div ng-if="c.columnConditions!==undefined && c.columnConditions.length>0" class="label label-primary open-parenthesis">(</div>
+                        <div ng-if="c.columnConditions!==undefined && c.columnConditions.length>0"
+                             ng-repeat="cs in c.columnConditions">
+                            <div class="label label-primary">{{cs.property}} {{cs.operator}} {{cs.value}}
+                                <span class="remove" aria-hidden="true" ng-click="removeLvl2(c,cs)">×</span>
+                            </div>
+                            <div ng-if="$index<c.columnConditions.length-1"
+                                 class="label label-primary">VAGY
+                            </div>
+
+                        </div>
+                        <div ng-if="c.columnConditions!==undefined && c.columnConditions.length>0" class="label label-primary close-parenthesis">)</div>
+                        <div ng-if="$index<condition.columnConditions.length-1 && c.columnConditions!==undefined"
+                             class="label label-info">ÉS
+                        </div>
+
+                    </div>
+
+                </h2>
+
+            </div>
+        </div>
+    </div>
+</div>

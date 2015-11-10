@@ -34,7 +34,8 @@
     "angular-formly-templates-bootstrap": "~6.1.5",
     "ngMask": "angular-mask#~3.0.16",
     "angular-messages": "~1.4.7",
-    "angular-resource": "~1.4.7"
+    "angular-resource": "~1.4.7",
+    "jquery-backstretch": "~2.0.4"
   },
   "overrides": {
     "fontawesome": {

@@ -20,7 +20,7 @@ module.exports = function () {
             clientApp + '/**/*.js',
             '!' + clientApp + '/**/*.spec.js',
         ],
-        index: layoutPath + 'layout.html',
+        index: layoutPath + 'layout-cement.html',
 
         bower: {
             json: require('./bower.json'),
