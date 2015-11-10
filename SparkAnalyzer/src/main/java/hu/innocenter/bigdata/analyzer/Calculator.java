@@ -43,6 +43,15 @@ public abstract class Calculator {
             return point.features();
         }
     }
+    
+    static class ParseLabel implements Function<LabeledPoint, Double> {
+
+        @Override
+        public Double call(LabeledPoint point) {
+
+            return point.label();
+        }
+    }
 
     static class ResultSetToLabeledPoint implements Function<ResultSet, LabeledPoint> {
 
