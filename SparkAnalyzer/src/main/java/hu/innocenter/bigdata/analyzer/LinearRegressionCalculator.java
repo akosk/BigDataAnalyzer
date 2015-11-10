@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.JavaSparkContext;
@@ -35,6 +36,8 @@ import org.apache.spark.mllib.regression.LinearRegressionWithSGD;
  * Created by Ákos on 2015.09.22..
  */
 public class LinearRegressionCalculator implements Calculator {
+
+    Logger log=Logger.getLogger(LinearRegressionCalculator.class);
 
     private static SparkConf sparkConf;
     private static JavaSparkContext sc;
@@ -135,6 +138,7 @@ public class LinearRegressionCalculator implements Calculator {
 
     @Override
     public Result calculate(String dataSource, String sqlQuery, HashMap<String, Object> params) {
+
         JavaRDD<Vector> points = null;
         JavaRDD<LabeledPoint> labeledPoints = null;
         
@@ -147,19 +151,21 @@ public class LinearRegressionCalculator implements Calculator {
 
         StandardScaler scaler = new StandardScaler(true, true);
         out.println("%%%%%%%% SCALER: " + scaler);
+        log.error("%%%%%%%% SCALER: " + scaler);
 
 
         try {
             labeledPoints = readDataFromDB(dataSource, sqlQuery);
             StandardScalerModel scalerModel = scaler.fit(labeledPoints.map(new ParsePoint()).rdd());
             out.println("%%%%%%%% SCALER MODEL: " + scalerModel.withMean() + "--" + scalerModel.withStd());
+            log.error("%%%%%%%% SCALER MODEL: " + scalerModel.withMean() + "--" + scalerModel.withStd());
             // scaler.
 
 
             points = labeledPoints.map(new ParsePoint()).cache();
-
+            log.error("P1 "+points.count());
             points = scalerModel.transform(points);
-
+            log.error("P2 "+points.count());
 /*
             if (pcaNum > 0) { // Run Principal Component Analysis
                 // Create a RowMatrix from JavaRDD<Vector>.
@@ -184,10 +190,13 @@ public class LinearRegressionCalculator implements Calculator {
             int iterations = 200;//Integer.parseInt(args[2]);
             LinearRegressionModel model = LinearRegressionWithSGD.train(labeledPoints.rdd(), iterations, stepSize);
             out.println("Regression weights: " + model.weights());
+            log.error("Regression weights: " + model.weights());
+
 
             result.setResultText("Regression weights: " + model.weights());
             
             out.println("System trained");
+            log.error("System trained");
 
 
             sc.stop();

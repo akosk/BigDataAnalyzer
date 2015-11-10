@@ -1,7 +1,10 @@
 package hu.innocenter.bigdata.controller;
 
-import hu.innocenter.bigdata.analyzer.RegressionCalculator;
+import hu.innocenter.bigdata.analyzer.KMeansClusterCalculator;
+import hu.innocenter.bigdata.analyzer.LinearRegressionCalculator;
+import hu.innocenter.bigdata.analyzer.LogisticRegressionCalculator;
 import hu.innocenter.bigdata.analyzer.Result;
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +20,8 @@ import java.util.HashMap;
 @Controller
 public class SiteController {
 
+    Logger log = Logger.getLogger(SiteController.class);
+
     @RequestMapping("/index")
     public String sayHello(Model model) {
         return "welcome";
@@ -27,13 +32,37 @@ public class SiteController {
         return "calculation-config";
     }
 
-    @RequestMapping(value = "/spark-test-regression")
-    public String sparkTest(Model model) {
+    @RequestMapping(value = "/spark-test-logistic-regression")
+    public String sparkLogisticTest(Model model) {
 
-        RegressionCalculator regressionCalculator = new RegressionCalculator();
+        LogisticRegressionCalculator regressionCalculator = new LogisticRegressionCalculator();
         HashMap<String, Object> params = new HashMap<String, Object>();
 
         Result s = regressionCalculator.calculate("java:comp/env/jdbc/bigdata", "SELECT 1.0 valami, id, user_id, year, month, amount FROM payment WHERE 1=1 ", params);
+        model.addAttribute("result", s.getResultText());
+
+        return "spark-test";
+    }
+
+    @RequestMapping(value = "/spark-test-linear-regression")
+    public String sparkLinearTest(Model model) {
+
+        LinearRegressionCalculator regressionCalculator = new LinearRegressionCalculator();
+        HashMap<String, Object> params = new HashMap<String, Object>();
+
+        Result s = regressionCalculator.calculate("java:comp/env/jdbc/bigdata", "SELECT 1.0 valami,id, user_id, year, month, amount FROM payment WHERE 1=1 ", params);
+        model.addAttribute("result", s.getResultText());
+
+        return "spark-test";
+    }
+
+    @RequestMapping(value = "/spark-test-cluster-regression")
+    public String sparkClusterTest(Model model) {
+
+        KMeansClusterCalculator kMeansCalculator = new KMeansClusterCalculator();
+        HashMap<String, Object> params = new HashMap<String, Object>();
+
+        Result s = kMeansCalculator.calculate("java:comp/env/jdbc/bigdata", "SELECT 1.0 valami,id, user_id, year, month, amount FROM payment WHERE 1=1 ", params);
         model.addAttribute("result", s.getResultText());
 
         return "spark-test";
