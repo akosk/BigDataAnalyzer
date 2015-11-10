@@ -33,8 +33,111 @@
                 ]
             },
             {
+                id: 'min',
+                name: 'Minimum',
+                groups: [
+                    {
+                        id: 'min',
+                        name: 'Számolandó mező',
+                        min: 1,
+                        max: 1
+                    }
+                ]
+            },
+            {
+                id: 'max',
+                name: 'Maximum',
+                groups: [
+                    {
+                        id: 'max',
+                        name: 'Számolandó mező',
+                        min: 1,
+                        max: 1
+                    }
+                ]
+            },
+            {
+                id: 'avg',
+                name: 'Átlag',
+                groups: [
+                    {
+                        id: 'avg',
+                        name: 'Számolandó mező',
+                        min: 1,
+                        max: 1
+                    }
+                ]
+            },
+            {
+                id: 'disp',
+                name: 'Szórás',
+                groups: [
+                    {
+                        id: 'disp',
+                        name: 'Számolandó mező',
+                        min: 1,
+                        max: 1
+                    }
+                ]
+            },
+
+            {
                 id: 'regression',
-                name: 'Regresszió számítás',
+                name: 'Lineáris regresszió számítás',
+                groups: [
+                    {
+                        id: 'x',
+                        name: 'X',
+                        min: 1
+                    },
+                    {
+                        id: 'y',
+                        name: 'Y',
+                        min: 1,
+                        max: 1
+                    }
+
+                ]
+            },
+            {
+                id: 'regression',
+                name: 'Logisztikus regresszió számítás',
+                groups: [
+                    {
+                        id: 'x',
+                        name: 'X',
+                        min: 1
+                    },
+                    {
+                        id: 'y',
+                        name: 'Y',
+                        min: 1,
+                        max: 1
+                    }
+
+                ]
+            },
+            {
+                id: 'regression',
+                name: 'Főkomponens analízis',
+                groups: [
+                    {
+                        id: 'x',
+                        name: 'X',
+                        min: 1
+                    },
+                    {
+                        id: 'y',
+                        name: 'Y',
+                        min: 1,
+                        max: 1
+                    }
+
+                ]
+            },
+            {
+                id: 'regression',
+                name: 'K-közép klaszterezés',
                 groups: [
                     {
                         id: 'x',
