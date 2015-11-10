@@ -33,6 +33,11 @@ public class KozetModellServiceImpl implements KozetModellService {
     }
 
     @Override
+    public void deleteKozetModell(KozetModell kozetModell) {
+        dao.deleteKozetModell(kozetModell);
+    }
+
+    @Override
     public void updateKozetModell(KozetModell kozetModell) {
         KozetModell entity = dao.findById(kozetModell.getId());
 

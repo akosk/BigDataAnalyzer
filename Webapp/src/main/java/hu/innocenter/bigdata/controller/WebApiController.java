@@ -68,6 +68,13 @@ public class WebApiController {
     }
 
     @ResponseStatus(HttpStatus.OK)
+    @RequestMapping(value = {"/webapi/kozet-modells/{id}"}, method = RequestMethod.DELETE)
+    public void deleteKozetModell(@PathVariable Integer id, Model model) {
+        KozetModell kozetModell = service.findById(id);
+        service.deleteKozetModell(kozetModell);
+    }
+
+    @ResponseStatus(HttpStatus.OK)
     @RequestMapping(value = {"/webapi/kozet-modells/{id}"}, method = RequestMethod.PUT)
     public KozetModell editKozetModell(@RequestBody KozetModell kozetModell, Model model, @PathVariable String id) {
 

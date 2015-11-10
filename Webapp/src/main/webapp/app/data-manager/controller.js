@@ -28,9 +28,10 @@
         $scope.submit = submit;
         $scope.save = save;
         $scope.update = update;
+        $scope.delete = deleteKozetModell;
 
         function save() {
-            $scope.formErrors=[];
+            $scope.formErrors = [];
             var kozetModell = new kozetModellsService();
 
             for (var attrname in $scope.kozetModell) {
@@ -44,11 +45,28 @@
         }
 
         function update() {
-            $scope.formErrors=[];
+            $scope.formErrors = [];
             kozetModellsService.update({id: $routeParams.id}, kozetModellFormatVerification($scope.kozetModell), function () {
                 $location.path('/data-manager');
             }, function () {
                 $scope.formErrors.push({'message': 'Hiba történt a mentés során!'});
+            });
+        }
+
+        function deleteKozetModell(kozetModell) {
+
+            swal({
+                title: "Biztosan törli?",
+                text: "Törlés után már nincs lehetőség az adat visszaállítására!",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Igen, törlöm!",
+                closeOnConfirm: true
+            }, function () {
+                kozetModellsService.delete({id: kozetModell.id}, function() {
+                    $scope.kozetModells = kozetModellsService.query();
+                });
             });
         }
 

@@ -13,7 +13,7 @@
                 <th>Belső átmérő készítő neve</th>
                 <th>Létrehozás ideje</th>
                 <th>Módosítás ideje</th>
-                <th></th>
+                <th style="min-width: 50px"></th>
             </tr>
             <tr ng-repeat="kozetModell in kozetModells">
                 <td>{{kozetModell.id}}</td>
@@ -24,7 +24,10 @@
                 <td>{{kozetModell.created}}</td>
                 <td>{{kozetModell.updated}}</td>
 
-                <td><a ng-href="#/data-manager/{{kozetModell.id}}/edit"><i class="fa fa-pencil"></i> </a></td>
+                <td>
+                    <a ng-href="#/data-manager/{{kozetModell.id}}/edit"><i class="fa fa-pencil"></i> </a>
+                    <a href="" ng-click="delete(kozetModell)"><i class="fa fa-trash"></i> </a>
+                </td>
 
             </tr>
         </table>

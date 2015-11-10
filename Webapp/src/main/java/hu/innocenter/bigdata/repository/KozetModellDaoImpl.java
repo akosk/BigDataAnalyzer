@@ -28,6 +28,12 @@ public class KozetModellDaoImpl extends AbstractDao<Integer, KozetModell> implem
     }
 
     @Override
+    public void deleteKozetModell(KozetModell kozetModell) {
+
+        delete(kozetModell);
+    }
+
+    @Override
     @SuppressWarnings("unchecked")
     public List<KozetModell> findAllKozetModells() {
         Criteria criteria = createEntityCriteria();

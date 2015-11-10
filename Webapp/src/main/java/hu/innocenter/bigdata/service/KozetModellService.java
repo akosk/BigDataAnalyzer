@@ -14,6 +14,8 @@ public interface KozetModellService {
 
     void saveKozetModell(KozetModell kozetModell);
 
+    void deleteKozetModell(KozetModell kozetModell);
+
     void updateKozetModell(KozetModell kozetModell);
 
     List<KozetModell> findAllKozetModells();

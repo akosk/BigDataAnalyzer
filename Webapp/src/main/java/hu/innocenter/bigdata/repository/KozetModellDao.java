@@ -13,6 +13,8 @@ public interface KozetModellDao {
 
     void saveKozetModell(KozetModell kozetModell);
 
+    void deleteKozetModell(KozetModell kozetModell);
+
     List<KozetModell> findAllKozetModells();
 
 }
