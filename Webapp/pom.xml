@@ -4,8 +4,8 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>hu.innocenter.bigdata.webapp</groupId>
-    <artifactId>Webapp</artifactId>
+    <groupId>hu.innocenter.bigdata</groupId>
+    <artifactId>bigdata-webapp</artifactId>
     <version>1.0-SNAPSHOT</version>
     <name>Webapp</name>
     <packaging>war</packaging>
@@ -15,7 +15,6 @@
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>1.2.7.RELEASE</version>
         <relativePath/>
-        <!-- lookup parent from repository -->
     </parent>
 
 
@@ -25,15 +24,26 @@
     </properties>
 
 
+
     <dependencies>
-
-
-        <!--Spring-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <scope>runtime</scope>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -41,46 +51,10 @@
         </dependency>
 
         <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-orm</artifactId>
-        </dependency>
-
-
-        <!--Hibernate-->
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-core</artifactId>
-            <version>4.3.6.Final</version>
-        </dependency>
-
-
-        <!--Thymeleaf-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-thymeleaf</artifactId>
-        </dependency>
-
-        <!--Jackson-->
-        <dependency>
-            <groupId>org.codehaus.jackson</groupId>
-            <artifactId>jackson-core-asl</artifactId>
-        </dependency>
-
-        <!--MySQL-->
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>5.1.37</version>
-        </dependency>
-
-        <dependency>
-            <groupId>hu.innocenter.bigdata.analyzer</groupId>
-            <artifactId>SparkAnalyzer</artifactId>
+            <groupId>hu.innocenter.bigdata</groupId>
+            <artifactId>bigdata-spark-analyzer</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
-
-        <!--Spark-->
-
     </dependencies>
 
 
@@ -94,23 +68,5 @@
         </plugins>
     </build>
 
-    <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-enforcer-plugin</artifactId>
-        <version>1.0.1</version>
-        <executions>
-            <execution>
-                <id>enforce</id>
-                <configuration>
-                    <rules>
-                        <DependencyConvergence />
-                    </rules>
-                </configuration>
-                <goals>
-                    <goal>enforce</goal>
-                </goals>
-            </execution>
-        </executions>
-    </plugin>
 
 </project>
