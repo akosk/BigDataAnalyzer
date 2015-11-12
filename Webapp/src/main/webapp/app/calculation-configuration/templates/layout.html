@@ -114,7 +114,8 @@
                                 </div>
                             </tab>
                             <tab heading="Adatok szűrése" disable="selectedDataSources.length==0">
-                                <h2>Fejlesztés alatt!</h2>
+                                {{conditions}}
+                                <condition-editor config="{{getConditionConfig()}}" condition="conditions"></condition-editor>
                             </tab>
                             <tab heading="Számítás típusa" disable="selectedDataSources.length==0">
                                 <h2 class="text-center">Válassza ki a számítás típusát!</h2>

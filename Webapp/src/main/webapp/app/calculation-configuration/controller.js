@@ -19,6 +19,22 @@
         $scope.calculationConfiguration = {};
         $scope.calculationConfigurations = [];
 
+        $scope.getConditionConfig = getConditionConfig;
+
+        $scope.conditions = {
+            conditions: [
+                {
+                    property: 'XXX',
+                    operators: '',
+                    value: ''
+                },
+                {
+                    conditions: []
+                }
+            ]
+
+        };
+
         $scope.calculations = [
             {
                 id: 'count',
@@ -238,6 +254,27 @@
             $scope.calculationConfigurations.push($scope.calculationConfiguration);
             $('.modal-conf').modal('hide');
         };
+
+
+        function getConditionConfig() {
+            var config = {
+                properties: []
+            }
+
+            $scope.selectedDataSources.forEach(function (ds) {
+                ds.table.columns.forEach(function (column) {
+
+                    config.properties.push(
+                        {
+                            id: column.sql_name,
+                            name: column.sql_name
+                        }
+                    );
+                });
+            });
+            return config;
+        }
+
     }
 
 

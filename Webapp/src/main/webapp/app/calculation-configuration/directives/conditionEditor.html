@@ -1,0 +1,21 @@
+<div class="row">
+    <div class="col-md-12">
+
+        <!-- Feltétel hozzáadó rész -->
+
+        <!--aktuális feltételek-->
+
+        <div class="row" ng-repeat="c in condition.conditions">
+            <div ng-if="c.property!==undefined">
+                <div class="col-md-2">{{c.property}} {{c.operator}} {{c.value}}</div>
+            </div>
+            <div ng-if="c.conditions!==undefined">
+                Conditions....
+            </div>
+
+        </div>
+
+
+        {{config}}
+    </div>
+</div>
