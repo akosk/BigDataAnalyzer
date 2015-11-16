@@ -1,22 +1,45 @@
 <div class="row condition-editor">
     <div class="col-md-12">
 
-        {{config}}
-
-        {{config.properties}}
-
-        {{config.properties.properties}}
-
-
         <!-- Feltétel hozzáadás -->
-        <div class="row">
+        <div class="row" ng-repeat="conditionItem in newConditionItems">
             <div class="col-md-2">
-                <select class="form-control"
-                        ng-model="newCondition"
-                        ng-change="selectedPropertyChanged(newCondition)"
-                        ng-options="item.id as item.name for item in config.properties">
-                    <option value=""></option>
-                </select>
+                <div class="form-group">
+                    <select class="form-control"
+                            ng-model="conditionItem.property"
+                            ng-change="selectedPropertyChanged(conditionItem.property)"
+                            ng-options="item.id as item.name for item in config.properties">
+                        <option value=""></option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-1">
+                <div class="form-group">
+                    <select class="form-control"
+                            ng-model="conditionItem.operator"
+                            ng-change="selectedPropertyChanged(conditionItem.operator)"
+                            ng-options="item.id as item.name for item in operators">
+                        <option value=""></option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <input class="form-control" type="text" ng-model="conditionItem.value"/>
+                </div>
+            </div>
+
+            <div class="col-md-1">
+                <button ng-show="$index==newConditionItems.length-1"
+                        ng-click="addBlankConditionItem()" class="btn btn-default"><i class="fa fa-plus"></i> VAGY feltétel hozzáadása</button>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-6 text-center">
+                <h2>
+                <button ng-click="addCondition()" class="btn btn-primary btn-lg"><i class="fa fa-plus"></i> Hozzáad</button>
+                </h2>
             </div>
         </div>
 

@@ -18,8 +18,9 @@
         $scope.selectedCalculation = null;
         $scope.calculationConfiguration = {};
         $scope.calculationConfigurations = [];
+        $scope.conditionConfiguration={};
 
-        $scope.getConditionConfig = getConditionConfig;
+
 
         $scope.conditions = {
             conditions: [
@@ -257,6 +258,7 @@
                     $scope.selectedDataSources.push(el.scope().item);
                     break;
             }
+            $scope.conditionConfiguration=getConditionConfig();
 
         });
 

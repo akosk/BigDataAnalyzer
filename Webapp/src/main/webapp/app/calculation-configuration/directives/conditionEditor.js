@@ -15,19 +15,41 @@
             restrict: "E",
             scope: {
                 //isolatedAttributeFoo:'@attributeFoo',
-                config: '@config',
+                config: '=config',
                 condition: '=condition'
                 //isolatedExpressionFoo:'&'
             },
             controller: ['$scope', '$element', '$attrs',
                 function ($scope, $element, $attrs) {
+                    $scope.operators = [
+                        {id: "<", name: "<"},
+                        {id: "<=", name: "<="},
+                        {id: "=", name: "="},
+                        {id: ">=", name: ">="},
+                        {id: ">", name: ">"},
+                        {id: "LIKE", name: "LIKE"},
+                        {id: "NOT LIKE", name: "NOT LIKE"},
+                    ]
 
-                    $scope.newCondition = {};
-                    $scope.click = function () {
-                        console.log('click!');
+                    $scope.newConditionItems = [{}];
+
+                    $scope.addCondition = function () {
+                        var newItem = {conditions: []};
+                        $scope.newConditionItems.forEach(function (item) {
+                            newItem.conditions.push({
+                                property: item.property,
+                                operator: item.operator,
+                                value: item.value
+                            });
+                        })
+                        $scope.condition.conditions.push(newItem);
                     }
 
-                    $scope.selectedPropertyChanged=function (item) {
+                    $scope.addBlankConditionItem = function () {
+                        $scope.newConditionItems.push({});
+                    }
+
+                    $scope.selectedPropertyChanged = function (item) {
 
                     }
 
