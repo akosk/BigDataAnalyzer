@@ -56,6 +56,24 @@ public class SiteController {
         return "spark-test";
     }
 
+    @RequestMapping(value = "/spark-test-linear-regression2")
+    public String sparkLinearTest2(Model model) {
+
+        LinearRegressionCalculator regressionCalculator = new LinearRegressionCalculator();
+        HashMap<String, Object> params = new HashMap<String, Object>();
+
+//        String q = "SELECT k.belso_atmero, k.homok_frakcio_1, k.homok_frakcio_2, k.homok_frakcio_3, k.homok_frakcio_4, k.anyag_frakcio_1, f.Kw, f.TC FROM kozetmodell k \n" +
+//                "INNER JOIN fluidum f ON f.kozetmodell_kod=k.kozetmodell_kod WHERE 1=1 ";
+
+        String q = "SELECT k.belso_atmero, k.homok_frakcio_1, k.homok_frakcio_2, k.homok_frakcio_3, k.homok_frakcio_4, k.anyag_frakcio_1, IFNULL(f.Kw,f.TC)  FROM kozetmodell k \n" +
+                "INNER JOIN fluidum f ON f.kozetmodell_kod=k.kozetmodell_kod WHERE 1=1 ";
+//        String q = "SELECT a,b  FROM test WHERE 1=1 ";
+        Result s = regressionCalculator.calculate("java:comp/env/jdbc/bigdata", q, params);
+        model.addAttribute("result", s.getResultText());
+
+        return "spark-test";
+    }
+
     @RequestMapping(value = "/spark-test-cluster-regression")
     public String sparkClusterTest(Model model) {
 

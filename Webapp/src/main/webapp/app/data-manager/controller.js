@@ -19,7 +19,7 @@
         if ($routeParams.id) {
             $scope.kozetModell = kozetModellsService.get({id: $routeParams.id});
         } else {
-            $scope.kozetModell = getDefaultKozetModell();
+            $scope.kozetModell = {}; //getDefaultKozetModell();
         }
 
         $scope.kozetModellFields = getKozetModellFieldConfig();
@@ -100,7 +100,7 @@
                 type: 'maskedInput',
                 templateOptions: {
                     label: 'Kőzetmodell kód',
-                    mask: '@99@99'
+                    mask: '@99@99@@'
                 }
             },
             {
@@ -112,7 +112,7 @@
                     min: 25,
                     max: 100,
                     placeholder: 'Adja meg a külső átmérőt mm-ben 25 és 100 között...',
-                    required: true
+                    //required: true
                 },
                 validators: {
                     inRange: {
@@ -130,7 +130,7 @@
                     max: 10,
 
                     placeholder: 'Adja meg a belső átmérőt mm-ben 0 és 10 között...',
-                    required: true
+                    //required: true
                 },
                 validators: {
                     inRange: {
@@ -147,7 +147,7 @@
                     min: 40,
                     max: 100,
                     placeholder: 'Adja meg a hosszt mm-ben 40 és 100 között...',
-                    required: true
+                    //required: true
                 },
                 validators: {
                     inRange: {
@@ -165,7 +165,7 @@
                     max: 20,
 
                     placeholder: 'Adja meg a befúrási mélységet m-ben 10 és 20 között...',
-                    required: true
+                    //required: true
                 },
                 validators: {
                     inRange: {
@@ -180,7 +180,7 @@
                 templateOptions: {
                     wrapper: [],
                     label: 'Fúrási forma',
-                    required: true,
+                    //required: true,
                     "options": [
                         {
                             "name": "2S",
@@ -211,7 +211,7 @@
                         placeholder: 'Adja meg a homok frakciót 0 és 100% között...',
                         min: 0,
                         max: 100,
-                        required: true
+                        //required: true
                     },
                     validators: {
                         inRange: {
@@ -232,7 +232,7 @@
                     placeholder: 'Adja meg az anyag frakciót 0 és 40% között...',
                     min: 0,
                     max: 40,
-                    required: true
+                    //required: true
                 },
                 validators: {
                     inRange: {
@@ -249,7 +249,7 @@
                     placeholder: 'Adja meg az anyag frakciót 0 és 40% között...',
                     min: 0,
                     max: 40,
-                    required: true
+                    //required: true
                 },
                 validators: {
                     inRange: {
@@ -264,7 +264,7 @@
                     type: 'text',
                     label: 'Belső kőzetmag készítési dátum',
                     datepickerPopup: "yyyy-MM-dd",
-                    required: true
+                    //required: true
                 },
                 validators: {}
             },
@@ -277,7 +277,7 @@
                     min: 0,
                     max: 100,
                     placeholder: 'Adja meg az préselási nyomást 0 és 100bar között...',
-                    required: true
+                    //required: true
                 },
                 validators: {
                     inRange: {
@@ -294,7 +294,7 @@
                     min: 0,
                     max: 40,
                     placeholder: 'Adja meg az préselási hőmértékletet 0 és 40C között...',
-                    required: true
+                    //required: true
                 },
                 validators: {
                     inRange: {
@@ -318,7 +318,7 @@
                     type: 'text',
                     label: 'Készítő neve',
                     placeholder: 'Adja meg a készítő nevét...',
-                    required: true
+                    //required: true
                 },
                 validators: {}
             },
@@ -329,7 +329,7 @@
                     type: 'text',
                     label: 'Belső átmérő készítési dátum',
                     datepickerPopup: "yyyy-MM-dd",
-                    required: true
+                    //required: true
                 },
                 validators: {}
             },
@@ -340,7 +340,7 @@
                     type: 'text',
                     label: 'Készítő neve',
                     placeholder: 'Adja meg a készítő nevét...',
-                    required: true
+                    //required: true
                 },
                 validators: {}
             },
@@ -351,7 +351,7 @@
                     type: 'text',
                     label: 'Lézeres befúrás készítési dátum',
                     datepickerPopup: "yyyy-MM-dd",
-                    required: true
+                    //required: true
                 },
                 validators: {}
             },
@@ -362,7 +362,7 @@
                     type: 'text',
                     label: 'Készítő neve',
                     placeholder: 'Adja meg a készítő nevét...',
-                    required: true
+                    //required: true
                 },
                 validators: {}
             },
@@ -373,7 +373,7 @@
                     type: 'text',
                     label: 'Külső kőzetköpeny készítési dátum',
                     datepickerPopup: "yyyy-MM-dd",
-                    required: true
+                    //required: true
                 },
                 validators: {}
             },
@@ -384,7 +384,7 @@
                     type: 'text',
                     label: 'Készítő neve',
                     placeholder: 'Adja meg a készítő nevét...',
-                    required: true
+                    //required: true
                 },
                 validators: {}
             }

@@ -1,0 +1,20 @@
+.condition-editor {
+  .remove {
+    text-decoration: none;
+    cursor: hand;
+    opacity: 0.9;
+  }
+  .remove:hover {
+    opacity:0.4;
+  }
+  .label {
+    margin: 10px 10px 10px 10px;
+  }
+
+  .open-parenthesis {
+    margin: 10px -15px 10px 10px !important;
+  }
+  .close-parenthesis {
+    margin: 10px 10px 10px -5px !important;
+  }
+}

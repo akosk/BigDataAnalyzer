@@ -25,12 +25,35 @@
             conditions: [
                 {
                     property: 'XXX',
-                    operators: '',
-                    value: ''
+                    operator: '=',
+                    value: '10'
                 },
                 {
-                    conditions: []
-                }
+                    property: 'YYY',
+                    operator: '>',
+                    value: '2015-05-05'
+                },
+                {
+                    conditions: [
+                        {
+                            property: 'tipus',
+                            operator: '=',
+                            value: 'KEREK'
+                        },
+                        {
+                            property: 'tipus',
+                            operator: '=',
+                            value: 'SZOGLETES'
+                        },
+
+                    ]
+                },
+                {
+                    property: 'ZZ',
+                    operator: '=',
+                    value: '7'
+                },
+
             ]
 
         };

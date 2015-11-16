@@ -1,21 +1,57 @@
-<div class="row">
+<div class="row condition-editor">
     <div class="col-md-12">
 
-        <!-- Feltétel hozzáadó rész -->
+        {{config}}
 
-        <!--aktuális feltételek-->
+        {{config.properties}}
 
-        <div class="row" ng-repeat="c in condition.conditions">
-            <div ng-if="c.property!==undefined">
-                <div class="col-md-2">{{c.property}} {{c.operator}} {{c.value}}</div>
+        {{config.properties.properties}}
+
+
+        <!-- Feltétel hozzáadás -->
+        <div class="row">
+            <div class="col-md-2">
+                <select class="form-control"
+                        ng-model="newCondition"
+                        ng-change="selectedPropertyChanged(newCondition)"
+                        ng-options="item.id as item.name for item in config.properties">
+                    <option value=""></option>
+                </select>
             </div>
-            <div ng-if="c.conditions!==undefined">
-                Conditions....
-            </div>
-
         </div>
 
 
-        {{config}}
+        <hr/>
+        <!--Beállított feltételek-->
+        <h2>
+            <span ng-repeat="c in condition.conditions">
+
+                <span ng-if="c.property!==undefined"
+                      class="label label-info">{{c.property}} {{c.operator}} {{c.value}}
+                    <span class="remove" aria-hidden="true" ng-click="removeLvl1(c)">×</span>
+                </span>
+
+                <span ng-if="$index<condition.conditions.length-1 && c.property!==undefined"
+                      class="label label-warning">ÉS</span>
+
+                    <span ng-if="c.conditions!==undefined" class="label label-primary open-parenthesis">(</span>
+                    <span ng-if="c.conditions!==undefined"
+                          ng-repeat="cs in c.conditions">
+                            <span class="label label-info">{{cs.property}} {{cs.operator}} {{cs.value}}
+                                <span class="remove" aria-hidden="true" ng-click="removeLvl2(c,cs)">×</span>
+                            </span>
+                            <span ng-if="$index<c.conditions.length-1"
+                                  class="label label-warning">VAGY</span>
+
+                    </span>
+                   <span ng-if="c.conditions!==undefined" class="label label-primary close-parenthesis">)</span>
+                   <span ng-if="$index<condition.conditions.length-1 && c.conditions!==undefined"
+                         class="label label-warning">ÉS</span>
+
+            </span>
+
+        </h2>
+
+
     </div>
 </div>
