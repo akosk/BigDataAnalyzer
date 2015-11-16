@@ -186,8 +186,8 @@ public class LinearRegressionCalculator implements Calculator {
             }
 */
             // Run Logistic regression
-            double stepSize = 2;//Double.parseDouble(args[1]);
-            int iterations = 200;//Integer.parseInt(args[2]);
+            double stepSize = 1;//Double.parseDouble(args[1]);
+            int iterations = 20;//Integer.parseInt(args[2]);
             LinearRegressionModel model = LinearRegressionWithSGD.train(labeledPoints.rdd(), iterations, stepSize);
             out.println("Regression weights: " + model.weights());
             log.error("Regression weights: " + model.weights());
