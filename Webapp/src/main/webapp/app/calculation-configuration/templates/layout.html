@@ -78,62 +78,82 @@
                                     Adatforrások kiválasztása
                                     <span ng-show="selectedDataSources.length>0" class='badge'>{{selectedDataSources.length}}</span>
                                 </tab-heading>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="text-center"><h3>Elérhető adatforrások</h3></div>
-
-
-
-                                        <ul id="available-datasources" class="nav nav-datasource" dragula='"first-bag"'
-                                            dragula-model="availableDataSources">
-                                            <div class="row" ng-show="isBusy">
-                                                <div class="text-center col-md-12">
-                                                    <i class="fa fa-circle-o-notch fa-spin fa-5x"></i>
-                                                </div>
-                                            </div>
-                                            <li class="datasource-card" ng-repeat="item in availableDataSources">
-                                                <ds-card></ds-card>
-                                            </li>
-                                        </ul>
-
+                                <div class="panel panel-primary">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">Adatforrások kiválasztása</h3>
                                     </div>
-                                    <div class="col-md-6">
-                                        <div class="text-center"><h3>Kiválasztott adatforrások</h3></div>
-                                        <ul id="selected-datasources" class="nav nav-datasource" dragula='"first-bag"'
-                                            dragula-model="selectedDataSources">
+                                    <div class="panel-body">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="text-center"><h3>Elérhető adatforrások</h3></div>
 
-                                            <div ng-show="selectedDataSources.length==0" class="ul-empty">Húzzon bele
-                                                egy adatforrást!
+
+                                                <ul id="available-datasources" class="nav nav-datasource"
+                                                    dragula='"first-bag"'
+                                                    dragula-model="availableDataSources">
+                                                    <div class="row" ng-show="isBusy">
+                                                        <div class="text-center col-md-12">
+                                                            <i class="fa fa-circle-o-notch fa-spin fa-5x"></i>
+                                                        </div>
+                                                    </div>
+                                                    <li class="datasource-card"
+                                                        ng-repeat="item in availableDataSources">
+                                                        <ds-card></ds-card>
+                                                    </li>
+                                                </ul>
+
                                             </div>
-                                            <li class="datasource-card" ng-repeat="item in selectedDataSources">
-                                                <ds-card></ds-card>
-                                            </li>
+                                            <div class="col-md-6">
+                                                <div class="text-center"><h3>Kiválasztott adatforrások</h3></div>
+                                                <ul id="selected-datasources" class="nav nav-datasource"
+                                                    dragula='"first-bag"'
+                                                    dragula-model="selectedDataSources">
 
-                                        </ul>
+                                                    <div ng-show="selectedDataSources.length==0" class="ul-empty">Húzzon
+                                                        bele
+                                                        egy adatforrást!
+                                                    </div>
+                                                    <li class="datasource-card" ng-repeat="item in selectedDataSources">
+                                                        <ds-card></ds-card>
+                                                    </li>
+
+                                                </ul>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
+
+
                             </tab>
                             <tab disable="selectedDataSources.length==0">
                                 <tab-heading>
                                     Adatok szűrése
                                     <span ng-show="conditions.conditions.length>0" class='badge'>{{conditions.conditions.length}}</span>
                                 </tab-heading>
-                                <condition-editor config="conditionConfiguration" condition="conditions"></condition-editor>
+                                <condition-editor config="conditionConfiguration"
+                                                  condition="conditions"></condition-editor>
                             </tab>
                             <tab heading="Számítás típusa" disable="selectedDataSources.length==0">
-                                <h2 class="text-center">Válassza ki a számítás típusát!</h2>
+                                <div class="panel panel-primary">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">Számítás típusa</h3>
+                                    </div>
+                                    <div class="panel-body">
+                                        <h2 class="text-center">Válassza ki a számítás típusát!</h2>
 
-                                <div style="margin-bottom: 15px" class="col-md-3" ng-repeat="calculation in calculations">
-                                    <button
-                                            class="btn btn-lg btn-block"
-                                            ng-class="selectedCalculation==calculation ? 'btn-primary':''"
-                                            ng-click="selectCalculation(calculation)">
-                                        <i class="fa fa-check" ng-show="selectedCalculation==calculation"></i>
-                                        {{calculation.name}}
-                                    </button>
+                                        <div style="margin-bottom: 15px" class="col-md-3"
+                                             ng-repeat="calculation in calculations">
+                                            <button
+                                                    class="btn btn-lg btn-block"
+                                                    ng-class="selectedCalculation==calculation ? 'btn-primary':''"
+                                                    ng-click="selectCalculation(calculation)">
+                                                <i class="fa fa-check" ng-show="selectedCalculation==calculation"></i>
+                                                {{calculation.name}}
+                                            </button>
+                                        </div>
+
+                                    </div>
                                 </div>
-
-
                             </tab>
                             <tab heading="Adatmezők kiválasztása"
                                  disable="selectedDataSources.length==0 || selectedCalculation==null">
