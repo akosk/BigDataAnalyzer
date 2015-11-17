@@ -34,19 +34,41 @@
                     $scope.newConditionItems = [{}];
 
                     $scope.addCondition = function () {
-                        var newItem = {conditions: []};
-                        $scope.newConditionItems.forEach(function (item) {
-                            newItem.conditions.push({
+                        if ($scope.newConditionItems.length == 0) return;
+                        if (!($scope.newConditionItems[0].property &&
+                            $scope.newConditionItems[0].operator &&
+                            $scope.newConditionItems[0].value)) return;
+
+                        if ($scope.newConditionItems.length > 1) {
+                            var newItem = {conditions: []};
+                            $scope.newConditionItems.forEach(function (item) {
+                                newItem.conditions.push({
+                                    property: item.property,
+                                    operator: item.operator,
+                                    value: item.value
+                                });
+                            })
+                        } else {
+                            var item = $scope.newConditionItems[0];
+                            var newItem = {
                                 property: item.property,
                                 operator: item.operator,
                                 value: item.value
-                            });
-                        })
+                            };
+                        }
+
+                        $scope.newConditionItems=[{}];
                         $scope.condition.conditions.push(newItem);
+
+
                     }
 
                     $scope.addBlankConditionItem = function () {
                         $scope.newConditionItems.push({});
+                    }
+
+                    $scope.removeLastConditionItem= function () {
+                        $scope.newConditionItems.pop();
                     }
 
                     $scope.selectedPropertyChanged = function (item) {
@@ -69,6 +91,11 @@
                                 .filter(function (el) {
                                     return el !== parent;
                                 });
+                        } else if(parent.conditions.length==1) {
+                            parent.property=item.property;
+                            parent.operator=item.operator;
+                            parent.value=item.value;
+                            delete parent.conditions;
                         }
                     }
                 }

@@ -113,7 +113,11 @@
                                     </div>
                                 </div>
                             </tab>
-                            <tab heading="Adatok szűrése" disable="selectedDataSources.length==0">
+                            <tab disable="selectedDataSources.length==0">
+                                <tab-heading>
+                                    Adatok szűrése
+                                    <span ng-show="conditions.conditions.length>0" class='badge'>{{conditions.conditions.length}}</span>
+                                </tab-heading>
                                 <condition-editor config="conditionConfiguration" condition="conditions"></condition-editor>
                             </tab>
                             <tab heading="Számítás típusa" disable="selectedDataSources.length==0">

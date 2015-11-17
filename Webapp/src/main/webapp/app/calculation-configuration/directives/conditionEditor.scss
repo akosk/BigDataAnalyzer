@@ -1,3 +1,5 @@
+$gap-vertical: 3px;
+$gap-horizontal: 5px;
 .condition-editor {
   .remove {
     text-decoration: none;
@@ -5,16 +7,19 @@
     opacity: 0.9;
   }
   .remove:hover {
-    opacity:0.4;
+    opacity: 0.4;
   }
   .label {
-    margin: 10px 10px 10px 10px;
+    white-space: nowrap;
+    float: left;
+    display: block;
+    margin: $gap-vertical $gap-horizontal $gap-vertical $gap-horizontal;
   }
 
   .open-parenthesis {
-    margin: 10px -15px 10px 10px !important;
+    margin: $gap-vertical 0px $gap-vertical $gap-horizontal !important;
   }
   .close-parenthesis {
-    margin: 10px 10px 10px -5px !important;
+    margin: $gap-vertical $gap-horizontal $gap-vertical 0px !important;
   }
 }

@@ -20,44 +20,7 @@
         $scope.calculationConfigurations = [];
         $scope.conditionConfiguration={};
 
-
-
-        $scope.conditions = {
-            conditions: [
-                {
-                    property: 'XXX',
-                    operator: '=',
-                    value: '10'
-                },
-                {
-                    property: 'YYY',
-                    operator: '>',
-                    value: '2015-05-05'
-                },
-                {
-                    conditions: [
-                        {
-                            property: 'tipus',
-                            operator: '=',
-                            value: 'KEREK'
-                        },
-                        {
-                            property: 'tipus',
-                            operator: '=',
-                            value: 'SZOGLETES'
-                        },
-
-                    ]
-                },
-                {
-                    property: 'ZZ',
-                    operator: '=',
-                    value: '7'
-                },
-
-            ]
-
-        };
+        $scope.conditions = {conditions: []};
 
         $scope.calculations = [
             {

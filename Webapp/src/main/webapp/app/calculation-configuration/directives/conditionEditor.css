@@ -5,8 +5,11 @@
 .condition-editor .remove:hover {
   opacity: 0.4; }
 .condition-editor .label {
-  margin: 10px 10px 10px 10px; }
+  white-space: nowrap;
+  float: left;
+  display: block;
+  margin: 3px 5px 3px 5px; }
 .condition-editor .open-parenthesis {
-  margin: 10px -15px 10px 10px !important; }
+  margin: 3px 0px 3px 5px !important; }
 .condition-editor .close-parenthesis {
-  margin: 10px 10px 10px -5px !important; }
+  margin: 3px 5px 3px 0px !important; }

@@ -2,79 +2,103 @@
     <div class="col-md-12">
 
         <!-- Feltétel hozzáadás -->
-        <div class="row" ng-repeat="conditionItem in newConditionItems">
-            <div class="col-md-2">
-                <div class="form-group">
-                    <select class="form-control"
-                            ng-model="conditionItem.property"
-                            ng-change="selectedPropertyChanged(conditionItem.property)"
-                            ng-options="item.id as item.name for item in config.properties">
-                        <option value=""></option>
-                    </select>
-                </div>
-            </div>
-            <div class="col-md-1">
-                <div class="form-group">
-                    <select class="form-control"
-                            ng-model="conditionItem.operator"
-                            ng-change="selectedPropertyChanged(conditionItem.operator)"
-                            ng-options="item.id as item.name for item in operators">
-                        <option value=""></option>
-                    </select>
-                </div>
-            </div>
-            <div class="col-md-2">
-                <div class="form-group">
-                    <input class="form-control" type="text" ng-model="conditionItem.value"/>
-                </div>
-            </div>
 
-            <div class="col-md-1">
-                <button ng-show="$index==newConditionItems.length-1"
-                        ng-click="addBlankConditionItem()" class="btn btn-default"><i class="fa fa-plus"></i> VAGY feltétel hozzáadása</button>
-            </div>
+        <div class="panel panel-primary">
+            <div class="panel-heading">Új feltétel hozzáadása</div>
+            <div class="panel-body">
+                <div class="row" ng-repeat="conditionItem in newConditionItems">
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <select class="form-control"
+                                    ng-model="conditionItem.property"
+                                    ng-change="selectedPropertyChanged(conditionItem.property)"
+                                    ng-options="item.id as item.name for item in config.properties">
+                                <option value=""></option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-1">
+                        <div class="form-group">
+                            <select class="form-control"
+                                    ng-model="conditionItem.operator"
+                                    ng-change="selectedPropertyChanged(conditionItem.operator)"
+                                    ng-options="item.id as item.name for item in operators">
+                                <option value=""></option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <input class="form-control" type="text" ng-model="conditionItem.value"/>
+                        </div>
+                    </div>
 
+                    <div class="col-md-7">
+                        <button ng-show="$index==newConditionItems.length-1"
+                                ng-click="addBlankConditionItem()" class="btn btn-default"><i class="fa fa-plus"></i>
+                            VAGY
+                            feltétel hozzáadása
+                        </button>
+                        <button ng-show="$index==newConditionItems.length-1 && newConditionItems.length>1"
+                                ng-click="removeLastConditionItem()" class="btn btn-default"><i class="fa fa-minus"></i>
+                            Törlés
+                        </button>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <h2>
+                            <button ng-click="addCondition()" class="btn btn-primary btn-lg"><i class="fa fa-plus"></i>
+                                Hozzáad
+                            </button>
+                        </h2>
+                    </div>
+                </div>
+
+            </div>
         </div>
-        <div class="row">
-            <div class="col-md-6 text-center">
-                <h2>
-                <button ng-click="addCondition()" class="btn btn-primary btn-lg"><i class="fa fa-plus"></i> Hozzáad</button>
-                </h2>
-            </div>
-        </div>
 
 
-        <hr/>
         <!--Beállított feltételek-->
-        <h2>
-            <span ng-repeat="c in condition.conditions">
+        <div class="panel panel-primary">
+            <div class="panel-heading">Szűrő</div>
+            <div class="panel-body">
+                <h2>
+                    <div ng-repeat="c in condition.conditions">
 
-                <span ng-if="c.property!==undefined"
-                      class="label label-info">{{c.property}} {{c.operator}} {{c.value}}
-                    <span class="remove" aria-hidden="true" ng-click="removeLvl1(c)">×</span>
-                </span>
+                        <!-- ÉS feltétel-->
+                        <div ng-if="c.property!==undefined"
+                             class="label label-info">{{c.property}} {{c.operator}} {{c.value}}
+                            <span class="remove" aria-hidden="true" ng-click="removeLvl1(c)">×</span>
+                        </div>
 
-                <span ng-if="$index<condition.conditions.length-1 && c.property!==undefined"
-                      class="label label-warning">ÉS</span>
+                        <div ng-if="$index<condition.conditions.length-1 && c.property!==undefined"
+                             class="label label-info">ÉS
+                        </div>
 
-                    <span ng-if="c.conditions!==undefined" class="label label-primary open-parenthesis">(</span>
-                    <span ng-if="c.conditions!==undefined"
-                          ng-repeat="cs in c.conditions">
-                            <span class="label label-info">{{cs.property}} {{cs.operator}} {{cs.value}}
+                        <!-- VAGY feltétel-->
+                        <div ng-if="c.conditions!==undefined" class="label label-primary open-parenthesis">(</div>
+                        <div ng-if="c.conditions!==undefined"
+                             ng-repeat="cs in c.conditions">
+                            <div class="label label-primary">{{cs.property}} {{cs.operator}} {{cs.value}}
                                 <span class="remove" aria-hidden="true" ng-click="removeLvl2(c,cs)">×</span>
-                            </span>
-                            <span ng-if="$index<c.conditions.length-1"
-                                  class="label label-warning">VAGY</span>
+                            </div>
+                            <div ng-if="$index<c.conditions.length-1"
+                                 class="label label-primary">VAGY
+                            </div>
 
-                    </span>
-                   <span ng-if="c.conditions!==undefined" class="label label-primary close-parenthesis">)</span>
-                   <span ng-if="$index<condition.conditions.length-1 && c.conditions!==undefined"
-                         class="label label-warning">ÉS</span>
+                        </div>
+                        <div ng-if="c.conditions!==undefined" class="label label-primary close-parenthesis">)</div>
+                        <div ng-if="$index<condition.conditions.length-1 && c.conditions!==undefined"
+                             class="label label-info">ÉS
+                        </div>
 
-            </span>
+                    </div>
 
-        </h2>
+                </h2>
 
-
+            </div>
+        </div>
     </div>
 </div>
