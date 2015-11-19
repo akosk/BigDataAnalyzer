@@ -27,6 +27,11 @@ public class SiteController {
         return "welcome";
     }
 
+    @RequestMapping("/welcome")
+    public String welcome(Model model) {
+        return "welcome2";
+    }
+
     @RequestMapping(value = "/calculation-config")
     public String calculationConfig(Model model) {
         return "calculation-config";

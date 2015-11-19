@@ -88,10 +88,12 @@ public class DataSourceRepositoryLocalMySql implements DataSourceRepository {
 
             while (rs.next()) {
                 String tableName = rs.getString(1);
-                Table table = new Table();
-                table.setSqlName(tableName);
-                table.setColumns(getColumns(databaseName, tableName));
-                tables.add(table);
+                if (!tableName.equals("user")) {
+                    Table table = new Table();
+                    table.setSqlName(tableName);
+                    table.setColumns(getColumns(databaseName, tableName));
+                    tables.add(table);
+                }
             }
 
         } catch (Exception ex) {

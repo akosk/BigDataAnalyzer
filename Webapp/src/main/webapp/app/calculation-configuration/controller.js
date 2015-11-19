@@ -157,18 +157,6 @@
     function getCalculations() {
         return [
             {
-                id: 'count',
-                name: 'Számolás',
-                groups: [
-                    {
-                        id: 'count',
-                        name: 'Számolandó mező',
-                        min: 1,
-                        max: 1
-                    }
-                ]
-            },
-            {
                 id: 'min',
                 name: 'Minimum',
                 groups: [

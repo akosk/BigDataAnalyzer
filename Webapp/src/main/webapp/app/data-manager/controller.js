@@ -100,7 +100,7 @@
                 type: 'maskedInput',
                 templateOptions: {
                     label: 'Kőzetmodell kód',
-                    mask: '@99@99@@'
+                    mask: '@99@99**'
                 }
             },
             {
