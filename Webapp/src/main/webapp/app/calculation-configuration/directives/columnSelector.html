@@ -2,21 +2,25 @@
     <div class="col-md-12">
 
 
-        <table class="table table-bordered table-striped" ng-repeat="ds in selectedDataSources">
+        <table class="table table-bordered table-striped">
             <tr>
                 <th>Tábla</th>
                 <th>Mező</th>
-                <th>Mező</th>
+                <th></th>
             </tr>
+            <tbody ng-repeat="ds in selectedDataSources">
             <tr ng-repeat="column in ds.table.columns">
                 <td>{{ds.table.sql_name}}</td>
                 <td>{{column.sql_name}}</td>
-                <td><select name="" id="" class="form-controll">
-                    <option value=""></option>
-                    <option value="X">X</option>
-                    <option value="Y">Y</option>
-                </select></td>
+                <td>
+                    <select class="form-control"
+                            ng-model="column.selectedCalculationId"
+                            ng-options="group.id as group.name for group in selectedCalculation.groups">
+                        <option value=""></option>
+                    </select>
+                </td>
             </tr>
+            </tbody>
         </table>
 
 
@@ -24,23 +28,3 @@
 </div>
 
 
-<!--<table class="table table-bordered">-->
-<!--<tr>-->
-<!--<th>Tábla neve</th>-->
-<!--<th ng-repeat="column in calculationConfiguration.columns">-->
-<!--<select class="form-control"-->
-<!--ng-model="column.selectedCalculationId"-->
-<!--ng-options="group.id as group.name for group in selectedCalculation.groups"-->
-<!-->-->
-<!--<option value=""></option>-->
-<!--</select>-->
-<!--</th>-->
-<!--</tr>-->
-<!--<tr ng-repeat="ds in selectedDataSources">-->
-<!--<th>{{ds.table.sql_name}}</th>-->
-<!--<td ng-repeat="column in ds.table.columns">-->
-<!--{{column.sql_name}}-->
-<!--</td>-->
-<!--</tr>-->
-<!--</tr>-->
-<!--</table>-->
