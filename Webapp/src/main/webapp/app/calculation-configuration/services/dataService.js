@@ -17,6 +17,22 @@
             var deferred = $q.defer();
             $http({
                 url: 'webapi/datasources',
+                method: "POST",
+                params: {}
+            })
+                .then(function (result) {
+                    angular.copy(result.data.datasources, _dataSources);
+                    deferred.resolve();
+                }, function () {
+                    deferred.reject();
+                });
+            return deferred.promise;
+        };
+
+        var _saveConfiguration = function (config) {
+            var deferred = $q.defer();
+            $http({
+                url: 'webapi/datasources',
                 method: "GET",
                 params: {}
             })
@@ -32,7 +48,8 @@
 
         return {
             queryDataSources: _queryDataSources,
-            dataSources: _dataSources
+            dataSources: _dataSources,
+            saveConfiguration: _saveConfiguration
         };
     }
 

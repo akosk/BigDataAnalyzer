@@ -1,0 +1,20 @@
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h3 class="panel-title">Számítás típusa</h3>
+    </div>
+    <div class="panel-body">
+        <h2 class="text-center">Válassza ki a számítás típusát!</h2>
+
+        <div style="margin-bottom: 15px" class="col-md-3"
+             ng-repeat="calculation in calculations">
+            <button
+                    class="btn btn-lg btn-block"
+                    ng-class="selectedCalculation==calculation ? 'btn-primary':''"
+                    ng-click="selectCalculation(calculation)">
+                <i class="fa fa-check" ng-show="selectedCalculation==calculation"></i>
+                {{calculation.name}}
+            </button>
+        </div>
+
+    </div>
+</div>

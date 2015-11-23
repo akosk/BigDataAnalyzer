@@ -9,20 +9,16 @@
         .controller('CalculationConfigurationController', CalculationConfigurationController);
 
 
-    function CalculationConfigurationController($scope, $route, dataService, dragulaService) {
+    function CalculationConfigurationController($scope, $route, dataService, dragulaService, calculationConfigurationsService) {
 
         $scope.isBusy = false;
         $scope.dataService = dataService;
         $scope.availableDataSources = [];
-        $scope.selectedDataSources = [];
-        $scope.selectedCalculation = null;
-        $scope.calculationConfiguration = {};
-        $scope.calculationConfigurations = [];
-        $scope.conditionConfiguration = {};
 
-        $scope.conditions = {conditions: []};
-
-        $scope.calculations = getCalculations();
+        $scope.selectedCalculation = null;   // Az új konfig során kiválasztott calc
+        $scope.calculationConfiguration = {}; // Az új konfig
+        $scope.calculationConfigurations = []; // Az összes konfig a táblázatos listában
+        $scope.calculations = getCalculations(); // Kalkuláció típusok
 
         $scope.queryDataSources = function () {
             $scope.isBusy = true;
@@ -30,7 +26,7 @@
                 .then(
                 function () {
                     $scope.availableDataSources = [];
-                    $scope.selectedDataSources = [];
+                    $scope.calculationConfiguration.selectedDataSources = [];
 
                     dataService.dataSources.forEach(
                         function (dataSource) {
@@ -76,24 +72,34 @@
                 return o != el.scope().item;
             };
 
-            switch (container.attr('id')) {
-                case 'available-datasources':
-                    $scope.selectedDataSources = $scope.selectedDataSources.filter(filter);
-                    $scope.availableDataSources.push(el.scope().item);
+            $scope.$apply(function () {
+                switch (container.attr('id')) {
+                    case 'available-datasources':
+                        $scope.calculationConfiguration.selectedDataSources =
+                            $scope.calculationConfiguration.selectedDataSources.filter(filter);
+                        $scope.availableDataSources.push(el.scope().item);
 
-                    break;
-                case 'selected-datasources':
-                    $scope.availableDataSources = $scope.availableDataSources.filter(filter);
-                    $scope.selectedDataSources.push(el.scope().item);
-                    break;
-            }
-            $scope.conditionConfiguration = getConditionConfig();
+                        break;
+                    case 'selected-datasources':
+                        $scope.availableDataSources = $scope.availableDataSources.filter(filter);
+                        $scope.calculationConfiguration.selectedDataSources.push(el.scope().item);
+                        break;
+                }
+                //$scope.calculationConfiguration.selectedDataSources.push = function (){
+                //    debugger;
+                //    return Array.prototype.push.apply(this,arguments);
+                //}
+
+                $scope.conditionConfiguration = getConditionConfig();
+            });
 
         });
 
         $scope.selectCalculation = function (calculation) {
             $scope.selectedCalculation = calculation;
-            $scope.calculationConfiguration = getDefaultCalculationConfiguration($scope.selectedDataSources, calculation);
+            $scope.calculationConfiguration.selectedCalculation = calculation;
+            $.extend(true, $scope.calculationConfiguration, getDefaultCalculationConfiguration($scope.calculationConfiguration.selectedDataSources, calculation));
+
         };
 
         $scope.getCalculationTemplate = function () {
@@ -103,10 +109,27 @@
         };
 
         $scope.saveConfiguration = function () {
+
+
             $scope.calculationConfiguration.create_time = moment().format("YYYY-MM-DD HH:mm:ss");
-            //$scope.calculationConfiguration.job_done = 2;
-            $scope.calculationConfigurations.push($scope.calculationConfiguration);
-            $('.modal-conf').modal('hide');
+
+
+            var calculationConfiguration = new calculationConfigurationsService();
+
+            for (var attrname in $scope.calculationConfiguration) {
+                calculationConfiguration[attrname] = $scope.calculationConfiguration[attrname];
+            }
+
+
+            calculationConfigurationsService.save(calculationConfiguration, function () {
+
+                $scope.calculationConfigurations.push($scope.calculationConfiguration);
+                $('.modal-conf').modal('hide');
+
+                //$location.path('/data-manager');
+            });
+
+
         };
 
 
@@ -115,7 +138,7 @@
                 properties: []
             }
 
-            $scope.selectedDataSources.forEach(function (ds) {
+            $scope.calculationConfiguration.selectedDataSources.forEach(function (ds) {
                 ds.table.columns.forEach(function (column) {
 
                     config.properties.push(

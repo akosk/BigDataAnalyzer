@@ -16,7 +16,7 @@
             scope: {
                 //isolatedAttributeFoo:'@attributeFoo',
                 config: '=config',
-                condition: '=condition'
+                conditions: '=condition'
                 //isolatedExpressionFoo:'&'
             },
             controller: ['$scope', '$element', '$attrs',
@@ -30,6 +30,10 @@
                         {id: "LIKE", name: "LIKE"},
                         {id: "NOT LIKE", name: "NOT LIKE"},
                     ]
+
+                    if ($scope.conditions===undefined || !$scope.conditions.isArray) {
+                        $scope.conditions=[];
+                    }
 
                     $scope.newConditionItems = [{}];
 
@@ -58,7 +62,7 @@
                         }
 
                         $scope.newConditionItems=[{}];
-                        $scope.condition.conditions.push(newItem);
+                        $scope.conditions.push(newItem);
 
 
                     }
@@ -76,7 +80,7 @@
                     }
 
                     $scope.removeLvl1 = function (item) {
-                        $scope.condition.conditions = $scope.condition.conditions
+                        $scope.conditions = $scope.conditions
                             .filter(function (el) {
                                 return el !== item;
                             });
@@ -87,7 +91,7 @@
                                 return el !== item;
                             });
                         if (parent.conditions.length == 0) {
-                            $scope.condition.conditions = $scope.condition.conditions
+                            $scope.conditions = $scope.conditions
                                 .filter(function (el) {
                                     return el !== parent;
                                 });

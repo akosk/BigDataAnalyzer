@@ -1,0 +1,42 @@
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h3 class="panel-title">Adatforrások kiválasztása</h3>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="text-center"><h3>Elérhető adatforrások</h3></div>
+
+                <div class="row" ng-show="isBusy">
+                    <div class="text-center col-md-12">
+                        <i class="fa fa-circle-o-notch fa-spin fa-5x"></i>
+                    </div>
+                </div>
+                <ul id="available-datasources" class="nav nav-datasource"
+                    dragula='"first-bag"'
+                    dragula-model="availableDataSources">
+
+                    <li class="datasource-card"
+                        ng-repeat="item in availableDataSources">
+                        <ds-card></ds-card>
+                    </li>
+                </ul>
+
+            </div>
+            <div class="col-md-6">
+                <div class="text-center"><h3>Kiválasztott adatforrások</h3></div>
+
+                <ul id="selected-datasources" class="nav nav-datasource"
+                    dragula='"first-bag"'
+                    dragula-model="calculationConfiguration.selectedDataSources">
+
+
+                    <li class="datasource-card" ng-repeat="item in calculationConfiguration.selectedDataSources">
+                        <ds-card></ds-card>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

@@ -8,13 +8,13 @@
                 <th>Mező</th>
                 <th></th>
             </tr>
-            <tbody ng-repeat="ds in selectedDataSources">
+            <tbody ng-repeat="ds in calculationConfiguration.selectedDataSources">
             <tr ng-repeat="column in ds.table.columns">
                 <td>{{ds.table.sql_name}}</td>
                 <td>{{column.sql_name}}</td>
                 <td>
                     <select class="form-control"
-                            ng-model="column.selectedCalculationId"
+                            ng-model="column.calculation_group_id"
                             ng-options="group.id as group.name for group in selectedCalculation.groups">
                         <option value=""></option>
                     </select>

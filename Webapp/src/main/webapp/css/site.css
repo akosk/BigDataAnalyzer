@@ -49,5 +49,5 @@ div.tab-content {
   overflow-y: auto;
   border-radius: 0; }
 
-#selected-datasources li:nth-child(2) {
+#selected-datasources li:nth-child(1) {
   background-color: rgba(0, 0, 0, 0.1); }

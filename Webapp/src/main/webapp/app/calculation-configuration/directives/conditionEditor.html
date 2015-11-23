@@ -65,7 +65,7 @@
             <div class="panel-heading">Szűrő</div>
             <div class="panel-body">
                 <h2>
-                    <div ng-repeat="c in condition.conditions">
+                    <div ng-repeat="c in conditions">
 
                         <!-- ÉS feltétel-->
                         <div ng-if="c.property!==undefined"
@@ -73,7 +73,7 @@
                             <span class="remove" aria-hidden="true" ng-click="removeLvl1(c)">×</span>
                         </div>
 
-                        <div ng-if="$index<condition.conditions.length-1 && c.property!==undefined"
+                        <div ng-if="$index<conditions.length-1 && c.property!==undefined"
                              class="label label-info">ÉS
                         </div>
 
