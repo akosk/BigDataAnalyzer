@@ -28,19 +28,19 @@ public class CalculationConfiguration implements Serializable {
 
     private String name;
 
-    private List<hu.innocenter.bigdata.model.Table> tables;
+//    private List<hu.innocenter.bigdata.model.Table> tables;
+//
+//    private String condition;
+//
+//    private String calculation;
 
-    private String condition;
-
-    private String calculation;
-
-    @Column(name="data", columnDefinition="TEXT")
+    @Column(name = "data", columnDefinition = "TEXT")
     private String data;
 
     private Date created;
     private Date updated;
 
-    @JsonSerialize(using=JsonDateTimeSerializer.class)
+    @JsonSerialize(using = JsonDateTimeSerializer.class)
     public Date getCreated() {
         return created;
     }
@@ -49,7 +49,7 @@ public class CalculationConfiguration implements Serializable {
         this.created = created;
     }
 
-    @JsonSerialize(using=JsonDateTimeSerializer.class)
+    @JsonSerialize(using = JsonDateTimeSerializer.class)
     public Date getUpdated() {
         return updated;
     }

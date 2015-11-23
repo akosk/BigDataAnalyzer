@@ -20,8 +20,8 @@ import java.util.Date;
  */
 
 @Entity
-@Table(name = "kozetmodell")
-public class KozetModell implements Serializable {
+@Table(name = "lezeres_kozetmodell")
+public class LezeresKozetModell implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,12 +32,16 @@ public class KozetModell implements Serializable {
     @NotNull
     @Digits(integer = 8, fraction = 1)
     @Column(nullable = false)
-    private Double kulso_atmero;
+    private Double kulso_kozetkopeny_atmero;
+    private Double belso_kozetmag_kulso_atmero;
 
-    private Double belso_atmero;
+    private Double belso_furat_atmero;
     private Double hossz;
+    private Double lezeres_furat_atmero;
+
     private Double befurasi_melyseg;
-    private String furasi_forma;
+    private String lezeres_befurasi_forma;
+
     private Double homok_frakcio_1;
     private Double homok_frakcio_2;
     private Double homok_frakcio_3;
@@ -54,11 +58,15 @@ public class KozetModell implements Serializable {
     private Double anyag_frakcio_2;
     private Date belso_kozetmag_keszitesi_datum;
     private Double preselesi_nyomas;
+
     private Double preselesi_homerseklet;
     private java.sql.Time preselesi_ido;
+
     private String preseles_keszito_neve;
-    private Date belso_atmero_keszitesi_datum;
-    private String belso_atmero_keszito_neve;
+
+    private Date belso_furat_keszitesi_datum;
+    private String belso_furat_keszito_neve;
+
     private Date lezeres_befuras_keszitesi_datum;
     private String lezeres_befuras_keszito_neve;
     private Date kulso_kozetkopeny_keszitesi_datum;
@@ -84,21 +92,6 @@ public class KozetModell implements Serializable {
         this.kozetmodell_kod = kozetmodell_kod;
     }
 
-    public Double getKulso_atmero() {
-        return kulso_atmero;
-    }
-
-    public void setKulso_atmero(Double kulso_atmero) {
-        this.kulso_atmero = kulso_atmero;
-    }
-
-    public Double getBelso_atmero() {
-        return belso_atmero;
-    }
-
-    public void setBelso_atmero(Double belso_atmero) {
-        this.belso_atmero = belso_atmero;
-    }
 
     public Double getHossz() {
         return hossz;
@@ -116,13 +109,6 @@ public class KozetModell implements Serializable {
         this.befurasi_melyseg = befurasi_melyseg;
     }
 
-    public String getFurasi_forma() {
-        return furasi_forma;
-    }
-
-    public void setFurasi_forma(String furasi_forma) {
-        this.furasi_forma = furasi_forma;
-    }
 
     public Double getHomok_frakcio_1() {
         return homok_frakcio_1;
@@ -277,22 +263,7 @@ public class KozetModell implements Serializable {
         this.preseles_keszito_neve = preseles_keszito_neve;
     }
 
-    @JsonSerialize(using=JsonDateSerializer.class)
-    public Date getBelso_atmero_keszitesi_datum() {
-        return belso_atmero_keszitesi_datum;
-    }
 
-    public void setBelso_atmero_keszitesi_datum(Date belso_atmero_keszitesi_datum) {
-        this.belso_atmero_keszitesi_datum = belso_atmero_keszitesi_datum;
-    }
-
-    public String getBelso_atmero_keszito_neve() {
-        return belso_atmero_keszito_neve;
-    }
-
-    public void setBelso_atmero_keszito_neve(String belso_atmero_keszito_neve) {
-        this.belso_atmero_keszito_neve = belso_atmero_keszito_neve;
-    }
 
     @JsonSerialize(using=JsonDateSerializer.class)
     public Date getLezeres_befuras_keszitesi_datum() {
@@ -326,6 +297,64 @@ public class KozetModell implements Serializable {
 
     public void setKulso_kozetkopeny_keszito_neve(String kulso_kozetkopeny_keszito_neve) {
         this.kulso_kozetkopeny_keszito_neve = kulso_kozetkopeny_keszito_neve;
+    }
+
+
+    public Double getKulso_kozetkopeny_atmero() {
+        return kulso_kozetkopeny_atmero;
+    }
+
+    public void setKulso_kozetkopeny_atmero(Double kulso_kozetkopeny_atmero) {
+        this.kulso_kozetkopeny_atmero = kulso_kozetkopeny_atmero;
+    }
+
+    public Double getBelso_kozetmag_kulso_atmero() {
+        return belso_kozetmag_kulso_atmero;
+    }
+
+    public void setBelso_kozetmag_kulso_atmero(Double belso_kozetmag_kulso_atmero) {
+        this.belso_kozetmag_kulso_atmero = belso_kozetmag_kulso_atmero;
+    }
+
+    public Double getBelso_furat_atmero() {
+        return belso_furat_atmero;
+    }
+
+    public void setBelso_furat_atmero(Double belso_furat_atmero) {
+        this.belso_furat_atmero = belso_furat_atmero;
+    }
+
+    public Double getLezeres_furat_atmero() {
+        return lezeres_furat_atmero;
+    }
+
+    public void setLezeres_furat_atmero(Double lezeres_furat_atmero) {
+        this.lezeres_furat_atmero = lezeres_furat_atmero;
+    }
+
+    public String getLezeres_befurasi_forma() {
+        return lezeres_befurasi_forma;
+    }
+
+    public void setLezeres_befurasi_forma(String lezeres_befurasi_forma) {
+        this.lezeres_befurasi_forma = lezeres_befurasi_forma;
+    }
+
+    @JsonSerialize(using=JsonDateSerializer.class)
+    public Date getBelso_furat_keszitesi_datum() {
+        return belso_furat_keszitesi_datum;
+    }
+
+    public void setBelso_furat_keszitesi_datum(Date belso_furat_keszitesi_datum) {
+        this.belso_furat_keszitesi_datum = belso_furat_keszitesi_datum;
+    }
+
+    public String getBelso_furat_keszito_neve() {
+        return belso_furat_keszito_neve;
+    }
+
+    public void setBelso_furat_keszito_neve(String belso_furat_keszito_neve) {
+        this.belso_furat_keszito_neve = belso_furat_keszito_neve;
     }
 
     @JsonSerialize(using=JsonDateTimeSerializer.class)

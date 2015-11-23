@@ -1,9 +1,7 @@
 package hu.innocenter.bigdata.service;
 
 import hu.innocenter.bigdata.model.CalculationConfiguration;
-import hu.innocenter.bigdata.model.KozetModell;
 import hu.innocenter.bigdata.repository.CalculationConfigurationDao;
-import hu.innocenter.bigdata.repository.KozetModellDao;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

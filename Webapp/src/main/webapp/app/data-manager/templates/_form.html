@@ -3,12 +3,12 @@
 </div>
 
 <form ng-submit="submit()" name="form" novalidate>
-    <formly-form model="kozetModell" fields="kozetModellFields" form="form">
-        <button type="submit" class="btn btn-default" ng-disabled="form.$invalid">Mentés</button>
+    <formly-form model="modell" fields="fieldConfig" form="form">
+        <button type="submit" class="btn btn-primary" ng-disabled="form.$invalid">Mentés</button>
     </formly-form>
 </form>
 
-
+{{form}}
 
 <script type="text/ng-template" id="datepicker.html">
     <p class="input-group">

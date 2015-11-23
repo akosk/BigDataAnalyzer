@@ -75,10 +75,10 @@
             <div class="collapse navbar-collapse">
                 <ul class="nav navbar-nav" style="width:100%">
                     <li th:classappend="${#httpServletRequest.getRequestURI() == '/user-manager.html' ? 'active':''}"><a href="/calculation-config.html#/calculation-configuration"><i class="fa fa-user"></i> Felhasználók</a></li>
-                    <li  th:classappend="${#httpServletRequest.getRequestURI() == '/data-manager.html' ? 'active':''}" class="dropdown">
+                    <li  th:classappend="${#httpServletRequest.getRequestURI() == '/data-manager-laser.html' ? 'active':''}" class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cloud-upload"></i> Adatfeltöltés <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="/data-manager.html#/data-manager">Kőzetmodell adatbázis</a></li>
+                            <li><a href="/data-manager-laser.html#/data-manager">Lézeres kőzetmodell adatbázis</a></li>
                             <li><a href="#">Fluidum adatbázis</a></li>
                             <li><a href="#">Laboratóriumi kísérleti körülmények adatbázis</a></li>
                             <li><a href="#">Laboratóriumi mérési eredmények adatbázis</a></li>
@@ -160,8 +160,10 @@
 <script src="/app/calculation-configuration/directives/columnSelector.js"></script>
 <script src="/app/calculation-configuration/directives/conditionEditor.js"></script>
 <script src="/app/calculation-configuration/directives/dsCard.js"></script>
+<script src="/app/calculation-configuration/services/calculationConfigurationFactory.js"></script>
 <script src="/app/calculation-configuration/services/dataService.js"></script>
-<script src="/app/data-manager/services/kozetModellFactory.js"></script>
+<script src="/app/data-manager/services/configFactory.js"></script>
+<script src="/app/data-manager/services/modellFactory.js"></script>
 <!-- endinject -->
 
 

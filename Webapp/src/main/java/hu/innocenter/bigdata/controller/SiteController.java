@@ -1,5 +1,6 @@
 package hu.innocenter.bigdata.controller;
 
+import hu.innocenter.bigdata.ApplicationConfig;
 import hu.innocenter.bigdata.analyzer.KMeansClusterCalculator;
 import hu.innocenter.bigdata.analyzer.LinearRegressionCalculator;
 import hu.innocenter.bigdata.analyzer.LogisticRegressionCalculator;
@@ -7,7 +8,9 @@ import hu.innocenter.bigdata.analyzer.Result;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import java.util.HashMap;
 
@@ -22,23 +25,23 @@ public class SiteController {
 
     Logger log = Logger.getLogger(SiteController.class);
 
+
     @RequestMapping("/index")
-    public String sayHello(Model model) {
-        return "welcome";
+    public String index(Model model) {
+        model.addAttribute("layout", ApplicationConfig.layout);
+        return ApplicationConfig.mode == ApplicationConfig.MODE.LASER ? "welcome-laser" : "welcome-cement";
     }
 
-    @RequestMapping("/welcome")
-    public String welcome(Model model) {
-        return "welcome2";
-    }
 
     @RequestMapping(value = "/calculation-config")
     public String calculationConfig(Model model) {
+        model.addAttribute("layout", ApplicationConfig.layout);
         return "calculation-config";
     }
 
     @RequestMapping(value = "/spark-test-logistic-regression")
     public String sparkLogisticTest(Model model) {
+        model.addAttribute("layout", ApplicationConfig.layout);
 
         LogisticRegressionCalculator regressionCalculator = new LogisticRegressionCalculator();
         HashMap<String, Object> params = new HashMap<String, Object>();
@@ -51,6 +54,7 @@ public class SiteController {
 
     @RequestMapping(value = "/spark-test-linear-regression")
     public String sparkLinearTest(Model model) {
+        model.addAttribute("layout", ApplicationConfig.layout);
 
         LinearRegressionCalculator regressionCalculator = new LinearRegressionCalculator();
         HashMap<String, Object> params = new HashMap<String, Object>();
@@ -63,6 +67,7 @@ public class SiteController {
 
     @RequestMapping(value = "/spark-test-linear-regression2")
     public String sparkLinearTest2(Model model) {
+        model.addAttribute("layout", ApplicationConfig.layout);
 
         LinearRegressionCalculator regressionCalculator = new LinearRegressionCalculator();
         HashMap<String, Object> params = new HashMap<String, Object>();
@@ -83,6 +88,7 @@ public class SiteController {
 
     @RequestMapping(value = "/spark-test-cluster-regression")
     public String sparkClusterTest(Model model) {
+        model.addAttribute("layout", ApplicationConfig.layout);
 
         KMeansClusterCalculator kMeansCalculator = new KMeansClusterCalculator();
         HashMap<String, Object> params = new HashMap<String, Object>();
@@ -95,12 +101,21 @@ public class SiteController {
 
     @RequestMapping(value = "/tasks")
     public String tasks(Model model) {
+
+        model.addAttribute("layout", ApplicationConfig.layout);
         return "tasks";
     }
 
-    @RequestMapping("/data-manager")
-    public String dataUploadKozetpalast(Model model) {
-        return "data-manager";
+    @RequestMapping("/data-manager-laser")
+    public String dataManagerLaser(Model model) {
+        model.addAttribute("layout", ApplicationConfig.layout);
+        return "data-manager-laser";
+    }
+
+    @RequestMapping("/data-manager-cement")
+    public String dataManagerCement(Model model) {
+        model.addAttribute("layout", ApplicationConfig.layout);
+        return "data-manager-cement";
     }
 
 }
