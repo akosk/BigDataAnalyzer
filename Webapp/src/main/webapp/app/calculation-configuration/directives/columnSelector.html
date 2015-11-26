@@ -1,23 +1,44 @@
 <div class="row">
+    <div class="col-md-2">
+        <div class="form-group">
+            <select class="form-control"
+                    ng-model="newColumnConfig.columnName"
+                    ng-options="item.id as item.name for item in conditionConfiguration.properties">
+                <option value=""></option>
+            </select>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <select class="form-control"
+                ng-model="newColumnConfig.type"
+                ng-options="group.id as group.name for group in selectedCalculation.groups">
+            <option value=""></option>
+        </select>
+    </div>
+    <div class="col-md-2">
+        <button ng-click="addColumnConfig()" class="btn btn-primary btn-lg"><i class="fa fa-plus"></i> Hozzáad</button>
+    </div>
+</div>
+
+<div class="row">
     <div class="col-md-12">
 
 
         <table class="table table-bordered table-striped">
             <tr>
-                <th>Tábla</th>
                 <th>Mező</th>
                 <th></th>
+                <th></th>
             </tr>
-            <tbody ng-repeat="ds in calculationConfiguration.selectedDataSources">
-            <tr ng-repeat="column in ds.table.columns">
-                <td>{{ds.table.sql_name}}</td>
-                <td>{{column.sql_name}}</td>
+            <tr ng-repeat="column in calculationConfiguration.columnConfigs">
+                <td>{{column.columnName}}</td>
                 <td>
-                    <select class="form-control"
-                            ng-model="column.calculation_group_id"
-                            ng-options="group.id as group.name for group in selectedCalculation.groups">
-                        <option value=""></option>
-                    </select>
+                    {{column.type}}
+                </td>
+                <td>
+                    <button ng-click="removeItem(column)" class="btn btn-default"><i class="fa fa-minus"></i>
+                        Törlés
+                    </button>
                 </td>
             </tr>
             </tbody>

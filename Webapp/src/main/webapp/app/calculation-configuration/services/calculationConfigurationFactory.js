@@ -9,7 +9,7 @@
         .factory('calculationConfigurationsService', calculationConfigurationsService);
 
     function calculationConfigurationsService($resource) {
-        return $resource('/webapi/calculation-configurations/:id', {id: "@id"}, {
+        return $resource('/webapi-calculation-configurations/:id', {id: "@id"}, {
             'update': {method: 'PUT'}
         })
     }

@@ -13,20 +13,25 @@
 
         $scope.isBusy = false;
         $scope.dataService = dataService;
+        $scope.dataSources=[];
         $scope.availableDataSources = [];
 
         $scope.selectedCalculation = null;   // Az új konfig során kiválasztott calc
         $scope.calculationConfiguration = {}; // Az új konfig
-        $scope.calculationConfigurations = []; // Az összes konfig a táblázatos listában
+        $scope.calculationConfigurations = calculationConfigurationsService.query(); // Az összes konfig a táblázatos listában
         $scope.calculations = getCalculations(); // Kalkuláció típusok
+
+        $scope.new = newModell;
+        $scope.delete = deleteModell;
+        $scope.edit = editModell;
 
         $scope.queryDataSources = function () {
             $scope.isBusy = true;
             dataService.queryDataSources()
                 .then(
                 function () {
-                    $scope.availableDataSources = [];
-                    $scope.calculationConfiguration.selectedDataSources = [];
+
+                    $scope.dataSources=[];
 
                     dataService.dataSources.forEach(
                         function (dataSource) {
@@ -34,10 +39,10 @@
                                 function (database) {
                                     database.tables.forEach(
                                         function (table) {
-                                            $scope.availableDataSources.push({
-                                                dataSource: dataSource,
-                                                database: database,
-                                                table: table
+                                            $scope.dataSources.push({
+                                                dataSourceName: dataSource.name,
+                                                databaseName: database.sql_name,
+                                                tableName: table.sql_name
                                             });
                                         }
                                     );
@@ -57,6 +62,7 @@
                 });
         };
 
+
         dragulaService.options($scope, 'first-bag', {
             revertOnSpill: true
         });
@@ -75,20 +81,16 @@
             $scope.$apply(function () {
                 switch (container.attr('id')) {
                     case 'available-datasources':
-                        $scope.calculationConfiguration.selectedDataSources =
-                            $scope.calculationConfiguration.selectedDataSources.filter(filter);
+                        $scope.calculationConfiguration.selectedTables =
+                            $scope.calculationConfiguration.selectedTables.filter(filter);
                         $scope.availableDataSources.push(el.scope().item);
 
                         break;
                     case 'selected-datasources':
                         $scope.availableDataSources = $scope.availableDataSources.filter(filter);
-                        $scope.calculationConfiguration.selectedDataSources.push(el.scope().item);
+                        $scope.calculationConfiguration.selectedTables.push(el.scope().item);
                         break;
                 }
-                //$scope.calculationConfiguration.selectedDataSources.push = function (){
-                //    debugger;
-                //    return Array.prototype.push.apply(this,arguments);
-                //}
 
                 $scope.conditionConfiguration = getConditionConfig();
             });
@@ -97,8 +99,7 @@
 
         $scope.selectCalculation = function (calculation) {
             $scope.selectedCalculation = calculation;
-            $scope.calculationConfiguration.selectedCalculation = calculation;
-            $.extend(true, $scope.calculationConfiguration, getDefaultCalculationConfiguration($scope.calculationConfiguration.selectedDataSources, calculation));
+            $scope.calculationConfiguration.calculation_id = calculation.id;
 
         };
 
@@ -122,31 +123,79 @@
 
 
             calculationConfigurationsService.save(calculationConfiguration, function () {
-
-                $scope.calculationConfigurations.push($scope.calculationConfiguration);
+                $scope.calculationConfigurations = calculationConfigurationsService.query();
                 $('.modal-conf').modal('hide');
-
-                //$location.path('/data-manager');
             });
 
 
         };
 
+        function editModell(modell) {
+            $scope.calculationConfiguration=modell;
+            $scope.queryDataSources();
+
+            $scope.selectedCalculation=_.find($scope.calculations, function(i){
+                return i.id== modell.calculation_id;
+            });
+
+            $scope.dataSources.forEach(function (item){
+                var ds=_.find($scope.calculationConfiguration.selectedTables, function(i){
+                    return i.tableName== item.tableName;
+                });
+
+                if (!ds) {
+                    $scope.availableDataSources.push(item);
+                }
+
+
+                //$scope.calculationConfiguration.selectedTables = [];
+
+            });
+            $('.modal-conf').modal('show');
+        }
+
+        function newModell() {
+            $scope.calculationConfiguration={};
+            $scope.calculationConfiguration.selectedTables = [];
+
+            $scope.dataSources.forEach(function (item){
+                $scope.availableDataSources.push(item);
+            });
+            $('.modal-conf').modal('show');
+        }
+
+        function deleteModell(modell) {
+
+            swal({
+                title: "Biztosan törli?",
+                text: "Törlés után már nincs lehetőség az adat visszaállítására!",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Igen, törlöm!",
+                closeOnConfirm: true
+            }, function () {
+                calculationConfigurationsService.delete({id: modell.id}, function () {
+                    $scope.calculationConfigurations = calculationConfigurationsService.query();
+                });
+            });
+        }
 
         function getConditionConfig() {
             var config = {
                 properties: []
-            }
+            };
 
-            $scope.calculationConfiguration.selectedDataSources.forEach(function (ds) {
-                ds.table.columns.forEach(function (column) {
-
+            $scope.calculationConfiguration.selectedTables.forEach(function (item) {
+                var columns = dataService.getColumns(item.dataSourceName, item.databaseName, item.tableName);
+                columns.forEach(function (column) {
                     config.properties.push(
                         {
                             id: column.sql_name,
                             name: column.sql_name
                         }
                     );
+
                 });
             });
             return config;
@@ -154,28 +203,6 @@
 
     }
 
-
-    function getDefaultCalculationConfiguration(selectedDataSources, calculation) {
-        var config = {};
-        config.numberOfColumns = getNumberOfColumns(selectedDataSources);
-
-        config.columns = [];
-        for (var i = 0; i < config.numberOfColumns; i++) config.columns.push({});
-
-        return config;
-    }
-
-    function getNumberOfColumns(selectedDataSources) {
-        var max = 0;
-        selectedDataSources.forEach(
-            function (item) {
-                var columnsCount = item.table.columns.length;
-                if (max < columnsCount) max = columnsCount;
-            }
-        );
-
-        return max;
-    }
 
     function getCalculations() {
         return [

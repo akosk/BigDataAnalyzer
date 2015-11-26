@@ -5,13 +5,17 @@ import hu.innocenter.bigdata.analyzer.KMeansClusterCalculator;
 import hu.innocenter.bigdata.analyzer.LinearRegressionCalculator;
 import hu.innocenter.bigdata.analyzer.LogisticRegressionCalculator;
 import hu.innocenter.bigdata.analyzer.Result;
+import hu.innocenter.bigdata.model.CalculationConfiguration;
+import hu.innocenter.bigdata.service.CementesKozetModellService;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import java.util.Date;
 import java.util.HashMap;
 
 
@@ -24,6 +28,7 @@ import java.util.HashMap;
 public class SiteController {
 
     Logger log = Logger.getLogger(SiteController.class);
+
 
 
     @RequestMapping("/index")
@@ -117,5 +122,31 @@ public class SiteController {
         model.addAttribute("layout", ApplicationConfig.layout);
         return "data-manager-cement";
     }
+
+    @RequestMapping("/data-manager-fluidum")
+    public String dataManagerFluidum(Model model) {
+        model.addAttribute("layout", ApplicationConfig.layout);
+        return "data-manager-fluidum";
+    }
+
+    @RequestMapping("/data-manager-meresi-korulmeny")
+    public String dataManagerMeresiKorulmeny(Model model) {
+        model.addAttribute("layout", ApplicationConfig.layout);
+        return "data-manager-meresi-korulmeny";
+    }
+
+
+    @RequestMapping("/data-manager-meresi-eredmeny-lezer")
+    public String dataManagerMeresiEredmenyLezer(Model model) {
+        model.addAttribute("layout", ApplicationConfig.layout);
+        return "data-manager-meresi-eredmeny-lezer";
+    }
+    @RequestMapping("/data-manager-meresi-eredmeny-cement")
+    public String dataManagerMeresiEredmenyCement(Model model) {
+        model.addAttribute("layout", ApplicationConfig.layout);
+        return "data-manager-meresi-eredmeny-cement";
+    }
+
+
 
 }

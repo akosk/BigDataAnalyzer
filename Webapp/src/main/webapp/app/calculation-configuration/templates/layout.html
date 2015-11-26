@@ -1,5 +1,6 @@
 <h1>
-<span data-toggle="modal" data-target=".modal-conf"
+<span
+      ng-click="new()"
       class="btn btn-primary">
     <i class="fa fa-plus"></i> Új számítási konfiguráció
 </span>
@@ -22,6 +23,7 @@
             <tr>
                 <th rowspan="2">Név</th>
                 <th rowspan="2">Létrehozás ideje</th>
+                <th rowspan="2">Módosítás ideje</th>
                 <th colspan="2" class="text-center">Feladatok</th>
                 <th rowspan="2">&nbsp;</th>
             </tr>
@@ -34,15 +36,18 @@
             </thead>
             <tbody>
             <tr ng-repeat="c in calculationConfigurations">
-                <td style="width:50%">{{c.name}}</td>
-                <td style="width:20%">{{c.create_time}}</td>
+                <td style="width:40%">{{c.name}}</td>
+                <td style="width:15%">{{c.created}}</td>
+                <td style="width:15%">{{c.updated}}</td>
                 <td style="width:10%">{{c.job_done}}</td>
                 <td style="width:10%">{{c.job_in_progress}}</td>
                 <td style="width:10%">
                     <a ng-hide="c.job_done>0 || c.job_in_progress>0" href="#" title="Szerkesztés"
                        aria-label="Szerkesztés"
+                       ng-click="edit(c)"
                        data-pjax="0"><span class="glyphicon glyphicon-pencil"></span></a>
-                    <a ng-hide="c.job_done>0 || c.job_in_progress>0" href="#" title="Törlés" aria-label="Törlés"
+                    <a ng-hide="c.job_done>0 || c.job_in_progress>0" href="" title="Törlés" aria-label="Törlés"
+                       ng-click="delete(c)"
                        data-confirm="Biztos benne, hogy törli ezt az elemet?" data-method="post" data-pjax="0"><span
                             class="glyphicon glyphicon-trash"></span></a>
                     <a href="#" title="Klónozás" aria-label="Klónozás"

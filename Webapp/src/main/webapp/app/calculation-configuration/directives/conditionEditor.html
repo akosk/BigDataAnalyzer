@@ -65,32 +65,32 @@
             <div class="panel-heading">Szűrő</div>
             <div class="panel-body">
                 <h2>
-                    <div ng-repeat="c in conditions">
+                    <div ng-repeat="c in columnConditions">
 
                         <!-- ÉS feltétel-->
-                        <div ng-if="c.property!==undefined"
+                        <div ng-if="c.property"
                              class="label label-info">{{c.property}} {{c.operator}} {{c.value}}
                             <span class="remove" aria-hidden="true" ng-click="removeLvl1(c)">×</span>
                         </div>
 
-                        <div ng-if="$index<conditions.length-1 && c.property!==undefined"
+                        <div ng-if="$index<columnConditions.length-1 && c.property"
                              class="label label-info">ÉS
                         </div>
 
                         <!-- VAGY feltétel-->
-                        <div ng-if="c.conditions!==undefined" class="label label-primary open-parenthesis">(</div>
-                        <div ng-if="c.conditions!==undefined"
-                             ng-repeat="cs in c.conditions">
+                        <div ng-if="c.columnConditions!==undefined && c.columnConditions.length>0" class="label label-primary open-parenthesis">(</div>
+                        <div ng-if="c.columnConditions!==undefined && c.columnConditions.length>0"
+                             ng-repeat="cs in c.columnConditions">
                             <div class="label label-primary">{{cs.property}} {{cs.operator}} {{cs.value}}
                                 <span class="remove" aria-hidden="true" ng-click="removeLvl2(c,cs)">×</span>
                             </div>
-                            <div ng-if="$index<c.conditions.length-1"
+                            <div ng-if="$index<c.columnConditions.length-1"
                                  class="label label-primary">VAGY
                             </div>
 
                         </div>
-                        <div ng-if="c.conditions!==undefined" class="label label-primary close-parenthesis">)</div>
-                        <div ng-if="$index<condition.conditions.length-1 && c.conditions!==undefined"
+                        <div ng-if="c.columnConditions!==undefined && c.columnConditions.length>0" class="label label-primary close-parenthesis">)</div>
+                        <div ng-if="$index<condition.columnConditions.length-1 && c.columnConditions!==undefined"
                              class="label label-info">ÉS
                         </div>
 

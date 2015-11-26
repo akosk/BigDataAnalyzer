@@ -45,11 +45,37 @@
             return deferred.promise;
         };
 
+        var _getColumns = function (dataSourceName, dataBaseName, tableName) {
+            var columns=[];
+            _dataSources.forEach(
+                function (dataSource) {
+                    if (dataSource.name == dataSourceName) {
+                        dataSource.databases.forEach(
+                            function (database) {
+                                if (database.sql_name == dataBaseName) {
+                                    database.tables.forEach(
+                                        function (table) {
+                                            if (table.sql_name==tableName) {
+                                                columns=table.columns;
+                                            }
+                                        }
+                                    );
+                                }
+                            }
+                        );
+                    }
+                }
+            );
+            return columns;
+
+        };
+
 
         return {
             queryDataSources: _queryDataSources,
             dataSources: _dataSources,
-            saveConfiguration: _saveConfiguration
+            saveConfiguration: _saveConfiguration,
+            getColumns: _getColumns
         };
     }
 

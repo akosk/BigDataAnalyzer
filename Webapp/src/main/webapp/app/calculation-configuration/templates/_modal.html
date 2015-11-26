@@ -16,31 +16,31 @@
                             <tab>
                                 <tab-heading>
                                     Adatforrások kiválasztása
-                                    <span ng-show="calculationConfiguration.selectedDataSources.length>0" class='badge'>{{calculationConfiguration.selectedDataSources.length}}</span>
+                                    <span ng-show="calculationConfiguration.selectedTables.length>0" class='badge'>{{calculationConfiguration.selectedTables.length}}</span>
                                 </tab-heading>
                                 <div ng-include="'app/calculation-configuration/templates/_datasources.html'"></div>
 
                             </tab>
-                            <tab disable="calculationConfiguration.selectedDataSources.length==0">
+                            <tab disable="calculationConfiguration.selectedTables.length==0">
                                 <tab-heading>
                                     Adatok szűrése
-                                    <span ng-show="conditions.conditions.length>0" class='badge'>{{conditions.conditions.length}}</span>
+                                    <span ng-show="calculationConfiguration.columnConditions.length>0" class='badge'>{{conditions.conditions.length}}</span>
                                 </tab-heading>
                                 <condition-editor config="conditionConfiguration"
-                                                  condition="calculationConfiguration.conditions"></condition-editor>
+                                                  condition="calculationConfiguration.columnConditions"></condition-editor>
                             </tab>
-                            <tab heading="Számítás típusa" disable="calculationConfiguration.selectedDataSources.length==0">
+                            <tab heading="Számítás típusa" disable="calculationConfiguration.selectedTables.length==0">
                                 <div ng-include="'app/calculation-configuration/templates/_select_calculation.html'"></div>
                             </tab>
                             <tab heading="Adatmezők kiválasztása"
-                                 disable="calculationConfiguration.selectedDataSources.length==0 || selectedCalculation==null">
+                                 disable="calculationConfiguration.selectedTables.length==0 || selectedCalculation==null">
 
                                 <div ng-include="'app/calculation-configuration/templates/_calculation_config.html'"></div>
 
                             </tab>
                         </tabset>
 
-
+                        {{calculationConfiguration | json}}
                     </div>
 
 
@@ -53,3 +53,5 @@
         </div>
     </div>
 </div>
+
+

@@ -14,10 +14,54 @@
         var _config = {
             lezeresKozetModell: getLezeresKozetModellConfig(),
             cementesKozetModell: getCementesKozetModellConfig(),
+            fluidum: getFluidumConfig(),
+            meresiKorulmeny: getMeresiKorulmenyConfig(),
+            meresiEredmenyLezer: getMeresiEredmenyLezerConfig(),
+            meresiEredmenyCement: getMeresiEredmenyCementConfig()
         };
 
 
         return _config[MODEL];
+    }
+
+    function getMeresiKorulmenyConfig() {
+        return {
+            name: "Mérési körülmény",
+            apiName: "meresi-korulmenys",
+            formFieldConfig: getMeresiKorulmenyFormFieldsConfig(),
+            gridConfig: getMeresiKorulmenyGridConfig(),
+            formatter: meresiKorulmenyFormatVerification
+        };
+    }
+
+    function getMeresiEredmenyLezerConfig() {
+        return {
+            name: "Mérési eredmény",
+            apiName: "meresi-eredmeny-lezers",
+            formFieldConfig: getMeresiEredmenyLezerFormFieldsConfig(),
+            gridConfig: getMeresiEredmenyLezerGridConfig(),
+            formatter: meresiEredmenyLezerFormatVerification
+        };
+    }
+
+    function getMeresiEredmenyCementConfig() {
+        return {
+            name: "Mérési eredmény",
+            apiName: "meresi-eredmeny-cements",
+            formFieldConfig: getMeresiEredmenyCementFormFieldsConfig(),
+            gridConfig: getMeresiEredmenyCementGridConfig(),
+            formatter: meresiEredmenyCementFormatVerification
+        };
+    }
+
+    function getFluidumConfig() {
+        return {
+            name: "Fluidum",
+            apiName: "fluidums",
+            formFieldConfig: getFluidumFormFieldsConfig(),
+            gridConfig: getFluidumGridConfig(),
+            formatter: fluidumFormatVerification
+        };
     }
 
     function getLezeresKozetModellConfig() {
@@ -64,6 +108,83 @@
         km.created = moment(km.created).toISOString();
         km.preselesi_ido = moment(km.preselesi_ido, 'HH:mm:ss').format('HH:mm:ss');
         return km;
+    }
+
+    function fluidumFormatVerification(km) {
+        km.updated = moment(km.updated).toISOString();
+        km.created = moment(km.created).toISOString();
+        return km;
+    }
+
+    function meresiKorulmenyFormatVerification(km) {
+        km.datum = moment(km.datum).toISOString();
+        km.updated = moment(km.updated).toISOString();
+        km.created = moment(km.created).toISOString();
+        return km;
+    }
+
+    function meresiEredmenyLezerFormatVerification(km) {
+        km.meres_kezdesi_ideje = moment(km.meres_kezdesi_ideje).toISOString();
+        km.meres_befejezesi_ideje = moment(km.meres_befejezesi_ideje).toISOString();
+        km.updated = moment(km.updated).toISOString();
+        km.created = moment(km.created).toISOString();
+        return km;
+    }
+
+    function meresiEredmenyCementFormatVerification(km) {
+        km.meres_kezdesi_ideje = moment(km.meres_kezdesi_ideje).toISOString();
+        km.meres_befejezesi_ideje = moment(km.meres_befejezesi_ideje).toISOString();
+        km.ultrahang_jelzes_ideje = moment(km.ultrahang_jelzes_ideje).toISOString();
+        km.updated = moment(km.updated).toISOString();
+        km.created = moment(km.created).toISOString();
+        return km;
+    }
+
+    function getMeresiEredmenyLezerGridConfig() {
+        return [
+            {id: "id", name: "Id"},
+            {id: "meres_kod", name: "Mérés kód"},
+            {id: "kozetmodell_kod", name: "Kőzetmodell kód"},
+            {id: "fluidum_kod", name: "Fluidum kód"},
+            {id: "korulmeny_kod", name: "Körülmény kód"},
+            {id: "meres_kezdesi_ideje", name: "Mérés kezdési ideje"},
+            {id: "meres_befejezesi_ideje", name: "Mérés befejezési ideje"},
+            {id: "created", name: "Létrehozás ideje"},
+            {id: "updated", name: "Módosítás ideje"},
+        ];
+    }
+
+    function getMeresiEredmenyCementGridConfig() {
+        return [
+            {id: "id", name: "Id"},
+            {id: "meres_kod", name: "Mérés kód"},
+            {id: "kozetmodell_kod", name: "Kőzetmodell kód"},
+            {id: "fluidum_kod", name: "Fluidum kód"},
+            {id: "korulmeny_kod", name: "Körülmény kód"},
+            {id: "meres_kezdesi_ideje", name: "Mérés kezdési ideje"},
+            {id: "meres_befejezesi_ideje", name: "Mérés befejezési ideje"},
+            {id: "created", name: "Létrehozás ideje"},
+            {id: "updated", name: "Módosítás ideje"},
+        ];
+    }
+
+    function getMeresiKorulmenyGridConfig() {
+        return [
+            {id: "id", name: "Id"},
+            {id: "korulmeny_kod", name: "Körülmény kód"},
+            {id: "datum", name: "Dátum"},
+            {id: "created", name: "Létrehozás ideje"},
+            {id: "updated", name: "Módosítás ideje"},
+        ];
+    }
+
+    function getFluidumGridConfig() {
+        return [
+            {id: "id", name: "Id"},
+            {id: "fluidum_kod", name: "Fluidum kód"},
+            {id: "created", name: "Létrehozás ideje"},
+            {id: "updated", name: "Módosítás ideje"},
+        ];
     }
 
     function getLezeresKozetModellGridConfig() {
@@ -440,6 +561,301 @@
     }
 
 
+    function getFluidumFormFieldsConfig() {
+        var part1 = [
+            {
+                key: 'fluidum_kod',
+                type: 'maskedInput',
+                templateOptions: {
+                    label: 'Fluidum kód',
+                    mask: '@@@@'
+                }
+            }
+        ];
+
+        for (var i = 1; i <= 16; i++) {
+            var postfix = i < 10 ? "0" + i : i;
+            part1.push(
+                {
+                    key: 'fluidum_komponens_' + postfix,
+                    type: 'input',
+                    templateOptions: {
+                        type: 'numeric',
+                        label: 'Fluidum komponens ' + i + '. (%)',
+                        placeholder: 'Adja meg a fluidum komponenst 0 és 100% között...',
+                        min: 0,
+                        max: 100,
+                        //required: true
+                    },
+                    validators: {
+                        inRange: {
+                            expression: '$viewValue>=0 && $viewValue<=100',
+                        }
+                    }
+                }
+            )
+        }
+
+        return part1;
+    }
+
+    function getMeresiKorulmenyFormFieldsConfig() {
+        var part1 = [
+            {
+                key: 'korulmeny_kod',
+                type: 'maskedInput',
+                templateOptions: {
+                    label: 'Körülmény kód',
+                    mask: '@@@@'
+                }
+            },
+            {
+                key: 'datum',
+                type: 'datepicker',
+                templateOptions: {
+                    type: 'text',
+                    label: 'Dátum',
+                    datepickerPopup: "yyyy-MM-dd",
+                    //required: true
+                },
+                validators: {}
+            },
+            {
+                key: 'helyszin_kod',
+                type: 'maskedInput',
+                templateOptions: {
+                    label: 'Helyszín kód',
+                    mask: '@@'
+                }
+            },
+            {
+                key: 'megvilagitas',
+                type: 'radio',
+                wrapper: [],
+                templateOptions: {
+                    wrapper: [],
+                    label: 'Megvilágítás',
+                    //required: true,
+                    "options": [
+                        {
+                            "name": "T",
+                            "value": "T"
+                        },
+                        {
+                            "name": "M",
+                            "value": "M"
+                        }
+                    ]
+                }
+            },
+            {
+                key: 'homerseklet',
+                type: 'input',
+                templateOptions: {
+                    type: 'numeric',
+                    label: 'Hőmérséklet (C)',
+                    min: 0,
+                    max: 120,
+                    placeholder: 'Adja meg a hőmérsékletet 0 és 120 között...',
+                    //required: true
+                },
+                validators: {
+                    inRange: {
+                        expression: '$viewValue>=0 && $viewValue<=120',
+                    }
+                }
+            },
+            {
+                key: 'legkori_nyomas',
+                type: 'input',
+                templateOptions: {
+                    type: 'numeric',
+                    label: 'Légköri nyomás (bar)',
+                    min: 0,
+                    max: 1200,
+                    placeholder: 'Adja meg a légköri nyomást 0 és 1200 között...',
+                    //required: true
+                },
+                validators: {
+                    inRange: {
+                        expression: '$viewValue>=0 && $viewValue<=1200',
+                    }
+                }
+            }
+
+
+
+
+        ];
+
+
+        return part1;
+    }
+
+    function getMeresiEredmenyLezerFormFieldsConfig() {
+        var part1 = [
+            {
+                key: 'meres_kod',
+                type: 'maskedInput',
+                templateOptions: {
+                    label: 'Körülmény kód',
+                    mask: '@@@@99999999'
+                }
+            },
+            {
+                key: 'kozetmodell_kod',
+                type: 'maskedInput',
+                templateOptions: {
+                    label: 'Kőzetmodell kód',
+                    mask: '@99@99@@99'
+                }
+            },
+            {
+                key: 'fluidum_kod',
+                type: 'maskedInput',
+                templateOptions: {
+                    label: 'Fluidum kód',
+                    mask: '@@@@'
+                }
+            },
+            {
+                key: 'korulmeny_kod',
+                type: 'maskedInput',
+                templateOptions: {
+                    label: 'Körülmény kód',
+                    mask: '@@@@'
+                }
+            },
+            {
+                key: 'meres_kezdesi_ideje',
+                type: 'datepicker',
+                templateOptions: {
+                    type: 'text',
+                    label: 'Mérés kezdési ideje',
+                    datepickerPopup: "yyyy-MM-dd",
+                    //required: true
+                },
+                validators: {}
+            },
+            {
+                key: 'meres_befejezesi_ideje',
+                type: 'datepicker',
+                templateOptions: {
+                    type: 'text',
+                    label: 'Mérés befejezési ideje',
+                    datepickerPopup: "yyyy-MM-dd",
+                    //required: true
+                },
+                validators: {}
+            },
+            {
+                key: 'merest_vegzok_nevei',
+                type: 'input',
+                templateOptions: {
+                    type: 'text',
+                    label: 'Mérést végzők nevei',
+                    placeholder: 'Adja meg a mérést végzők neveit...',
+                    //required: true
+                },
+                validators: {}
+            },
+
+            {
+                key: 'porozitas',
+                type: 'input',
+                templateOptions: {
+                    type: 'numeric',
+                    label: 'Porozitas (%)',
+                    min: 0,
+                    max: 10,
+                    placeholder: 'Adja meg a porozitast 0 és 10 között...',
+                    //required: true
+                },
+                validators: {
+                    inRange: {
+                        expression: '$viewValue>=0 && $viewValue<=10',
+                    }
+                }
+            },
+            {
+                key: 'permeabilitas',
+                type: 'input',
+                templateOptions: {
+                    type: 'numeric',
+                    label: 'Permeabilitás mD',
+                    min: 0,
+                    max: 80,
+                    placeholder: 'Adja meg a permeabilitást 0 és 80 között...',
+                    //required: true
+                },
+                validators: {
+                    inRange: {
+                        expression: '$viewValue>=0 && $viewValue<=80',
+                    }
+                }
+            },
+            {
+                key: 'hovezetokepesseg',
+                type: 'input',
+                templateOptions: {
+                    type: 'numeric',
+                    label: 'Hővezetőképesség W/(mK)',
+                    min: 0,
+                    max: 80,
+                    placeholder: 'Adja meg a hővezetőképességet 0 és 200 között...',
+                    //required: true
+                },
+                validators: {
+                    inRange: {
+                        expression: '$viewValue>=0 && $viewValue<=200',
+                    }
+                }
+            },
+            {
+                key: 'viszkozitas',
+                type: 'input',
+                templateOptions: {
+                    type: 'numeric',
+                    label: 'Viszkozitás Pa s',
+                    min: 0,
+                    max: 80,
+                    placeholder: 'Adja meg a viszkozitás 0 és 400 között...',
+                    //required: true
+                },
+                validators: {
+                    inRange: {
+                        expression: '$viewValue>=0 && $viewValue<=400',
+                    }
+                }
+            },
+            {
+                key: 'suruseg',
+                type: 'input',
+                templateOptions: {
+                    type: 'numeric',
+                    label: 'Sűrűség kg/m3',
+                    min: 0,
+                    max: 80,
+                    placeholder: 'Adja meg a sűrűséget 0.8 és 4 között...',
+                    //required: true
+                },
+                validators: {
+                    inRange: {
+                        expression: '$viewValue>=0.8 && $viewValue<=4',
+                    }
+                }
+            }
+
+
+
+
+        ];
+
+
+        return part1;
+    }
+
+
     function getLezeresKozetModellFormFieldsConfig() {
         var part1 = [
             {
@@ -775,6 +1191,245 @@
 
         ];
         return part1.concat(part2);
+    }
+
+
+    function getMeresiEredmenyCementFormFieldsConfig() {
+        var part1 = [
+            {
+                key: 'meres_kod',
+                type: 'maskedInput',
+                templateOptions: {
+                    label: 'Körülmény kód',
+                    mask: '9999999999999999'
+                }
+            },
+            {
+                key: 'kozetmodell_kod',
+                type: 'maskedInput',
+                templateOptions: {
+                    label: 'Kőzetmodell kód',
+                    mask: '@99@99@@99'
+                }
+            },
+            {
+                key: 'fluidum_kod',
+                type: 'maskedInput',
+                templateOptions: {
+                    label: 'Fluidum kód',
+                    mask: '@@@@'
+                }
+            },
+            {
+                key: 'korulmeny_kod',
+                type: 'maskedInput',
+                templateOptions: {
+                    label: 'Körülmény kód',
+                    mask: '@@@@'
+                }
+            },
+            {
+                key: 'meres_kezdesi_ideje',
+                type: 'datepicker',
+                templateOptions: {
+                    type: 'text',
+                    label: 'Mérés kezdési ideje',
+                    datepickerPopup: "yyyy-MM-dd",
+                    //required: true
+                },
+                validators: {}
+            },
+            {
+                key: 'meres_befejezesi_ideje',
+                type: 'datepicker',
+                templateOptions: {
+                    type: 'text',
+                    label: 'Mérés befejezési ideje',
+                    datepickerPopup: "yyyy-MM-dd",
+                    //required: true
+                },
+                validators: {}
+            },
+            {
+                key: 'merest_vegzok_nevei',
+                type: 'input',
+                templateOptions: {
+                    type: 'text',
+                    label: 'Mérést végzők nevei',
+                    placeholder: 'Adja meg a mérést végzők neveit...',
+                    //required: true
+                },
+                validators: {}
+            },
+            {
+                key: 'cso_hovezetokepessege',
+                type: 'input',
+                templateOptions: {
+                    type: 'numeric',
+                    label: 'Cső hővezetőképessége W(mk)',
+                    placeholder: 'Adja meg a cső hővezetőképességét...',
+                    //required: true
+                }
+            },
+            {
+                key: 'cementpalast_hovezetokepessege',
+                type: 'input',
+                templateOptions: {
+                    type: 'numeric',
+                    label: 'Cementpalást hővezetőképessége W(mk)',
+                    placeholder: 'Adja meg a cementpalást hővezetőképességét...',
+                    //required: true
+                }
+            },
+            {
+                key: 'kozet_hovezetokepessege',
+                type: 'input',
+                templateOptions: {
+                    type: 'numeric',
+                    label: 'Kőzet hővezetőképessége W(mk)',
+                    placeholder: 'Adja meg a kőzet hővezetőképességét...',
+                    //required: true
+                }
+            },
+            {
+                key: 'csofluidum_hovezetokepessege',
+                type: 'input',
+                templateOptions: {
+                    type: 'numeric',
+                    label: 'Csőfluidum hővezetőképessége W(mk)',
+                    placeholder: 'Adja meg a csőfluidum hővezetőképességét...',
+                    //required: true
+                }
+            },
+            {
+                key: 'kozetfluidum_hovezetokepessege',
+                type: 'input',
+                templateOptions: {
+                    type: 'numeric',
+                    label: 'Kőzetfluidum hővezetőképessége W(mk)',
+                    placeholder: 'Adja meg a kőzetfluidum hővezetőképességét...',
+                    //required: true
+                }
+            },
+            {
+                key: 'csofluidum_sebessege',
+                type: 'input',
+                templateOptions: {
+                    type: 'numeric',
+                    label: 'Csőfluidum sebessége m/S',
+                    placeholder: 'Adja meg a csőfluidum sebességét...',
+                    //required: true
+                }
+            },
+            {
+                key: 'kozetfluidum_sebessege',
+                type: 'input',
+                templateOptions: {
+                    type: 'numeric',
+                    label: 'Kőzetfluidum sebessége m/S',
+                    placeholder: 'Adja meg a kőzetfluidum sebességét...',
+                    //required: true
+                }
+            },
+            {
+                key: 'csofluidum_belepo_homerseklete',
+                type: 'input',
+                templateOptions: {
+                    type: 'numeric',
+                    label: 'Csőfluidum belépő hőmérséklete C',
+                    placeholder: 'Adja meg a csőfluidum belépő hőmérsékletét...',
+                    //required: true
+                }
+            },
+            {
+                key: 'csofluidum_kilepo_homerseklete',
+                type: 'input',
+                templateOptions: {
+                    type: 'numeric',
+                    label: 'Csőfluidum kilépő hőmérséklete C',
+                    placeholder: 'Adja meg a csőfluidum kilépő hőmérsékletét...',
+                    //required: true
+                }
+            },
+            {
+                key: 'csofluidum_belepo_nyomasa',
+                type: 'input',
+                templateOptions: {
+                    type: 'numeric',
+                    label: 'Csőfluidum belépő nyomása bar',
+                    placeholder: 'Adja meg a csőfluidum belépő nyomását...',
+                    //required: true
+                }
+            },
+            {
+                key: 'csofluidum_kilepo_nyomasa',
+                type: 'input',
+                templateOptions: {
+                    type: 'numeric',
+                    label: 'Csőfluidum kilépő nyomása bar',
+                    placeholder: 'Adja meg a csőfluidum kilépő nyomását...',
+                    //required: true
+                }
+            },
+            {
+                key: 'kozetfluidum_belepo_homerseklete',
+                type: 'input',
+                templateOptions: {
+                    type: 'numeric',
+                    label: 'Kőzetfluidum belépő hőmérséklete C',
+                    placeholder: 'Adja meg a kőzetfluidum belépő hőmérsékletét...',
+                    //required: true
+                }
+            },
+            {
+                key: 'kozetfluidum_kilepo_homerseklete',
+                type: 'input',
+                templateOptions: {
+                    type: 'numeric',
+                    label: 'Kőzetfluidum kilépő hőmérséklete C',
+                    placeholder: 'Adja meg a kőzetfluidum kilépő hőmérsékletét...',
+                    //required: true
+                }
+            },
+            {
+                key: 'kozetfluidum_belepo_nyomasa',
+                type: 'input',
+                templateOptions: {
+                    type: 'numeric',
+                    label: 'Kőzetfluidum belépő nyomása bar',
+                    placeholder: 'Adja meg a kőzetfluidum belépő nyomását...',
+                    //required: true
+                }
+            },
+            {
+                key: 'kozetfluidum_kilepo_nyomasa',
+                type: 'input',
+                templateOptions: {
+                    type: 'numeric',
+                    label: 'Kőzetfluidum kilépő nyomása bar',
+                    placeholder: 'Adja meg a kőzetfluidum kilépő nyomását...',
+                    //required: true
+                }
+            },
+            {
+                key: 'ultrahang_jelzes_ideje',
+                type: 'datepicker',
+                templateOptions: {
+                    type: 'text',
+                    label: 'Ultrahang jelzés ideje',
+                    datepickerPopup: "yyyy-MM-dd",
+                    //required: true
+                },
+                validators: {}
+            }
+
+
+
+
+        ];
+
+
+        return part1;
     }
 })
 ();
