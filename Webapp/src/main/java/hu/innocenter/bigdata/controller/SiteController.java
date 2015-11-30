@@ -147,6 +147,11 @@ public class SiteController {
         return "data-manager-meresi-eredmeny-cement";
     }
 
+    @RequestMapping("/data-manager-job")
+    public String dataManagerJob(Model model) {
+        model.addAttribute("layout", ApplicationConfig.layout);
+        return "data-manager-job";
+    }
 
 
 }

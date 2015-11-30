@@ -6,13 +6,13 @@
 
         <table class="table ">
             <tr>
-                <th ng-repeat="head in gridConfig">{{head.name}}</th>
-                <th style="min-width: 50px"></th>
+                <th ng-repeat="head in gridConfig.dataColumns">{{head.name}}</th>
+                <th ng-if="gridConfig.actions===undefined || (gridConfig.actions && gridConfig.actions.length>0)" style="min-width: 50px"></th>
             </tr>
             <tr ng-repeat="item in modells">
-                <td ng-repeat="col in gridConfig">{{item[col.id]}}</td>
+                <td ng-repeat="col in gridConfig.dataColumns">{{item[col.id]}}</td>
 
-                <td>
+                <td ng-if="gridConfig.actions===undefined">
                     <a ng-href="#/data-manager/{{item.id}}/edit"><i class="fa fa-pencil"></i> </a>
                     <a href="" ng-click="delete(item)"><i class="fa fa-trash"></i> </a>
                 </td>

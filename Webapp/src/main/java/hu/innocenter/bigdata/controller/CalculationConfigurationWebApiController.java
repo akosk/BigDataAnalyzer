@@ -87,4 +87,22 @@ public class CalculationConfigurationWebApiController {
 
         return calculationConfiguration;
     }
+
+    @RequestMapping(value = "/webapi-calculation-configurations-list", method = RequestMethod.GET, produces = "application/json")
+    public String list(Model model) {
+
+
+        StringBuilder sb=new StringBuilder();
+        List<CalculationConfiguration> allCalculationConfigurations = calculationConfigurationService.findAllCalculationConfigurations();
+
+        for (CalculationConfiguration item : allCalculationConfigurations) {
+            if (sb.length()!=0) sb.append(", ");
+            sb.append("{\"name\":\""+item.getName()+"\", \"value\":\""+item.getId()+"\"}");
+
+        }
+        String res = "[" + sb.toString() + "]";
+        return res;
+
+    }
+
 }
