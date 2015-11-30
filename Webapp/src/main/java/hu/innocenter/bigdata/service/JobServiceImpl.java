@@ -53,4 +53,9 @@ public class JobServiceImpl implements JobService {
         return dao.findAllJobs();
     }
 
+    @Override
+    public List<Job> findWaitingJobs() {
+        return dao.findWaitingJobs();
+    }
+
 }

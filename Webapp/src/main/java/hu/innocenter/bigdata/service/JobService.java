@@ -20,4 +20,6 @@ public interface JobService {
 
     List<Job> findAllJobs();
 
+    List<Job> findWaitingJobs();
+
 }

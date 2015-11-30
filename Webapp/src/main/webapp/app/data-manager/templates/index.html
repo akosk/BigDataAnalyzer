@@ -17,8 +17,35 @@
                     <a href="" ng-click="delete(item)"><i class="fa fa-trash"></i> </a>
                 </td>
 
+                <td ng-if="gridConfig.actions && gridConfig.actions.length>0">
+                    <span ng-repeat="action in gridConfig.actions">
+                        <a href="" title="{{action.name}}" ng-click="action.click(item)">
+                            <i ng-class="action.icon"></i>
+                        </a>
+                    </span>
+                </td>
+
             </tr>
         </table>
 
     </div>
 </div>
+
+<div class="modal fade modal-grid" tabindex="-1" role="dialog" aria-labelledby="modallabel-grid">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="modallabel-grid"></h4>
+            </div>
+
+            <div class="panel-body">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

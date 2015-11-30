@@ -17,4 +17,6 @@ public interface JobDao {
 
     List<Job> findAllJobs();
 
+    List<Job> findWaitingJobs();
+
 }

@@ -183,7 +183,16 @@
                     {id: "status", name: "Státusz"},
                     {id: "created", name: "Létrehozás ideje"},
                 ],
-                actions: []
+                actions: [
+                    {
+                        name: "Megtekintés",
+                        icon: "fa fa-eye",
+                        click: function (item) {
+                            $('.modal-grid .panel-body').html(item.spark_output);
+                            $('.modal-grid').modal("show");
+                        }
+                    }
+                ]
             };
         }
 

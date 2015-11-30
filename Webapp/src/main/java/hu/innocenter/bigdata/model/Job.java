@@ -3,6 +3,8 @@ package hu.innocenter.bigdata.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import hu.innocenter.bigdata.helpers.JsonDateTimeSerializer;
+import org.hibernate.annotations.Type;
+import javax.persistence.Column;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -38,6 +40,8 @@ public class Job implements Serializable {
 
     private STATUS status;
 
+    @Type(type="text")
+    @Column(name = "spark_output", length = 65535)
     private String spark_output;
 
     private Date created;
@@ -60,6 +64,7 @@ public class Job implements Serializable {
         this.calculationConfiguration = calculationConfiguration;
     }
 
+    @JsonSerialize(using = JsonDateTimeSerializer.class)
     public Date getJob_start() {
         return job_start;
     }
@@ -68,6 +73,7 @@ public class Job implements Serializable {
         this.job_start = job_start;
     }
 
+    @JsonSerialize(using = JsonDateTimeSerializer.class)
     public Date getJob_end() {
         return job_end;
     }
