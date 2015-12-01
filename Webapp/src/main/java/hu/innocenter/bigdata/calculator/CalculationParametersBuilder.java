@@ -1,13 +1,15 @@
 package hu.innocenter.bigdata.calculator;
 
+import com.google.common.collect.ImmutableMap;
+import hu.innocenter.bigdata.ApplicationConfig;
 import hu.innocenter.bigdata.model.CalculationConfiguration;
 import hu.innocenter.bigdata.model.ColumnConfig;
+import hu.innocenter.bigdata.model.SelectedTable;
+import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang.StringUtils;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.StringTokenizer;
+import java.lang.reflect.InvocationTargetException;
+import java.util.*;
 
 /**
  * Created by Ákos Kiszely on 2015.11.30..
@@ -17,26 +19,63 @@ public class CalculationParametersBuilder {
 
     private CalculationConfiguration config;
 
+    Map<String, String> keyNames = ImmutableMap.of(
+            "fluidum", "fluidum_kod",
+            "cementes_kozetmodell", "kozetmodell_kod",
+            "lezeres_kozetmodell", "kozetmodell_kod",
+            "meresi_korulmeny", "korulmeny_kod"
+    );
+
+    Map<String, List<String>> groupOrders = ImmutableMap.of(
+            "linear-regression", Arrays.asList("x", "y")
+    );
+
+    Map<String, List<String>> propertyConfig = ImmutableMap.of(
+            "linear-regression", Arrays.asList("principal", "princpal_components", "normalization")
+    );
+
     public CalculationParametersBuilder(CalculationConfiguration config) {
         this.config = config;
     }
 
     public String getSqlQuery() {
-        String q = "";
+        String fields = getFields();
+        String tableName = config.getSelectedTables().size() > 1 ? getDefaultFromTableName() : config.getSelectedTables().get(0).getTableName();
+        String joinedTables = getJoinedTables(tableName);
 
+        return "SELECT " + fields + " FROM " + tableName + " " + joinedTables + " WHERE 1=1 ";
+    }
+
+    private String getFields() {
         HashMap<String, List<ColumnConfig>> groups = slice();
-
-        StringUtils j = new StringUtils();
         ArrayList<String> columns = new ArrayList<>();
-        for (ColumnConfig columnConfig : groups.get("X")) {
-            columns.add(columnConfig.getTableName() + "." + columnConfig.getColumnName());
+
+        for (String s : groupOrders.get(config.getCalculation_id())) {
+            for (ColumnConfig columnConfig : groups.get(s)) {
+                columns.add(columnConfig.getColumnName());
+            }
         }
+        return StringUtils.join(columns, ",");
+    }
 
-        String fields = j.join(columns, ",");
+    private String getJoinedTables(String tableName) {
+        if (tableName != getDefaultFromTableName()) return "";
 
+        String joinedTables = "";
 
-        q = "SELECT "+fields+" FROM payment WHERE 1=1 ";
-        return q;
+        for (SelectedTable table : config.getSelectedTables()) {
+            String fieldName = keyNames.get(table.getTableName());
+            if (fieldName != null) {
+                joinedTables += " INNER JOIN " + table.getTableName() + "" +
+                        " ON " + tableName + '.' + fieldName + "=" + table.getTableName() + "." + fieldName;
+            }
+
+        }
+        return joinedTables;
+    }
+
+    private String getDefaultFromTableName() {
+        return ApplicationConfig.mode == ApplicationConfig.MODE.CEMENT ? "meresi_eredmeny_cement" : "meresi_eredmeny_lezer";
     }
 
     private HashMap<String, List<ColumnConfig>> slice() {
@@ -55,6 +94,19 @@ public class CalculationParametersBuilder {
 
     public HashMap<String, Object> getParams() {
         HashMap<String, Object> params = new HashMap<String, Object>();
+
+        List<String> properties = propertyConfig.get(config.getCalculation_id());
+        if (properties == null) return params;
+
+
+        for (String prop : properties) {
+            try {
+                Object value = BeanUtils.getProperty(config, prop);
+                params.put(prop, value);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
         return params;
     }
 }

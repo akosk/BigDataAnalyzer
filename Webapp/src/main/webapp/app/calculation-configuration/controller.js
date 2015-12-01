@@ -191,8 +191,8 @@
                 columns.forEach(function (column) {
                     config.properties.push(
                         {
-                            id: column.sql_name,
-                            name: column.sql_name
+                            id: item.tableName+'.'+column.sql_name,
+                            name: item.tableName+'.'+column.sql_name
                         }
                     );
 
