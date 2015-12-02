@@ -9,12 +9,18 @@ import hu.innocenter.bigdata.model.CalculationConfiguration;
 import hu.innocenter.bigdata.service.CementesKozetModellService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -111,6 +117,13 @@ public class SiteController {
         return "tasks";
     }
 
+    @RequestMapping("/data-manager-user")
+    public String dataManagerUser(Model model) {
+        model.addAttribute("layout", ApplicationConfig.layout);
+        return "data-manager-user";
+    }
+
+
     @RequestMapping("/data-manager-laser")
     public String dataManagerLaser(Model model) {
         model.addAttribute("layout", ApplicationConfig.layout);
@@ -153,5 +166,35 @@ public class SiteController {
         return "data-manager-job";
     }
 
+    // Login form
+    @RequestMapping(value="/login", method = RequestMethod.GET)
+    public String login(Model model) {
+        model.addAttribute("layout", "layout-login");
+        String title = ApplicationConfig.mode== ApplicationConfig.MODE.CEMENT?
+                "<strong> Kőzet, cementpalást, acélcső</strong> kőzetmodelleken végzett\n" +
+                        " laboratóriumi kísérleti eredmények adatbázisainak feldolgozása"
+                :
+                "<strong>Kőzet, függőleges furatú, vízszintes lézeres befúrású </strong>kőzetmodelleken végzett\n" +
+                        " laboratóriumi kísérleti eredmények adatbázisainak feldolgozása";
+        model.addAttribute("title", title);
+        return "login";
+    }
+
+    // Login form with error
+    @RequestMapping("/login-error")
+    public String loginError(Model model) {
+        model.addAttribute("layout", ApplicationConfig.layout);
+        model.addAttribute("loginError", true);
+        return "login";
+    }
+
+    @RequestMapping(value="/logout", method = RequestMethod.GET)
+    public String logoutPage (HttpServletRequest request, HttpServletResponse response) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth != null){
+            new SecurityContextLogoutHandler().logout(request, response, auth);
+        }
+        return "redirect:/login?logout";
+    }
 
 }

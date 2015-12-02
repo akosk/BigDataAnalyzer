@@ -18,7 +18,8 @@
             meresiKorulmeny: getMeresiKorulmenyConfig(),
             meresiEredmenyLezer: getMeresiEredmenyLezerConfig(),
             meresiEredmenyCement: getMeresiEredmenyCementConfig(),
-            job: getJobConfig()
+            job: getJobConfig(),
+            user: getUserConfig()
         };
 
 
@@ -32,6 +33,16 @@
                 formFieldConfig: getJobFormFieldsConfig(),
                 gridConfig: getJobGridConfig(),
                 formatter: jobFormatVerification
+            };
+        }
+
+        function getUserConfig() {
+            return {
+                name: "Felhasználó",
+                apiName: "users",
+                formFieldConfig: getUserFormFieldsConfig(),
+                gridConfig: getUserGridConfig(),
+                formatter: userFormatVerification
             };
         }
 
@@ -97,6 +108,12 @@
                 formatter: cementesKozetModellFormatVerification
             };
 
+        }
+
+        function userFormatVerification(km) {
+            km.updated = moment(km.updated).toISOString();
+            km.created = moment(km.created).toISOString();
+            return km;
         }
 
         function jobFormatVerification(km) {
@@ -206,6 +223,19 @@
                     {id: "korulmeny_kod", name: "Körülmény kód"},
                     {id: "meres_kezdesi_ideje", name: "Mérés kezdési ideje"},
                     {id: "meres_befejezesi_ideje", name: "Mérés befejezési ideje"},
+                    {id: "created", name: "Létrehozás ideje"},
+                    {id: "updated", name: "Módosítás ideje"},
+                ]
+            };
+        }
+
+        function getUserGridConfig() {
+            return {
+                dataColumns: [
+                    {id: "id", name: "Id"},
+                    {id: "username", name: "Felhasználónév"},
+                    {id: "password", name: "Jelszó"},
+                    {id: "enabled", name: "Engedélyezve"},
                     {id: "created", name: "Létrehozás ideje"},
                     {id: "updated", name: "Módosítás ideje"},
                 ]
@@ -1505,6 +1535,58 @@
 
                     }
                 }
+            ];
+
+
+            return part1;
+        }
+
+        function getUserFormFieldsConfig() {
+
+
+            var part1 = [
+
+                {
+                    key: 'username',
+                    type: 'input',
+                    templateOptions: {
+                        type: 'text',
+                        label: 'Felhasználó neve',
+                        placeholder: 'Adja meg a felhasználó nevét...',
+                        required: true
+                    },
+                    validators: {}
+                },
+                {
+                    key: 'password',
+                    type: 'input',
+                    templateOptions: {
+                        type: 'text',
+                        label: 'Felhasználó jelszava',
+                        placeholder: 'Adja meg a felhasználó jelszavát...',
+                        required: true
+                    },
+                    validators: {}
+                },
+                {
+                    key: 'role_id',
+                    type: 'select',
+                    wrapper: [],
+                    templateOptions: {
+                        wrapper: [],
+                        label: 'Szerepkör',
+                        options: [
+                            {name: "Felhasználó", value: "ROLE_USER"},
+                            {name: "Adminisztrátor", value: "ROLE_ADMIN"}
+                        ]
+                    }
+                },
+                {
+                    key: 'enabled',
+                    type: 'checkbox',
+                    templateOptions: { label: 'Engedélyezve' },
+                }
+
             ];
 
 

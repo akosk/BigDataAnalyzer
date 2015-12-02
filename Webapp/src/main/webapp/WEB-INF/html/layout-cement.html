@@ -2,7 +2,7 @@
 <head>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 
 
     <!-- bower:css -->
@@ -12,7 +12,6 @@
     <link rel="stylesheet" href="/vendor/bower/bootstrap/dist/css/bootstrap.css" />
     <link rel="stylesheet" href="/vendor/bower/angular-dragula/dist/dragula.css" />
     <!-- endbower -->
-
 
 
     <link rel="stylesheet" href="app/calculation-configuration/directives/conditionEditor.css"/>
@@ -31,10 +30,11 @@
             <div class="row">
                 <div class="headerLogo headerGeoTeam col-md-2 col-xs-4">
                     <a href="/">
-                        <img id="geoTeamLogo" src="http://geoteam.innocenter.hu/template/geoteam/image/geoTeamLogo.png"/>
+                        <img id="geoTeamLogo"
+                             src="http://geoteam.innocenter.hu/template/geoteam/image/geoTeamLogo.png"/>
                     </a>
                 </div>
-                <div class="col-md-5 hidden-xs" >
+                <div class="col-md-5 hidden-xs">
                     <p style="font-size: 19px">Kőzet, cementpalást, acélcső kőzetmodelleken végzett
                         laboratóriumi kísérleti eredmények adatbázisainak feldolgozása</p>
 
@@ -74,21 +74,34 @@
 
             <div class="collapse navbar-collapse">
                 <ul class="nav navbar-nav" style="width:100%">
-                    <li th:classappend="${#httpServletRequest.getRequestURI() == '/user-manager.html' ? 'active':''}"><a href="/calculation-config.html#/calculation-configuration"><i class="fa fa-user"></i> Felhasználók</a></li>
-                    <li  th:classappend="${#httpServletRequest.getRequestURI() == '/data-manager-cement.html' ? 'active':''}" class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cloud-upload"></i> Adatfeltöltés <span class="caret"></span></a>
+                    <li th:classappend="${#httpServletRequest.getRequestURI() == '/data-manager-user.html' ? 'active':''}"><a
+                            href="/data-manager-user.html#/data-manager"><i class="fa fa-user"></i>
+                        Felhasználók</a></li>
+                    <li th:classappend="${#httpServletRequest.getRequestURI() == '/data-manager-cement.html' ? 'active':''}"
+                        class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                           aria-expanded="false"><i class="fa fa-cloud-upload"></i> Adatfeltöltés <span
+                                class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="/data-manager-cement.html#/data-manager">Cementes kőzetmodell adatbázis</a></li>
+                            <li><a href="/data-manager-cement.html#/data-manager">Cementes kőzetmodell adatbázis</a>
+                            </li>
                             <li><a href="/data-manager-fluidum.html#/data-manager">Fluidum adatbázis</a></li>
-                            <li><a href="/data-manager-meresi-korulmeny.html#/data-manager">Laboratóriumi mérési körülmények adatbázis</a></li>
-                            <li><a href="/data-manager-meresi-eredmeny-cement.html#/data-manager">Laboratóriumi mérési eredmények adatbázis</a></li>
+                            <li><a href="/data-manager-meresi-korulmeny.html#/data-manager">Laboratóriumi mérési
+                                körülmények adatbázis</a></li>
+                            <li><a href="/data-manager-meresi-eredmeny-cement.html#/data-manager">Laboratóriumi mérési
+                                eredmények adatbázis</a></li>
                         </ul>
                     </li>
 
-                    <li th:classappend="${#httpServletRequest.getRequestURI() == '/calculation-config.html' ? 'active':''}"><a href="/calculation-config.html#/calculation-configuration"><i class="fa fa-cog"></i> Számítási konfigurációk</a></li>
-                    <li th:classappend="${#httpServletRequest.getRequestURI() == '/data-manager-job.html' ? 'active':''}"><a href="/data-manager-job.html#/data-manager"><i class="fa fa-tasks"></i> Elemzések</a></li>
+                    <li th:classappend="${#httpServletRequest.getRequestURI() == '/calculation-config.html' ? 'active':''}">
+                        <a href="/calculation-config.html#/calculation-configuration"><i class="fa fa-cog"></i>
+                            Számítási konfigurációk</a></li>
+                    <li th:classappend="${#httpServletRequest.getRequestURI() == '/data-manager-job.html' ? 'active':''}">
+                        <a href="/data-manager-job.html#/data-manager"><i class="fa fa-tasks"></i> Elemzések</a></li>
 
-                    <li class="pull-right" th:classappend="${#httpServletRequest.getRequestURI() == '/logout.html' ? 'active':''}"><a href="/tasks.html#/tasks"><i class="fa fa-sign-out"></i> Kijelentkezés (admin)</a></li>
+                    <li class="pull-right">
+                        <a href="/logout"><i class="fa fa-sign-out"></i> Kijelentkezés (<span sec:authentication="name"></span>)</a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -118,7 +131,7 @@
 
 <footer class="footer">
     <div class="container">
-        <p class="pull-left">Copyright &copy; 2015 <a href="http://www.innocenter.hu">INNOCENTER Kft.</a> </p>
+        <p class="pull-left">Copyright &copy; 2015 <a href="http://www.innocenter.hu">INNOCENTER Kft.</a></p>
 
         <p class="pull-right">CREATED BY <a href="http://www.enet.hu">eNet Kft.</a></p>
     </div>
@@ -127,7 +140,7 @@
 
 
 <!-- bower:js -->
-<script src="/vendor/bower/jquery/dist/jquery.js"></script>
+<script src="/vendor/bower/jquery/jquery.js"></script>
 <script src="/vendor/bower/angularjs/angular.js"></script>
 <script src="/vendor/bower/bootstrap-sweetalert/lib/sweet-alert.js"></script>
 <script src="/vendor/bower/underscore/underscore.js"></script>
@@ -148,6 +161,7 @@
 <script src="/vendor/bower/ngMask/dist/ngMask.js"></script>
 <script src="/vendor/bower/angular-messages/angular-messages.js"></script>
 <script src="/vendor/bower/angular-resource/angular-resource.js"></script>
+<script src="/vendor/bower/jquery-backstretch/jquery.backstretch.js"></script>
 <!-- endbower -->
 
 <!-- inject:js -->
