@@ -300,7 +300,7 @@
                     type: 'maskedInput',
                     templateOptions: {
                         label: 'Kőzetmodell kód',
-                        mask: '@99@99@@99'
+                        mask: 'w99w-99-ww-99'
                     }
                 },
                 {
@@ -650,7 +650,7 @@
                     type: 'maskedInput',
                     templateOptions: {
                         label: 'Fluidum kód',
-                        mask: '@@@@'
+                        mask: 'wwww'
                     }
                 }
             ];
@@ -688,7 +688,7 @@
                     type: 'maskedInput',
                     templateOptions: {
                         label: 'Körülmény kód',
-                        mask: '@@@@'
+                        mask: 'wwww'
                     }
                 },
                 {
@@ -779,7 +779,7 @@
                     type: 'maskedInput',
                     templateOptions: {
                         label: 'Körülmény kód',
-                        mask: '@@@@99999999'
+                        mask: 'wwww-99.99.99-99'
                     }
                 },
                 {
@@ -787,7 +787,7 @@
                     type: 'maskedInput',
                     templateOptions: {
                         label: 'Kőzetmodell kód',
-                        mask: '@99@99@@99'
+                        mask: 'w99w-99-ww-99'
                     }
                 },
                 {
@@ -795,7 +795,7 @@
                     type: 'maskedInput',
                     templateOptions: {
                         label: 'Fluidum kód',
-                        mask: '@@@@'
+                        mask: 'wwww'
                     }
                 },
                 {
@@ -803,7 +803,7 @@
                     type: 'maskedInput',
                     templateOptions: {
                         label: 'Körülmény kód',
-                        mask: '@@@@'
+                        mask: 'wwww'
                     }
                 },
                 {
@@ -941,7 +941,7 @@
                     type: 'maskedInput',
                     templateOptions: {
                         label: 'Kőzetmodell kód',
-                        mask: '@99@99@@99'
+                        mask: 'w99w-99-ww-99'
                     }
                 },
                 {
@@ -1279,7 +1279,7 @@
                     type: 'maskedInput',
                     templateOptions: {
                         label: 'Körülmény kód',
-                        mask: '9999999999999999'
+                        mask: '99-99-99-99-99.99.99-99'
                     }
                 },
                 {
@@ -1287,7 +1287,7 @@
                     type: 'maskedInput',
                     templateOptions: {
                         label: 'Kőzetmodell kód',
-                        mask: '@99@99@@99'
+                        mask: 'w99w-99-ww-99'
                     }
                 },
                 {
@@ -1295,7 +1295,7 @@
                     type: 'maskedInput',
                     templateOptions: {
                         label: 'Fluidum kód',
-                        mask: '@@@@'
+                        mask: 'wwww'
                     }
                 },
                 {
@@ -1303,7 +1303,7 @@
                     type: 'maskedInput',
                     templateOptions: {
                         label: 'Körülmény kód',
-                        mask: '@@@@'
+                        mask: 'wwww'
                     }
                 },
                 {
