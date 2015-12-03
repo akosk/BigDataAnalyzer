@@ -129,7 +129,9 @@
             km.kulso_kozetkopeny_keszitesi_datum = moment(km.kulso_kozetkopeny_keszitesi_datum).toISOString();
             km.updated = moment(km.updated).toISOString();
             km.created = moment(km.created).toISOString();
-            km.preselesi_ido = moment(km.preselesi_ido, 'HH:mm:ss').format('HH:mm:ss');
+            if (km.preselesi_ido) {
+                km.preselesi_ido = moment(km.preselesi_ido, 'HH:mm:ss').format('HH:mm:ss');
+            }
             return km;
         }
 
@@ -140,7 +142,9 @@
             km.kulso_kozetkopeny_keszitesi_datum = moment(km.kulso_kozetkopeny_keszitesi_datum).toISOString();
             km.updated = moment(km.updated).toISOString();
             km.created = moment(km.created).toISOString();
-            km.preselesi_ido = moment(km.preselesi_ido, 'HH:mm:ss').format('HH:mm:ss');
+            if (km.preselesi_ido) {
+                km.preselesi_ido = moment(km.preselesi_ido, 'HH:mm:ss').format('HH:mm:ss');
+            }
             return km;
         }
 
@@ -457,7 +461,7 @@
                     type: 'maskedInput',
                     templateOptions: {
                         label: 'Préselési idő',
-                        mask: '99:99',
+                        mask: '99:99:99',
                         placeholder: '00:00'
                     }
                 },
@@ -937,7 +941,7 @@
                     type: 'maskedInput',
                     templateOptions: {
                         label: 'Préselési idő',
-                        mask: '99:99',
+                        mask: '99:99:99',
                         placeholder: '00:00'
                     }
                 },
