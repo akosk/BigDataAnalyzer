@@ -171,12 +171,13 @@ public class SiteController {
     public String login(Model model) {
         model.addAttribute("layout", "layout-login");
         String title = ApplicationConfig.mode== ApplicationConfig.MODE.CEMENT?
-                "<strong> Kőzet, cementpalást, acélcső</strong> kőzetmodelleken végzett\n" +
+                "Kőzet, cementpalást, acélcső kőzetmodelleken végzett\n" +
                         " laboratóriumi kísérleti eredmények adatbázisainak feldolgozása"
                 :
-                "<strong>Kőzet, függőleges furatú, vízszintes lézeres befúrású </strong>kőzetmodelleken végzett\n" +
+                "Kőzet, függőleges furatú, vízszintes lézeres befúrású kőzetmodelleken végzett\n" +
                         " laboratóriumi kísérleti eredmények adatbázisainak feldolgozása";
         model.addAttribute("title", title);
+        model.addAttribute("navbarCss", ApplicationConfig.mode== ApplicationConfig.MODE.CEMENT ?"css/navbar.css":"css/navbar2.css");
         return "login";
     }
 

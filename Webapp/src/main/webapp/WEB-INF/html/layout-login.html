@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="app/calculation-configuration/directives/conditionEditor.css"/>
     <link rel="stylesheet" href="css/site.css"/>
     <link rel="stylesheet" href="css/header.css"/>
-    <link rel="stylesheet" href="css/navbar.css"/>
+    <link rel="stylesheet" th:href="${navbarCss}"/>
     <link rel="stylesheet" href="/css/vendor/form-elements.css"/>
     <link rel="stylesheet" href="/css/vendor/style.css"/>
 </head>
@@ -37,8 +37,7 @@
                     </a>
                 </div>
                 <div class="col-md-5 hidden-xs">
-                    <p style="font-size: 19px">Kőzet, cementpalást, acélcső kőzetmodelleken végzett
-                        laboratóriumi kísérleti eredmények adatbázisainak feldolgozása</p>
+                    <p style="font-size: 19px" th:utext="${title}"></p>
 
                 </div>
                 <div class="headerLogo col-md-2 col-xs-4">

@@ -74,7 +74,9 @@
 
             <div class="collapse navbar-collapse">
                 <ul class="nav navbar-nav" style="width:100%">
-                    <li th:classappend="${#httpServletRequest.getRequestURI() == '/user-manager.html' ? 'active':''}"><a href="/calculation-config.html#/calculation-configuration"><i class="fa fa-user"></i> Felhasználók</a></li>
+                    <li th:classappend="${#httpServletRequest.getRequestURI() == '/data-manager-user.html' ? 'active':''}"><a
+                            href="/data-manager-user.html#/data-manager"><i class="fa fa-user"></i>
+                        Felhasználók</a></li>
                     <li  th:classappend="${#httpServletRequest.getRequestURI() == '/data-manager-laser.html' ? 'active':''}" class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cloud-upload"></i> Adatfeltöltés <span class="caret"></span></a>
                         <ul class="dropdown-menu">
@@ -86,9 +88,12 @@
                     </li>
 
                     <li th:classappend="${#httpServletRequest.getRequestURI() == '/calculation-config.html' ? 'active':''}"><a href="/calculation-config.html#/calculation-configuration"><i class="fa fa-cog"></i> Számítási konfigurációk</a></li>
-                    <li th:classappend="${#httpServletRequest.getRequestURI() == '/data-manager-job.html' ? 'active':''}"><a href="/data-manager-job.html#/data-manager"><i class="fa fa-tasks"></i> Elemzések</a></li>
+                    <li th:classappend="${#httpServletRequest.getRequestURI() == '/data-manager-job.html' ? 'active':''}">
+                        <a href="/data-manager-job.html#/data-manager"><i class="fa fa-tasks"></i> Elemzések</a></li>
 
-                    <li class="pull-right" th:classappend="${#httpServletRequest.getRequestURI() == '/logout.html' ? 'active':''}"><a href="/tasks.html#/tasks"><i class="fa fa-sign-out"></i> Kijelentkezés (admin)</a></li>
+                    <li class="pull-right">
+                        <a href="/logout"><i class="fa fa-sign-out"></i> Kijelentkezés (<span sec:authentication="name"></span>)</a>
+                    </li>
                 </ul>
             </div>
         </div>
