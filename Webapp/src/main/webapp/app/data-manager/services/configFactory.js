@@ -303,93 +303,50 @@
                         mask: 'w99w-99-ww-99'
                     }
                 },
+
                 {
                     key: 'kulso_kozetkopeny_atmero',
-                    type: 'input',
+                    type: 'rangeInput',
                     templateOptions: {
-                        type: 'numeric',
                         label: 'Külső kőzetköpeny átmérő (mm)',
                         min: 25,
                         max: 100,
-                        placeholder: 'Adja meg a külső kőzetköpeny átmérőt mm-ben 25 és 100 között...',
-                        //required: true
-                    },
-                    validators: {
-                        inRange: {
-                            expression: '$viewValue>=25 && $viewValue<=100',
-                        }
                     }
                 },
                 {
                     key: 'belso_kozetmag_kulso_atmero',
-                    type: 'input',
+                    type: 'rangeInput',
                     templateOptions: {
-                        type: 'numeric',
                         label: 'Belső kőzetmag külső átmérő (mm)',
                         min: 25,
                         max: 100,
-
-                        placeholder: 'Adja meg a belső kőzetmag külső átmérőt mm-ben 25 és 100 között...',
-                        //required: true
-                    },
-                    validators: {
-                        inRange: {
-                            expression: '$viewValue>=25 && $viewValue<=100',
-                        }
                     }
                 },
                 {
                     key: 'belso_furat_atmero',
-                    type: 'input',
+                    type: 'rangeInput',
                     templateOptions: {
-                        type: 'numeric',
                         label: 'Belső furat átmérő (mm)',
                         min: 0,
                         max: 10,
-
-                        placeholder: 'Adja meg a belső furat átmérőt mm-ben 0 és 10 között...',
-                        //required: true
-                    },
-                    validators: {
-                        inRange: {
-                            expression: '$viewValue>=0 && $viewValue<=10',
-                        }
                     }
                 },
                 {
                     key: 'acelcso_kulso_atmero',
-                    type: 'input',
+                    type: 'rangeInput',
                     templateOptions: {
-                        type: 'numeric',
                         label: 'Acélcső külső átmérő (mm)',
                         min: 0,
                         max: 40,
-
-                        placeholder: 'Adja meg az acélcső külső átmérőt mm-ben 0 és 40 között...',
-                        //required: true
-                    },
-                    validators: {
-                        inRange: {
-                            expression: '$viewValue>=0 && $viewValue<=40',
-                        }
                     }
                 },
                 {
                     key: 'acelcso_belso_atmero',
-                    type: 'input',
+                    type: 'rangeInput',
                     templateOptions: {
-                        type: 'numeric',
                         label: 'Acélcső belső átmérő (mm)',
                         min: 0,
                         max: 40,
-
-                        placeholder: 'Adja meg az acélcső belső átmérőt mm-ben 0 és 40 között...',
-                        //required: true
-                    },
-                    validators: {
-                        inRange: {
-                            expression: '$viewValue>=0 && $viewValue<=40',
-                        }
                     }
                 },
                 {
@@ -402,19 +359,11 @@
                 },
                 {
                     key: 'hossz',
-                    type: 'input',
+                    type: 'rangeInput',
                     templateOptions: {
-                        type: 'numeric',
                         label: 'Hossz (mm)',
                         min: 40,
                         max: 100,
-                        placeholder: 'Adja meg a hosszt mm-ben 40 és 100 között...',
-                        //required: true
-                    },
-                    validators: {
-                        inRange: {
-                            expression: '$viewValue>=40 && $viewValue<=100',
-                        }
                     }
                 },
 
@@ -425,19 +374,11 @@
                 part1.push(
                     {
                         key: 'homok_frakcio_' + i,
-                        type: 'input',
+                        type: 'rangeInput',
                         templateOptions: {
-                            type: 'numeric',
                             label: 'Homok frakció ' + i + '. (%)',
-                            placeholder: 'Adja meg a homok frakciót 0 és 100% között...',
                             min: 0,
                             max: 100,
-                            //required: true
-                        },
-                        validators: {
-                            inRange: {
-                                expression: '$viewValue>=0 && $viewValue<=100',
-                            }
                         }
                     }
                 )
@@ -445,36 +386,20 @@
             var part2 = [
                 {
                     key: 'anyag_frakcio_1',
-                    type: 'input',
+                    type: 'rangeInput',
                     templateOptions: {
-                        type: 'numeric',
                         label: 'Anyag frakció 1. (%)',
-                        placeholder: 'Adja meg az anyag frakciót 0 és 40% között...',
                         min: 0,
                         max: 40,
-                        //required: true
-                    },
-                    validators: {
-                        inRange: {
-                            expression: '$viewValue>=0 && $viewValue<=40',
-                        }
                     }
                 },
                 {
                     key: 'anyag_frakcio_2',
-                    type: 'input',
+                    type: 'rangeInput',
                     templateOptions: {
-                        type: 'numeric',
                         label: 'Anyag frakció 2. (%)',
-                        placeholder: 'Adja meg az anyag frakciót 0 és 40% között...',
                         min: 0,
                         max: 40,
-                        //required: true
-                    },
-                    validators: {
-                        inRange: {
-                            expression: '$viewValue>=0 && $viewValue<=40',
-                        }
                     }
                 }
 
@@ -486,19 +411,11 @@
                 part2.push(
                     {
                         key: 'cement_komponens_' + postfix,
-                        type: 'input',
+                        type: 'rangeInput',
                         templateOptions: {
-                            type: 'numeric',
                             label: 'Cement komponens ' + i + '. (%)',
-                            placeholder: 'Adja meg a cement komponenst 0 és 100% között...',
                             min: 0,
                             max: 100,
-                            //required: true
-                        },
-                        validators: {
-                            inRange: {
-                                expression: '$viewValue>=0 && $viewValue<=100',
-                            }
                         }
                     }
                 )
@@ -518,36 +435,20 @@
                 },
                 {
                     key: 'preselesi_nyomas',
-                    type: 'input',
+                    type: 'rangeInput',
                     templateOptions: {
-                        type: 'numeric',
                         label: 'Préselési nyomás (bar)',
                         min: 0,
                         max: 100,
-                        placeholder: 'Adja meg az préselási nyomást 0 és 100bar között...',
-                        //required: true
-                    },
-                    validators: {
-                        inRange: {
-                            expression: '$viewValue>=0 && $viewValue<=100',
-                        }
                     }
                 },
                 {
                     key: 'preselesi_homerseklet',
-                    type: 'input',
+                    type: 'rangeInput',
                     templateOptions: {
-                        type: 'numeric',
                         label: 'Préselési hőmérséklet (C)',
                         min: 0,
                         max: 80,
-                        placeholder: 'Adja meg az préselási hőmértékletet 0 és 80C között...',
-                        //required: true
-                    },
-                    validators: {
-                        inRange: {
-                            expression: '$viewValue>=0 && $viewValue<=80',
-                        }
                     }
                 },
                 {
@@ -660,19 +561,11 @@
                 part1.push(
                     {
                         key: 'fluidum_komponens_' + postfix,
-                        type: 'input',
+                        type: 'rangeInput',
                         templateOptions: {
-                            type: 'numeric',
                             label: 'Fluidum komponens ' + i + '. (%)',
-                            placeholder: 'Adja meg a fluidum komponenst 0 és 100% között...',
                             min: 0,
                             max: 100,
-                            //required: true
-                        },
-                        validators: {
-                            inRange: {
-                                expression: '$viewValue>=0 && $viewValue<=100',
-                            }
                         }
                     }
                 )
@@ -732,36 +625,20 @@
                 },
                 {
                     key: 'homerseklet',
-                    type: 'input',
+                    type: 'rangeInput',
                     templateOptions: {
-                        type: 'numeric',
                         label: 'Hőmérséklet (C)',
                         min: 0,
                         max: 120,
-                        placeholder: 'Adja meg a hőmérsékletet 0 és 120 között...',
-                        //required: true
-                    },
-                    validators: {
-                        inRange: {
-                            expression: '$viewValue>=0 && $viewValue<=120',
-                        }
                     }
                 },
                 {
                     key: 'legkori_nyomas',
-                    type: 'input',
+                    type: 'rangeInput',
                     templateOptions: {
-                        type: 'numeric',
                         label: 'Légköri nyomás (bar)',
                         min: 0,
                         max: 1200,
-                        placeholder: 'Adja meg a légköri nyomást 0 és 1200 között...',
-                        //required: true
-                    },
-                    validators: {
-                        inRange: {
-                            expression: '$viewValue>=0 && $viewValue<=1200',
-                        }
                     }
                 }
 
@@ -842,87 +719,47 @@
 
                 {
                     key: 'porozitas',
-                    type: 'input',
+                    type: 'rangeInput',
                     templateOptions: {
-                        type: 'numeric',
                         label: 'Porozitas (%)',
                         min: 0,
                         max: 10,
-                        placeholder: 'Adja meg a porozitast 0 és 10 között...',
-                        //required: true
-                    },
-                    validators: {
-                        inRange: {
-                            expression: '$viewValue>=0 && $viewValue<=10',
-                        }
                     }
                 },
                 {
                     key: 'permeabilitas',
-                    type: 'input',
+                    type: 'rangeInput',
                     templateOptions: {
-                        type: 'numeric',
                         label: 'Permeabilitás mD',
                         min: 0,
                         max: 80,
-                        placeholder: 'Adja meg a permeabilitást 0 és 80 között...',
-                        //required: true
-                    },
-                    validators: {
-                        inRange: {
-                            expression: '$viewValue>=0 && $viewValue<=80',
-                        }
                     }
                 },
                 {
                     key: 'hovezetokepesseg',
-                    type: 'input',
+                    type: 'rangeInput',
                     templateOptions: {
-                        type: 'numeric',
                         label: 'Hővezetőképesség W/(mK)',
                         min: 0,
                         max: 80,
-                        placeholder: 'Adja meg a hővezetőképességet 0 és 200 között...',
-                        //required: true
-                    },
-                    validators: {
-                        inRange: {
-                            expression: '$viewValue>=0 && $viewValue<=200',
-                        }
                     }
                 },
                 {
                     key: 'viszkozitas',
-                    type: 'input',
+                    type: 'rangeInput',
                     templateOptions: {
-                        type: 'numeric',
                         label: 'Viszkozitás Pa s',
                         min: 0,
                         max: 80,
-                        placeholder: 'Adja meg a viszkozitás 0 és 400 között...',
-                        //required: true
-                    },
-                    validators: {
-                        inRange: {
-                            expression: '$viewValue>=0 && $viewValue<=400',
-                        }
                     }
                 },
                 {
                     key: 'suruseg',
-                    type: 'input',
+                    type: 'rangeInput',
                     templateOptions: {
-                        type: 'numeric',
                         label: 'Sűrűség kg/m3',
                         min: 0,
                         max: 80,
-                        placeholder: 'Adja meg a sűrűséget 0.8 és 4 között...',
-                        //required: true
-                    },
-                    validators: {
-                        inRange: {
-                            expression: '$viewValue>=0.8 && $viewValue<=4',
-                        }
                     }
                 }
 
@@ -946,108 +783,56 @@
                 },
                 {
                     key: 'kulso_kozetkopeny_atmero',
-                    type: 'input',
+                    type: 'rangeInput',
                     templateOptions: {
-                        type: 'numeric',
                         label: 'Külső kőzetköpeny átmérő (mm)',
                         min: 25,
                         max: 100,
-                        placeholder: 'Adja meg a külső kőzetköpeny átmérőt mm-ben 25 és 100 között...',
-                        //required: true
-                    },
-                    validators: {
-                        inRange: {
-                            expression: '$viewValue>=25 && $viewValue<=100',
-                        }
                     }
                 },
                 {
                     key: 'belso_kozetmag_kulso_atmero',
-                    type: 'input',
+                    type: 'rangeInput',
                     templateOptions: {
-                        type: 'numeric',
                         label: 'Belső kőzetmag külső átmérő (mm)',
                         min: 25,
                         max: 100,
-
-                        placeholder: 'Adja meg a belső kőzetmag külső átmérőt mm-ben 25 és 100 között...',
-                        //required: true
-                    },
-                    validators: {
-                        inRange: {
-                            expression: '$viewValue>=25 && $viewValue<=100',
-                        }
                     }
                 },
                 {
                     key: 'belso_furat_atmero',
-                    type: 'input',
+                    type: 'rangeInput',
                     templateOptions: {
-                        type: 'numeric',
                         label: 'Belső furat átmérő (mm)',
                         min: 0,
                         max: 10,
-
-                        placeholder: 'Adja meg a belső furat átmérőt mm-ben 0 és 10 között...',
-                        //required: true
-                    },
-                    validators: {
-                        inRange: {
-                            expression: '$viewValue>=0 && $viewValue<=10',
-                        }
                     }
                 },
                 {
                     key: 'hossz',
-                    type: 'input',
+                    type: 'rangeInput',
                     templateOptions: {
-                        type: 'numeric',
                         label: 'Hossz (mm)',
                         min: 40,
                         max: 100,
-                        placeholder: 'Adja meg a hosszt mm-ben 40 és 100 között...',
-                        //required: true
-                    },
-                    validators: {
-                        inRange: {
-                            expression: '$viewValue>=40 && $viewValue<=100',
-                        }
                     }
                 },
                 {
                     key: 'lezeres_furat_atmero',
-                    type: 'input',
+                    type: 'rangeInput',
                     templateOptions: {
-                        type: 'numeric',
                         label: 'Lézeres furat átmérő (mm)',
                         min: 0,
                         max: 10,
-
-                        placeholder: 'Adja meg a lézeres furat átmérőt m-ben 0 és 10 között...',
-                        //required: true
-                    },
-                    validators: {
-                        inRange: {
-                            expression: '$viewValue>=0 && $viewValue<=10',
-                        }
                     }
                 },
                 {
                     key: 'befurasi_melyseg',
-                    type: 'input',
+                    type: 'rangeInput',
                     templateOptions: {
-                        type: 'numeric',
                         label: 'Befúrási mélység (m)',
                         min: 10,
                         max: 20,
-
-                        placeholder: 'Adja meg a befúrási mélységet m-ben 10 és 20 között...',
-                        //required: true
-                    },
-                    validators: {
-                        inRange: {
-                            expression: '$viewValue>=10 && $viewValue<=20',
-                        }
                     }
                 },
                 {
@@ -1081,19 +866,11 @@
                 part1.push(
                     {
                         key: 'homok_frakcio_' + i,
-                        type: 'input',
+                        type: 'rangeInput',
                         templateOptions: {
-                            type: 'numeric',
                             label: 'Homok frakció ' + i + '. (%)',
-                            placeholder: 'Adja meg a homok frakciót 0 és 100% között...',
                             min: 0,
                             max: 100,
-                            //required: true
-                        },
-                        validators: {
-                            inRange: {
-                                expression: '$viewValue>=0 && $viewValue<=100',
-                            }
                         }
                     }
                 )
@@ -1102,36 +879,20 @@
             var part2 = [
                 {
                     key: 'anyag_frakcio_1',
-                    type: 'input',
+                    type: 'rangeInput',
                     templateOptions: {
-                        type: 'numeric',
                         label: 'Anyag frakció 1. (%)',
-                        placeholder: 'Adja meg az anyag frakciót 0 és 40% között...',
                         min: 0,
                         max: 40,
-                        //required: true
-                    },
-                    validators: {
-                        inRange: {
-                            expression: '$viewValue>=0 && $viewValue<=40',
-                        }
                     }
                 },
                 {
                     key: 'anyag_frakcio_2',
-                    type: 'input',
+                    type: 'rangeInput',
                     templateOptions: {
-                        type: 'numeric',
                         label: 'Anyag frakció 2. (%)',
-                        placeholder: 'Adja meg az anyag frakciót 0 és 40% között...',
                         min: 0,
                         max: 40,
-                        //required: true
-                    },
-                    validators: {
-                        inRange: {
-                            expression: '$viewValue>=0 && $viewValue<=40',
-                        }
                     }
                 },
                 {
@@ -1147,36 +908,20 @@
                 },
                 {
                     key: 'preselesi_nyomas',
-                    type: 'input',
+                    type: 'rangeInput',
                     templateOptions: {
-                        type: 'numeric',
                         label: 'Préselési nyomás (bar)',
                         min: 0,
                         max: 100,
-                        placeholder: 'Adja meg az préselási nyomást 0 és 100bar között...',
-                        //required: true
-                    },
-                    validators: {
-                        inRange: {
-                            expression: '$viewValue>=0 && $viewValue<=100',
-                        }
                     }
                 },
                 {
                     key: 'preselesi_homerseklet',
-                    type: 'input',
+                    type: 'rangeInput',
                     templateOptions: {
-                        type: 'numeric',
                         label: 'Préselési hőmérséklet (C)',
                         min: 0,
                         max: 80,
-                        placeholder: 'Adja meg az préselási hőmértékletet 0 és 80C között...',
-                        //required: true
-                    },
-                    validators: {
-                        inRange: {
-                            expression: '$viewValue>=0 && $viewValue<=80',
-                        }
                     }
                 },
                 {
@@ -1511,12 +1256,12 @@
 
         function getJobFormFieldsConfig() {
 
-
-            var part1 = [
+            var config = [
 
                 {
                     key: 'calculation_configuration_id',
                     type: 'select',
+
                     wrapper: [],
                     templateOptions: {
                         wrapper: [],
@@ -1534,11 +1279,28 @@
                         });
 
                     }
+                },
+                {
+                    key: 'kulso_kozetkopeny_atmero',
+                    type: 'rangeInput',
+                    templateOptions: {
+                        label: 'Külső kőzetköpeny átmérő (mm)',
+                        min: 25,
+                        max: 100,
+                    }
+                },
+                {
+                    key: 'kulso_kozetkopeny_atmero2',
+                    type: 'rangeInput',
+                    templateOptions: {
+                        label: 'Külső kőzetköpeny átmérő (mm)',
+                        min: 25,
+                        max: 100,
+                    }
                 }
             ];
 
-
-            return part1;
+            return config;
         }
 
         function getUserFormFieldsConfig() {
@@ -1584,7 +1346,7 @@
                 {
                     key: 'enabled',
                     type: 'checkbox',
-                    templateOptions: { label: 'Engedélyezve' },
+                    templateOptions: {label: 'Engedélyezve'},
                 }
 
             ];

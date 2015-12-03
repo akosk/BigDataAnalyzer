@@ -54,6 +54,7 @@ var VERSION = '1';
         setNgMask(formlyConfig);
         setDatePicker(formlyConfig);
         setSelectXhr(formlyConfig);
+        setRangeInput(formlyConfig);
 
         formlyConfig.extras.ngModelAttrsManipulatorPreferBound = true;
 
@@ -75,6 +76,30 @@ var VERSION = '1';
             name: 'selectXhr',
             extends: 'select',
             wrapper: 'testWrapper'
+        });
+    }
+
+    function setRangeInput(formlyConfig) {
+        formlyConfig.setType({
+            name: 'rangeInput',
+            extends: 'input',
+            defaultOptions: {
+                templateOptions: {
+                    type: 'numeric',
+                },
+                validators: {
+                    inRange: {
+                        expression: function ($viewValue, $modelValue, scope) {
+                            return !($viewValue) || ($viewValue >= scope.to.min && $viewValue <= scope.to.max);
+                        }
+                    }
+                },
+                controller: /* @ngInject */ function ($scope) {
+                    var label = $scope.to.label.charAt(0).toLowerCase() + $scope.to.label.slice(1);
+                    $scope.to.placeholder = 'Adja meg a ' + label + ' értékét ' +
+                        $scope.to.min + ' és ' + $scope.to.max + ' között...';
+                }
+            }
         });
     }
 
