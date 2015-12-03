@@ -28,7 +28,7 @@ public class JobWorker {
     @Autowired
     private JobService jobService;
 
-//    @Scheduled(fixedDelay = 4000)
+    @Scheduled(fixedDelay = 4000)
     public void work() {
 
         List<Job> waitingJobs = jobService.findWaitingJobs();

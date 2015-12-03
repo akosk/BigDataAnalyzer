@@ -3,6 +3,7 @@ package hu.innocenter.bigdata.calculator;
 import com.google.common.collect.ImmutableMap;
 import hu.innocenter.bigdata.ApplicationConfig;
 import hu.innocenter.bigdata.model.CalculationConfiguration;
+import hu.innocenter.bigdata.model.ColumnCondition;
 import hu.innocenter.bigdata.model.ColumnConfig;
 import hu.innocenter.bigdata.model.SelectedTable;
 import org.apache.commons.beanutils.BeanUtils;
@@ -42,8 +43,32 @@ public class CalculationParametersBuilder {
         String fields = getFields();
         String tableName = config.getSelectedTables().size() > 1 ? getDefaultFromTableName() : config.getSelectedTables().get(0).getTableName();
         String joinedTables = getJoinedTables(tableName);
+        String where = getFilters();
 
-        return "SELECT " + fields + " FROM " + tableName + " " + joinedTables + " WHERE 1=1 ";
+        return "SELECT " + fields + " FROM " + tableName + " " + joinedTables + " WHERE 1=1 " + where;
+    }
+
+    private String getFilters() {
+        String where = "";
+
+        for (ColumnCondition condition : config.getColumnConditions()) {
+            if (condition.getColumnConditions().size() > 0) {
+                where += " AND (";
+                ArrayList<String> orFilters = new ArrayList<>();
+                for (ColumnCondition orCondition : condition.getColumnConditions()) {
+                    orFilters.add(getFilter(orCondition));
+                }
+                where += StringUtils.join(orFilters, " OR ");
+                where += ") ";
+            } else {
+                where += " AND " + getFilter(condition);
+            }
+        }
+        return where;
+    }
+
+    private String getFilter(ColumnCondition condition) {
+        return condition.getProperty() + condition.getOperator() + "'" + condition.getValue() + "'";
     }
 
     private String getFields() {
