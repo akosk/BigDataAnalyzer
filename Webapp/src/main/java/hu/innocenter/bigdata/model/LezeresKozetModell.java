@@ -29,9 +29,6 @@ public class LezeresKozetModell implements Serializable {
 
     private String kozetmodell_kod;
 
-    @NotNull
-    @Digits(integer = 8, fraction = 1)
-    @Column(nullable = false)
     private Double kulso_kozetkopeny_atmero;
     private Double belso_kozetmag_kulso_atmero;
 
