@@ -32,12 +32,7 @@ public class MaximumCalculator extends Calculator {
             
             dblPoints = points.mapToDouble(d -> d);
             
-            double max = dblPoints.max(new Comparator<Double>() {
-
-                public int compare(Double a, Double b) {
-                    return a.compareTo(b);
-                }
-            });
+            double max = dblPoints.max(new DoubleComparator());
             
             out.println("Maximum value: " + max);
 

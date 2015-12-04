@@ -1,6 +1,7 @@
 package hu.innocenter.bigdata.analyzer;
 
 
+import java.io.Serializable;
 import java.util.Comparator;
 import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaRDD;
@@ -14,6 +15,8 @@ import org.apache.spark.api.java.JavaDoubleRDD;
  * Created by Ákos on 2015.09.22..
  */
 public class MinimumCalculator extends Calculator {
+
+
 
     @Override
     public Result calculate(String dataSource, String sqlQuery, HashMap<String, Object> params) {
@@ -32,12 +35,7 @@ public class MinimumCalculator extends Calculator {
             
             dblPoints = points.mapToDouble(d -> d);
             
-            double min = dblPoints.min(new Comparator<Double>() {
-
-                public int compare(Double a, Double b) {
-                    return a.compareTo(b);
-                }
-            });
+            double min = dblPoints.min(new DoubleComparator());
             
             out.println("Minimum value: " + min);
 
