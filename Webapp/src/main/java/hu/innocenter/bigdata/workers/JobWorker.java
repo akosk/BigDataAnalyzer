@@ -28,7 +28,7 @@ public class JobWorker {
     @Autowired
     private JobService jobService;
 
-//    @Scheduled(fixedDelay = 4000)
+    @Scheduled(fixedDelay = 4000)
     public void work() {
 
         List<Job> waitingJobs = jobService.findWaitingJobs();
@@ -59,7 +59,9 @@ public class JobWorker {
     private Result calculate(Job job) {
         Calculator calculator = CalculatorFactory.createCalculatorById(job.getCalculationConfiguration());
         CalculationParametersBuilder parametersBuilder = new CalculationParametersBuilder(job.getCalculationConfiguration());
-        return calculator.calculate("java:comp/env/jdbc/bigdata", parametersBuilder.getSqlQuery(), parametersBuilder.getParams());
+        String query = parametersBuilder.getSqlQuery();
+        log.info("Calculator query >>>>>>>> "+query);
+        return calculator.calculate("java:comp/env/jdbc/bigdata", query, parametersBuilder.getParams());
     }
 
 }

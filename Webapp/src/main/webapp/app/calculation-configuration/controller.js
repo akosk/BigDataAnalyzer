@@ -231,11 +231,11 @@
                 ]
             },
             {
-                id: 'avg',
-                name: 'Átlag',
+                id: 'variance',
+                name: 'Szórás',
                 groups: [
                     {
-                        id: 'avg',
+                        id: 'variance',
                         name: 'Számolandó mező',
                         min: 1,
                         max: 1
@@ -243,11 +243,11 @@
                 ]
             },
             {
-                id: 'disp',
-                name: 'Szórás',
+                id: 'mean',
+                name: 'Átlag',
                 groups: [
                     {
-                        id: 'disp',
+                        id: 'mean',
                         name: 'Számolandó mező',
                         min: 1,
                         max: 1
