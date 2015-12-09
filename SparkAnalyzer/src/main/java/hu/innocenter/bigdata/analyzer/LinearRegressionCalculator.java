@@ -20,7 +20,7 @@ import org.apache.spark.mllib.regression.LinearRegressionWithSGD;
  */
 public class LinearRegressionCalculator extends Calculator {
 
-    Logger log=Logger.getLogger(LinearRegressionCalculator.class);
+    private Logger log=Logger.getLogger(LinearRegressionCalculator.class);
 
     @Override
     public Result calculate(String dataSource, String sqlQuery, HashMap<String, Object> params) {
@@ -85,12 +85,15 @@ public class LinearRegressionCalculator extends Calculator {
             log.error("System trained");
 
 
-            sc.stop();
+
 
         } catch (Exception e) {
+            log.error(e.getMessage());
             out.println("****** " + e.getMessage());
             result.setResultText(e.getMessage());
 
+        } finally {
+            sc.stop();
         }
 
         return result;
