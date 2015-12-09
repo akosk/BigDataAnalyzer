@@ -1295,24 +1295,6 @@
                         });
 
                     }
-                },
-                {
-                    key: 'kulso_kozetkopeny_atmero',
-                    type: 'rangeInput',
-                    templateOptions: {
-                        label: 'Külső kőzetköpeny átmérő (mm)',
-                        min: 25,
-                        max: 100,
-                    }
-                },
-                {
-                    key: 'kulso_kozetkopeny_atmero2',
-                    type: 'rangeInput',
-                    templateOptions: {
-                        label: 'Külső kőzetköpeny átmérő (mm)',
-                        min: 25,
-                        max: 100,
-                    }
                 }
             ];
 
