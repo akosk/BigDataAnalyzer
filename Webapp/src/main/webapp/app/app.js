@@ -11,6 +11,7 @@ var VERSION = '1';
         'ngRoute',
         'ngAnimate',
         'ui.bootstrap',
+        'ui.bootstrap.datetimepicker',
         angularDragula(angular),
         'formly',
         'ngMessages',
@@ -53,6 +54,7 @@ var VERSION = '1';
     function formlyInit(formlyConfig, formlyValidationMessages) {
         setNgMask(formlyConfig);
         setDatePicker(formlyConfig);
+        setDateTimePicker(formlyConfig);
         setSelectXhr(formlyConfig);
         setRangeInput(formlyConfig);
 
@@ -209,6 +211,36 @@ var VERSION = '1';
                 $scope.datepicker.open = function ($event) {
                     $scope.datepicker.opened = true;
                 };
+            }]
+        });
+    }
+
+    function setDateTimePicker(formlyConfig) {
+        var attributes = [
+            'data-ng-model',
+            'data-datetimepicker-config',
+        ];
+
+
+        var ngModelAttrs = {};
+
+        angular.forEach(attributes, function (attr) {
+            ngModelAttrs[camelize(attr)] = {attribute: attr};
+        });
+
+
+
+        formlyConfig.setType({
+            name: 'datetimepicker',
+            templateUrl: 'datetimepicker.html',
+            wrapper: ['bootstrapLabel', 'bootstrapHasError'],
+            defaultOptions: {
+                ngModelAttrs: ngModelAttrs,
+                templateOptions: {
+                }
+            },
+            controller: ['$scope', function ($scope) {
+
             }]
         });
     }

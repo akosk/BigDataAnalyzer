@@ -1069,7 +1069,7 @@
                 },
                 {
                     key: 'meres_kezdesi_ideje',
-                    type: 'datepicker',
+                    type: 'datetimepicker',
                     templateOptions: {
                         type: 'text',
                         label: 'Mérés kezdési ideje',

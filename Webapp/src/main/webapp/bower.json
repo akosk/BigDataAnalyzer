@@ -35,13 +35,17 @@
     "ngMask": "angular-mask#~3.0.16",
     "angular-messages": "~1.4.7",
     "angular-resource": "~1.4.7",
-    "jquery-backstretch": "~2.0.4"
+    "jquery-backstretch": "~2.0.4",
+    "angular-bootstrap-datetimepicker": "~0.4.0"
   },
   "overrides": {
     "fontawesome": {
       "main": [
         "css/font-awesome.css"
       ]
+    },
+    "angular-bootstrap-datetimepicker": {
+      "main": ["src/js/datetimepicker.js"]
     }
   }
 }
