@@ -29,6 +29,11 @@ public class Fluidum implements Serializable {
 
     private String fluidum_kod;
 
+    private String fluidum_megnevezese;
+
+    private Date fluidum_keszitesi_ideje;
+    private String fluidum_keszitok_nevei;
+
     private Double fluidum_komponens_01;
     private Double fluidum_komponens_02;
     private Double fluidum_komponens_03;
@@ -45,6 +50,19 @@ public class Fluidum implements Serializable {
     private Double fluidum_komponens_14;
     private Double fluidum_komponens_15;
     private Double fluidum_komponens_16;
+
+    private String korulmeny_kod;
+
+    private Date meresi_kezdesi_ideje;
+    private Date meresi_befejezesi_ideje;
+
+    private String merest_vegzok_nevei;
+
+    private Double suruseg;
+    private Double viszkozitas;
+    private Double fajho;
+    private Double hovezetokepesseg;
+
 
     private Date created;
     private Date updated;
@@ -192,6 +210,98 @@ public class Fluidum implements Serializable {
 
     public void setFluidum_komponens_16(Double fluidum_komponens_16) {
         this.fluidum_komponens_16 = fluidum_komponens_16;
+    }
+
+
+    public String getFluidum_megnevezese() {
+        return fluidum_megnevezese;
+    }
+
+    public void setFluidum_megnevezese(String fluidum_megnevezese) {
+        this.fluidum_megnevezese = fluidum_megnevezese;
+    }
+
+    @JsonSerialize(using=JsonDateTimeSerializer.class)
+    public Date getFluidum_keszitesi_ideje() {
+        return fluidum_keszitesi_ideje;
+    }
+
+    public void setFluidum_keszitesi_ideje(Date fluidum_keszitesi_ideje) {
+        this.fluidum_keszitesi_ideje = fluidum_keszitesi_ideje;
+    }
+
+    public String getFluidum_keszitok_nevei() {
+        return fluidum_keszitok_nevei;
+    }
+
+    public void setFluidum_keszitok_nevei(String fluidum_keszitok_nevei) {
+        this.fluidum_keszitok_nevei = fluidum_keszitok_nevei;
+    }
+
+    public String getKorulmeny_kod() {
+        return korulmeny_kod;
+    }
+
+    public void setKorulmeny_kod(String korulmeny_kod) {
+        this.korulmeny_kod = korulmeny_kod;
+    }
+
+    @JsonSerialize(using=JsonDateTimeSerializer.class)
+    public Date getMeresi_kezdesi_ideje() {
+        return meresi_kezdesi_ideje;
+    }
+
+    public void setMeresi_kezdesi_ideje(Date meresi_kezdesi_ideje) {
+        this.meresi_kezdesi_ideje = meresi_kezdesi_ideje;
+    }
+
+    @JsonSerialize(using=JsonDateTimeSerializer.class)
+    public Date getMeresi_befejezesi_ideje() {
+        return meresi_befejezesi_ideje;
+    }
+
+    public void setMeresi_befejezesi_ideje(Date meresi_befejezesi_ideje) {
+        this.meresi_befejezesi_ideje = meresi_befejezesi_ideje;
+    }
+
+    public String getMerest_vegzok_nevei() {
+        return merest_vegzok_nevei;
+    }
+
+    public void setMerest_vegzok_nevei(String merest_vegzok_nevei) {
+        this.merest_vegzok_nevei = merest_vegzok_nevei;
+    }
+
+    public Double getSuruseg() {
+        return suruseg;
+    }
+
+    public void setSuruseg(Double suruseg) {
+        this.suruseg = suruseg;
+    }
+
+    public Double getViszkozitas() {
+        return viszkozitas;
+    }
+
+    public void setViszkozitas(Double viszkozitas) {
+        this.viszkozitas = viszkozitas;
+    }
+
+    public Double getFajho() {
+        return fajho;
+    }
+
+    public void setFajho(Double fajho) {
+        this.fajho = fajho;
+    }
+
+    public Double getHovezetokepesseg() {
+        return hovezetokepesseg;
+    }
+
+    public void setHovezetokepesseg(Double hovezetokepesseg) {
+        this.hovezetokepesseg = hovezetokepesseg;
     }
 
     @JsonSerialize(using=JsonDateTimeSerializer.class)

@@ -48,7 +48,7 @@ public class MeresiEredmenyCement implements Serializable {
     private Double kozetfluidum_kilepo_homerseklete;
     private Double kozetfluidum_belepo_nyomasa;
     private Double kozetfluidum_kilepo_nyomasa;
-    private Date ultrahang_jelzes_ideje;
+    private Double ultrahang_jelzes_ideje;
 
     private Date created;
     private Date updated;
@@ -239,12 +239,11 @@ public class MeresiEredmenyCement implements Serializable {
         this.kozetfluidum_kilepo_nyomasa = kozetfluidum_kilepo_nyomasa;
     }
 
-    @JsonSerialize(using = JsonDateTimeSerializer.class)
-    public Date getUltrahang_jelzes_ideje() {
+    public Double getUltrahang_jelzes_ideje() {
         return ultrahang_jelzes_ideje;
     }
 
-    public void setUltrahang_jelzes_ideje(Date ultrahang_jelzes_ideje) {
+    public void setUltrahang_jelzes_ideje(Double ultrahang_jelzes_ideje) {
         this.ultrahang_jelzes_ideje = ultrahang_jelzes_ideje;
     }
 

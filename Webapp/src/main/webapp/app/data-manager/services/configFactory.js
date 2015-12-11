@@ -559,7 +559,41 @@
                         mask: 'wwww',
                         required: true
                     }
+                },
+                {
+                    key: 'fluidum_megnevezese',
+                    type: 'input',
+                    templateOptions: {
+                        type: 'text',
+                        label: 'Fluidum megnevezése',
+                        placeholder: 'Adja meg a fluidum nevét...',
+                        //required: true
+                    },
+                    validators: {}
+                },
+                {
+                    key: 'fluidum_keszitesi_ideje',
+                    type: 'datepicker',
+                    templateOptions: {
+                        type: 'text',
+                        label: 'Fluidum készítési ideje',
+                        datepickerPopup: "yyyy-MM-dd",
+                        //required: true
+                    },
+                    validators: {}
+                },
+                {
+                    key: 'fluidum_keszitok_nevei',
+                    type: 'input',
+                    templateOptions: {
+                        type: 'text',
+                        label: 'Fluidum készítők nevei',
+                        placeholder: 'Adja meg a fluidum készítők neveit...',
+                        //required: true
+                    },
+                    validators: {}
                 }
+
             ];
 
             for (var i = 1; i <= 16; i++) {
@@ -576,6 +610,87 @@
                     }
                 )
             }
+
+            part1.push(
+                {
+                    key: 'korulmeny_kod',
+                    type: 'maskedInput',
+                    templateOptions: {
+                        label: 'Körülmény kód',
+                        mask: 'wwww',
+                        required: true
+                    }
+                },
+                {
+                    key: 'meresi_kezdesi_ideje',
+                    type: 'datepicker',
+                    templateOptions: {
+                        type: 'text',
+                        label: 'Mérés kezdési ideje',
+                        datepickerPopup: "yyyy-MM-dd",
+                        //required: true
+                    },
+                    validators: {}
+                },
+                {
+                    key: 'meresi_befejezesi_ideje',
+                    type: 'datepicker',
+                    templateOptions: {
+                        type: 'text',
+                        label: 'Mérés befejezési ideje',
+                        datepickerPopup: "yyyy-MM-dd",
+                        //required: true
+                    },
+                    validators: {}
+                },
+                {
+                    key: 'merest_vegzok_nevei',
+                    type: 'input',
+                    templateOptions: {
+                        type: 'text',
+                        label: 'Mérést végzők nevei',
+                        placeholder: 'Adja meg a mérést végzők neveit...',
+                        //required: true
+                    },
+                    validators: {}
+                },
+                {
+                    key: 'suruseg',
+                    type: 'rangeInput',
+                    templateOptions: {
+                        label: 'Sűrűség kg/dm3',
+                        min: 0,
+                        max: 2,
+                    }
+                },
+                {
+                    key: 'viszkozitas',
+                    type: 'rangeInput',
+                    templateOptions: {
+                        label: 'Viszkozitás mPa s',
+                        min: 0,
+                        max: 10,
+                    }
+                },
+                {
+                    key: 'fajho',
+                    type: 'rangeInput',
+                    templateOptions: {
+                        label: 'Fajhő J/(kgK)',
+                        min: 0,
+                        max: 4200,
+                    }
+                },
+                {
+                    key: 'hovezetokepesseg',
+                    type: 'rangeInput',
+                    templateOptions: {
+                        label: 'Hővezetőképesség W/(mK)',
+                        min: 0,
+                        max: 2,
+                    }
+                }
+            );
 
             return part1;
         }
@@ -644,8 +759,8 @@
                     type: 'rangeInput',
                     templateOptions: {
                         label: 'Légköri nyomás (bar)',
-                        min: 0,
-                        max: 1200,
+                        min: 0.8,
+                        max: 1.2,
                     }
                 }
 
@@ -662,7 +777,7 @@
                     key: 'meres_kod',
                     type: 'maskedInput',
                     templateOptions: {
-                        label: 'Körülmény kód',
+                        label: 'Mérés kód',
                         mask: 'wwww-99.99.99-99',
                         required: true
                     }
@@ -734,7 +849,7 @@
                     templateOptions: {
                         label: 'Porozitas (%)',
                         min: 0,
-                        max: 10,
+                        max: 80,
                     }
                 },
                 {
@@ -743,25 +858,7 @@
                     templateOptions: {
                         label: 'Permeabilitás mD',
                         min: 0,
-                        max: 80,
-                    }
-                },
-                {
-                    key: 'hovezetokepesseg',
-                    type: 'rangeInput',
-                    templateOptions: {
-                        label: 'Hővezetőképesség W/(mK)',
-                        min: 0,
-                        max: 80,
-                    }
-                },
-                {
-                    key: 'viszkozitas',
-                    type: 'rangeInput',
-                    templateOptions: {
-                        label: 'Viszkozitás Pa s',
-                        min: 0,
-                        max: 80,
+                        max: 10000,
                     }
                 },
                 {
@@ -770,7 +867,25 @@
                     templateOptions: {
                         label: 'Sűrűség kg/m3',
                         min: 0,
-                        max: 80,
+                        max: 4,
+                    }
+                },
+                {
+                    key: 'fajho',
+                    type: 'rangeInput',
+                    templateOptions: {
+                        label: 'Fajhő J/(kgK)',
+                        min: 0,
+                        max: 4200,
+                    }
+                },
+                {
+                    key: 'hovezetokepesseg',
+                    type: 'rangeInput',
+                    templateOptions: {
+                        label: 'Hővezetőképesség W/(mK)',
+                        min: 0,
+                        max: 8,
                     }
                 }
 
@@ -1045,7 +1160,7 @@
                     type: 'maskedInput',
                     templateOptions: {
                         label: 'Kőzetmodell kód',
-                        mask: 'w99w-99-ww-99',
+                        mask: 'wwwwwwww',
                         required: true
                     }
                 },
@@ -1100,164 +1215,150 @@
                     },
                     validators: {}
                 },
+
+
                 {
                     key: 'cso_hovezetokepessege',
-                    type: 'input',
+                    type: 'rangeInput',
                     templateOptions: {
-                        type: 'numeric',
-                        label: 'Cső hővezetőképessége W(mk)',
-                        placeholder: 'Adja meg a cső hővezetőképességét...',
-                        //required: true
+                        label: 'Cső hővezetőképessége W/(mk)',
+                        min: 20,
+                        max: 80
                     }
                 },
                 {
                     key: 'cementpalast_hovezetokepessege',
-                    type: 'input',
+                    type: 'rangeInput',
                     templateOptions: {
-                        type: 'numeric',
-                        label: 'Cementpalást hővezetőképessége W(mk)',
-                        placeholder: 'Adja meg a cementpalást hővezetőképességét...',
-                        //required: true
+                        label: 'Cementpalást hővezetőképessége W/(mk)',
+                        min: 0,
+                        max: 1
                     }
                 },
                 {
                     key: 'kozet_hovezetokepessege',
-                    type: 'input',
+                    type: 'rangeInput',
                     templateOptions: {
-                        type: 'numeric',
-                        label: 'Kőzet hővezetőképessége W(mk)',
-                        placeholder: 'Adja meg a kőzet hővezetőképességét...',
-                        //required: true
+                        label: 'Kőzet hővezetőképessége W/(mk)',
+                        min: 0,
+                        max: 2
                     }
                 },
                 {
                     key: 'csofluidum_hovezetokepessege',
-                    type: 'input',
+                    type: 'rangeInput',
                     templateOptions: {
-                        type: 'numeric',
-                        label: 'Csőfluidum hővezetőképessége W(mk)',
-                        placeholder: 'Adja meg a csőfluidum hővezetőképességét...',
-                        //required: true
+                        label: 'Csőfluidum hővezetőképessége W/(mk)',
+                        min: 0,
+                        max: 1
                     }
                 },
                 {
                     key: 'kozetfluidum_hovezetokepessege',
-                    type: 'input',
+                    type: 'rangeInput',
                     templateOptions: {
-                        type: 'numeric',
-                        label: 'Kőzetfluidum hővezetőképessége W(mk)',
-                        placeholder: 'Adja meg a kőzetfluidum hővezetőképességét...',
-                        //required: true
+                        label: 'Kőzetfluidum hővezetőképessége W/(mk)',
+                        min: 0,
+                        max: 1
                     }
                 },
                 {
                     key: 'csofluidum_sebessege',
-                    type: 'input',
+                    type: 'rangeInput',
                     templateOptions: {
-                        type: 'numeric',
-                        label: 'Csőfluidum sebessége m/S',
-                        placeholder: 'Adja meg a csőfluidum sebességét...',
-                        //required: true
+                        label: 'Csőfluidum sebessége m/s',
+                        min: 0,
+                        max: 4
                     }
                 },
                 {
                     key: 'kozetfluidum_sebessege',
-                    type: 'input',
+                    type: 'rangeInput',
                     templateOptions: {
-                        type: 'numeric',
-                        label: 'Kőzetfluidum sebessége m/S',
-                        placeholder: 'Adja meg a kőzetfluidum sebességét...',
-                        //required: true
+                        label: 'Kőzetfluidum sebessége m/s',
+                        min: 0,
+                        max: 4
                     }
                 },
                 {
                     key: 'csofluidum_belepo_homerseklete',
-                    type: 'input',
+                    type: 'rangeInput',
                     templateOptions: {
-                        type: 'numeric',
                         label: 'Csőfluidum belépő hőmérséklete C',
-                        placeholder: 'Adja meg a csőfluidum belépő hőmérsékletét...',
-                        //required: true
+                        min: 0,
+                        max: 120
                     }
                 },
                 {
                     key: 'csofluidum_kilepo_homerseklete',
-                    type: 'input',
+                    type: 'rangeInput',
                     templateOptions: {
-                        type: 'numeric',
                         label: 'Csőfluidum kilépő hőmérséklete C',
-                        placeholder: 'Adja meg a csőfluidum kilépő hőmérsékletét...',
-                        //required: true
+                        min: 0,
+                        max: 120
                     }
                 },
                 {
                     key: 'csofluidum_belepo_nyomasa',
-                    type: 'input',
+                    type: 'rangeInput',
                     templateOptions: {
-                        type: 'numeric',
                         label: 'Csőfluidum belépő nyomása bar',
-                        placeholder: 'Adja meg a csőfluidum belépő nyomását...',
-                        //required: true
+                        min: 0.8,
+                        max: 10
                     }
                 },
                 {
                     key: 'csofluidum_kilepo_nyomasa',
-                    type: 'input',
+                    type: 'rangeInput',
                     templateOptions: {
-                        type: 'numeric',
                         label: 'Csőfluidum kilépő nyomása bar',
-                        placeholder: 'Adja meg a csőfluidum kilépő nyomását...',
-                        //required: true
+                        min: 0.8,
+                        max: 10
                     }
                 },
                 {
                     key: 'kozetfluidum_belepo_homerseklete',
-                    type: 'input',
+                    type: 'rangeInput',
                     templateOptions: {
-                        type: 'numeric',
                         label: 'Kőzetfluidum belépő hőmérséklete C',
-                        placeholder: 'Adja meg a kőzetfluidum belépő hőmérsékletét...',
-                        //required: true
+                        min: 0,
+                        max: 120
                     }
                 },
                 {
                     key: 'kozetfluidum_kilepo_homerseklete',
-                    type: 'input',
+                    type: 'rangeInput',
                     templateOptions: {
-                        type: 'numeric',
                         label: 'Kőzetfluidum kilépő hőmérséklete C',
-                        placeholder: 'Adja meg a kőzetfluidum kilépő hőmérsékletét...',
-                        //required: true
+                        min: 0,
+                        max: 120
                     }
                 },
                 {
                     key: 'kozetfluidum_belepo_nyomasa',
-                    type: 'input',
+                    type: 'rangeInput',
                     templateOptions: {
-                        type: 'numeric',
                         label: 'Kőzetfluidum belépő nyomása bar',
-                        placeholder: 'Adja meg a kőzetfluidum belépő nyomását...',
-                        //required: true
+                        min: 0.8,
+                        max: 10
                     }
                 },
                 {
                     key: 'kozetfluidum_kilepo_nyomasa',
-                    type: 'input',
+                    type: 'rangeInput',
                     templateOptions: {
-                        type: 'numeric',
                         label: 'Kőzetfluidum kilépő nyomása bar',
-                        placeholder: 'Adja meg a kőzetfluidum kilépő nyomását...',
-                        //required: true
+                        min: 0.8,
+                        max: 10
                     }
                 },
                 {
                     key: 'ultrahang_jelzes_ideje',
-                    type: 'datepicker',
+                    type: 'rangeInput',
                     templateOptions: {
-                        type: 'text',
                         label: 'Ultrahang jelzés ideje',
-                        datepickerPopup: "yyyy-MM-dd",
-                        //required: true
+                        min:0,
+                        max:8000
                     },
                     validators: {}
                 }
