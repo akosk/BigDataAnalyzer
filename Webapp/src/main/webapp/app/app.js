@@ -7,11 +7,14 @@ var VERSION = '1';
 (function () {
     "use strict";
 
+    moment.locale('hu-HU');
+
     var app = angular.module("app", [
         'ngRoute',
         'ngAnimate',
         'ui.bootstrap',
         'ui.bootstrap.datetimepicker',
+        'ui.dateTimeInput',
         angularDragula(angular),
         'formly',
         'ngMessages',
@@ -240,7 +243,8 @@ var VERSION = '1';
                 }
             },
             controller: ['$scope', function ($scope) {
-
+                $scope.change=function(item) {
+                };
             }]
         });
     }

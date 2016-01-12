@@ -12,6 +12,6 @@ public abstract class Result {
     }
 
     public void setResultText(String resultText) {
-        this.resultText = resultText;
+        this.resultText=this.resultText +", "+resultText;
     }
 }

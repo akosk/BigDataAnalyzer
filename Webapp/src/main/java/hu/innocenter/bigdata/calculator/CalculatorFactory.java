@@ -26,7 +26,7 @@ public class CalculatorFactory {
                 calculator = new VarianceCalculator();
                 break;
             case "linear-regression":
-                calculator = new LinearRegressionCalculator();
+                calculator = new LinearRegressionCalculator2();
                 break;
         }
 

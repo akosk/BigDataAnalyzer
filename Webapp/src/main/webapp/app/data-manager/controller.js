@@ -34,6 +34,10 @@
         $scope.update = update;
         $scope.delete = deleteModell;
 
+
+
+
+
         function save() {
             $scope.formErrors = [];
             var modell = new modellsService();

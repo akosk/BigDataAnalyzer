@@ -29,6 +29,7 @@
         function getJobConfig() {
             return {
                 name: "Elemzés",
+                namePlural: "Elemzések",
                 apiName: "jobs",
                 formFieldConfig: getJobFormFieldsConfig(),
                 gridConfig: getJobGridConfig(),
@@ -39,6 +40,7 @@
         function getUserConfig() {
             return {
                 name: "Felhasználó",
+                namePlural: "Felhasználók",
                 apiName: "users",
                 formFieldConfig: getUserFormFieldsConfig(),
                 gridConfig: getUserGridConfig(),
@@ -48,7 +50,8 @@
 
         function getMeresiKorulmenyConfig() {
             return {
-                name: "Mérési körülmény",
+                name: "Laboratóriumi kísérleti körülmény adat",
+                namePlural: "Laboratóriumi kísérleti körülmény adatok",
                 apiName: "meresi-korulmenys",
                 formFieldConfig: getMeresiKorulmenyFormFieldsConfig(),
                 gridConfig: getMeresiKorulmenyGridConfig(),
@@ -58,7 +61,8 @@
 
         function getMeresiEredmenyLezerConfig() {
             return {
-                name: "Mérési eredmény",
+                name: "Laboratóriumi mérési eredmény adat",
+                namePlural: "Laboratóriumi mérési eredmény adatok",
                 apiName: "meresi-eredmeny-lezers",
                 formFieldConfig: getMeresiEredmenyLezerFormFieldsConfig(),
                 gridConfig: getMeresiEredmenyLezerGridConfig(),
@@ -68,7 +72,8 @@
 
         function getMeresiEredmenyCementConfig() {
             return {
-                name: "Mérési eredmény",
+                name: "Laboratóriumi mérési eredmény adat",
+                namePlural: "Laboratóriumi mérési eredmény adatok",
                 apiName: "meresi-eredmeny-cements",
                 formFieldConfig: getMeresiEredmenyCementFormFieldsConfig(),
                 gridConfig: getMeresiEredmenyCementGridConfig(),
@@ -78,7 +83,8 @@
 
         function getFluidumConfig() {
             return {
-                name: "Fluidum",
+                name: "Fluidum adat",
+                namePlural: "Fluidum adatok",
                 apiName: "fluidums",
                 formFieldConfig: getFluidumFormFieldsConfig(),
                 gridConfig: getFluidumGridConfig(),
@@ -89,7 +95,8 @@
         function getLezeresKozetModellConfig() {
 
             return {
-                name: "Lézeres kőzetmodell",
+                name: "Lézeres kőzetmodell adat",
+                namePlural: "Lézeres kőzetmodell adatok",
                 apiName: "lezeres-kozet-modells",
                 formFieldConfig: getLezeresKozetModellFormFieldsConfig(),
                 gridConfig: getLezeresKozetModellGridConfig(),
@@ -101,7 +108,8 @@
         function getCementesKozetModellConfig() {
 
             return {
-                name: "Cementes kőzetmodell",
+                name: "Cementes kőzetmodell adat",
+                namePlural: "Cementes kőzetmodell adatok",
                 apiName: "cementes-kozet-modells",
                 formFieldConfig: getCementesKozetModellFormFieldsConfig(),
                 gridConfig: getCementesKozetModellGridConfig(),
@@ -149,6 +157,11 @@
         }
 
         function fluidumFormatVerification(km) {
+            km.fluidum_keszitesi_ideje=moment(km.fluidum_keszitesi_ideje).toISOString();
+            //km.meres_kezdesi_ideje = moment(km.meres_kezdesi_ideje).toISOString();
+            //km.meres_befejezesi_ideje = moment(km.meres_befejezesi_ideje).toISOString();
+            km.meresi_kezdesi_ideje = moment(km.meresi_kezdesi_ideje).toISOString();
+            km.meresi_befejezesi_ideje = moment(km.meresi_befejezesi_ideje).toISOString();
             km.updated = moment(km.updated).toISOString();
             km.created = moment(km.created).toISOString();
             return km;
@@ -172,7 +185,6 @@
         function meresiEredmenyCementFormatVerification(km) {
             km.meres_kezdesi_ideje = moment(km.meres_kezdesi_ideje).toISOString();
             km.meres_befejezesi_ideje = moment(km.meres_befejezesi_ideje).toISOString();
-            km.ultrahang_jelzes_ideje = moment(km.ultrahang_jelzes_ideje).toISOString();
             km.updated = moment(km.updated).toISOString();
             km.created = moment(km.created).toISOString();
             return km;
@@ -209,7 +221,22 @@
                         name: "Megtekintés",
                         icon: "fa fa-eye",
                         click: function (item) {
-                            $('.modal-grid .panel-body').html(item.spark_output);
+                            debugger;
+
+
+                            $('.modal-grid .panel-body').html(
+                                "<div class='panel panel-primary'>" +
+                                "<div class='panel-heading'>Elemzés megtekintése</div>" +
+                                "<div class='panel-body'>" +
+                                "<table class='table table-bordered table-condensed table-striped'" +
+                                "<tr><td style='width:30%'>Elemzés konfigurációja:</td><td>" + item.calculation_configuration_name + "</td></tr>" +
+                                "<tr><td>Elemzés kezdete:</td><td>" + item.job_start + "</td></tr>" +
+                                "<tr><td>Elemzés vége:</td><td>" + item.job_end + "</td></tr>" +
+                                "<tr><td>Elemzés kimenete:</td><td>" + item.spark_output + "</td></tr>" +
+                                "</table>" +
+                                "</div>" +
+                                "</div>"
+                            );
                             $('.modal-grid').modal("show");
                         }
                     }
@@ -573,12 +600,10 @@
                 },
                 {
                     key: 'fluidum_keszitesi_ideje',
-                    type: 'datepicker',
+                    type: 'datetimepicker',
                     templateOptions: {
                         type: 'text',
                         label: 'Fluidum készítési ideje',
-                        datepickerPopup: "yyyy-MM-dd",
-                        //required: true
                     },
                     validators: {}
                 },
@@ -623,23 +648,19 @@
                 },
                 {
                     key: 'meresi_kezdesi_ideje',
-                    type: 'datepicker',
+                    type: 'datetimepicker',
                     templateOptions: {
                         type: 'text',
                         label: 'Mérés kezdési ideje',
-                        datepickerPopup: "yyyy-MM-dd",
-                        //required: true
                     },
                     validators: {}
                 },
                 {
                     key: 'meresi_befejezesi_ideje',
-                    type: 'datepicker',
+                    type: 'datetimepicker',
                     templateOptions: {
                         type: 'text',
                         label: 'Mérés befejezési ideje',
-                        datepickerPopup: "yyyy-MM-dd",
-                        //required: true
                     },
                     validators: {}
                 },
@@ -811,23 +832,20 @@
                 },
                 {
                     key: 'meres_kezdesi_ideje',
-                    type: 'datepicker',
+                    type: 'datetimepicker',
                     templateOptions: {
                         type: 'text',
                         label: 'Mérés kezdési ideje',
-                        datepickerPopup: "yyyy-MM-dd",
-                        //required: true
                     },
                     validators: {}
                 },
+
                 {
                     key: 'meres_befejezesi_ideje',
-                    type: 'datepicker',
+                    type: 'datetimepicker',
                     templateOptions: {
                         type: 'text',
                         label: 'Mérés befejezési ideje',
-                        datepickerPopup: "yyyy-MM-dd",
-                        //required: true
                     },
                     validators: {}
                 },
@@ -1188,19 +1206,15 @@
                     templateOptions: {
                         type: 'text',
                         label: 'Mérés kezdési ideje',
-                        datepickerPopup: "yyyy-MM-dd",
-                        //required: true
                     },
                     validators: {}
                 },
                 {
                     key: 'meres_befejezesi_ideje',
-                    type: 'datepicker',
+                    type: 'datetimepicker',
                     templateOptions: {
                         type: 'text',
                         label: 'Mérés befejezési ideje',
-                        datepickerPopup: "yyyy-MM-dd",
-                        //required: true
                     },
                     validators: {}
                 },
@@ -1357,8 +1371,8 @@
                     type: 'rangeInput',
                     templateOptions: {
                         label: 'Ultrahang jelzés ideje',
-                        min:0,
-                        max:8000
+                        min: 0,
+                        max: 8000
                     },
                     validators: {}
                 }

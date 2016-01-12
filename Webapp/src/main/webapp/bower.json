@@ -36,7 +36,8 @@
     "angular-messages": "~1.4.7",
     "angular-resource": "~1.4.7",
     "jquery-backstretch": "~2.0.4",
-    "angular-bootstrap-datetimepicker": "~0.4.0"
+    "angular-bootstrap-datetimepicker": "~0.4.0",
+    "angular-date-time-input": "~0.1.0"
   },
   "overrides": {
     "fontawesome": {
@@ -45,7 +46,14 @@
       ]
     },
     "angular-bootstrap-datetimepicker": {
-      "main": ["src/js/datetimepicker.js"]
+      "main": [
+        "src/js/datetimepicker.js"
+      ]
+    },
+    "angular-date-time-input": {
+      "main": [
+        "src/dateTimeInput.js"
+      ]
     }
   }
 }
