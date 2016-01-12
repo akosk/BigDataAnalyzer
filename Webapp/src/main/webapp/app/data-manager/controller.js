@@ -74,7 +74,7 @@
             });
         }
 
-        function deleteModell(kozetModell) {
+        function deleteModell(modell) {
 
             swal({
                 title: "Biztosan törli?",
