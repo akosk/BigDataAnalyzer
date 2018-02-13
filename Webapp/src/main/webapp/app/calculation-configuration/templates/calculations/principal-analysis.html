@@ -1,6 +1,6 @@
 <div class="panel panel-primary">
     <div class="panel-heading">
-        <h3 class="panel-title">Lineáris regresszió számítási paraméterek</h3>
+        <h3 class="panel-title">Főkomponens elemzés paraméterek</h3>
     </div>
     <div class="panel-body">
         <form class="form-horizontal">
@@ -14,7 +14,24 @@
             </div>
 
 
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" ng-model="calculationConfiguration.principal"> Főkomponens elemzés
+                        </label>
+                    </div>
+                </div>
+            </div>
 
+            <div class="form-group" ng-show="calculationConfiguration.principal">
+                <label for="princpal_components" class="col-sm-2 control-label">Főkomponensek száma</label>
+
+                <div class="col-sm-2">
+                    <input type="number" class="form-control" id="princpal_components" placeholder="Főkomponensek száma"
+                           ng-model="calculationConfiguration.princpal_components">
+                </div>
+            </div>
 
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">

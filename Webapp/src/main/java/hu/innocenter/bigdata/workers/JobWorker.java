@@ -28,7 +28,7 @@ public class JobWorker {
     @Autowired
     private JobService jobService;
 
-//    @Scheduled(fixedDelay = 4000)
+    @Scheduled(fixedDelay = 8000)
     public void work() {
 
         List<Job> waitingJobs = jobService.findWaitingJobs();
@@ -49,7 +49,7 @@ public class JobWorker {
             }
 
             job.setJob_end(new Date());
-            job.setSpark_output(s.getResultText());
+            job.setSpark_output(s.getResultTextAsHtml());
             job.setStatus(Job.STATUS.FINISHED);
             jobService.updateJob(job);
         }

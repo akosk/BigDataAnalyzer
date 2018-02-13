@@ -41,6 +41,8 @@ public class CalculationConfiguration implements Serializable {
 
     private Boolean principal;
     private int princpal_components;
+
+    private int clusters;
     private Boolean normalization;
     private String calculation_id;
 
@@ -156,5 +158,13 @@ public class CalculationConfiguration implements Serializable {
 
     public void setColumnConditions(List<ColumnCondition> columnConditions) {
         this.columnConditions = columnConditions;
+    }
+
+    public int getClusters() {
+        return clusters;
+    }
+
+    public void setClusters(int clusters) {
+        this.clusters = clusters;
     }
 }

@@ -27,16 +27,22 @@ public class CalculationParametersBuilder {
             "meresi_korulmeny", "korulmeny_kod"
     );
 
-    Map<String, List<String>> groupOrders = ImmutableMap.of(
-            "linear-regression", Arrays.asList("x", "y"),
-            "min", Arrays.asList("min"),
-            "max", Arrays.asList("max"),
-            "mean", Arrays.asList("mean"),
-            "variance", Arrays.asList("variance")
-    );
+    Map<String, List<String>> groupOrders = ImmutableMap.<String, List<String>>builder()
+            .put("linear-regression", Arrays.asList("x", "y"))
+            .put("principal-analysis", Arrays.asList("x", "y"))
+            .put("kmeans-cluster", Arrays.asList("id", "x"))
+            .put("min", Arrays.asList("min"))
+            .put("max", Arrays.asList("max"))
+            .put("mean", Arrays.asList("mean"))
+            .put("variance", Arrays.asList("variance"))
+            .build();
 
     Map<String, List<String>> propertyConfig = ImmutableMap.of(
-            "linear-regression", Arrays.asList("principal", "princpal_components", "normalization")
+            "linear-regression", Arrays.asList("normalization"),
+            "principal-analysis", Arrays.asList("principal", "princpal_components", "normalization"),
+            "kmeans-cluster", Arrays.asList("clusters"),
+            "min", Arrays.asList()
+
     );
 
     public CalculationParametersBuilder(CalculationConfiguration config) {
@@ -72,7 +78,7 @@ public class CalculationParametersBuilder {
     }
 
     private String getFilter(ColumnCondition condition) {
-        return condition.getProperty() + condition.getOperator() + "'" + condition.getValue() + "'";
+        return condition.getProperty() + " " + condition.getOperator() + " '" + condition.getValue() + "'";
     }
 
     private String getFields() {
@@ -136,6 +142,9 @@ public class CalculationParametersBuilder {
                 e.printStackTrace();
             }
         }
+
+
+        params.put("fieldnames", getFields().split(","));
         return params;
     }
 }

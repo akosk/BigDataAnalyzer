@@ -33,7 +33,6 @@ public class SiteController {
     Logger log = Logger.getLogger(SiteController.class);
 
 
-
     @RequestMapping("/index")
     public String index(Model model) {
         model.addAttribute("layout", ApplicationConfig.layout);
@@ -83,16 +82,35 @@ public class SiteController {
 //        String q = "SELECT k.belso_atmero, k.homok_frakcio_1, k.homok_frakcio_2, k.homok_frakcio_3, k.homok_frakcio_4, k.anyag_frakcio_1, f.Kw, f.TC FROM kozetmodell k \n" +
 //                "INNER JOIN fluidum f ON f.kozetmodell_kod=k.kozetmodell_kod WHERE 1=1 ";
 
-        String q = "SELECT IFNULL(f.Kw,f.TC), k.belso_atmero, k.homok_frakcio_1, k.homok_frakcio_2, k.homok_frakcio_3, k.homok_frakcio_4, k.anyag_frakcio_1  FROM kozetmodell k \n" +
-                "INNER JOIN fluidum f ON f.kozetmodell_kod=k.kozetmodell_kod WHERE 1=1 ";
+        //String q = "SELECT IFNULL(f.Kw,f.TC), k.belso_atmero, k.homok_frakcio_1, k.homok_frakcio_2, k.homok_frakcio_3, k.homok_frakcio_4, k.anyag_frakcio_1  FROM kozetmodell k \n" +
+        //     "INNER JOIN fluidum f ON f.kozetmodell_kod=k.kozetmodell_kod WHERE 1=1 ";
 //        String q = "SELECT IFNULL(f.Kw,f.TC), k.belso_atmero, k.homok_frakcio_1  FROM kozetmodell k \n" +
 //                "INNER JOIN fluidum f ON f.kozetmodell_kod=k.kozetmodell_kod WHERE 1=1 ";
-//        String q = "SELECT a,b,c  FROM test WHERE 1=1 ";
+        String q = "SELECT y,x1  FROM basic_lreg WHERE 1=1 ";
         Result s = regressionCalculator.calculate("java:comp/env/jdbc/bigdata", q, params);
         model.addAttribute("result", s.getResultText());
 
         return "spark-test";
     }
+
+
+    @RequestMapping(value = "/spark-test-linear-regression-basic")
+    public String sparkLinearTestBasic(Model model) {
+        model.addAttribute("layout", ApplicationConfig.layout);
+
+        Calculator calculator = new ScalaLinearRegressionCalculator();
+//        Calculator calculator = new BasicLinearRegressionCalculator();
+        HashMap<String, Object> params = new HashMap<String, Object>();
+
+        String q = "SELECT y, x1  FROM basic_lreg WHERE 1=1 ";
+        Result s = calculator.calculate("java:comp/env/jdbc/bigdata", q, params);
+
+
+        model.addAttribute("result",s.getResultText());
+
+        return "spark-test";
+    }
+
 
     @RequestMapping(value = "/spark-test-min")
     public String sparkMinTest(Model model) {
@@ -104,7 +122,7 @@ public class SiteController {
 
         String q = "SELECT id FROM payment WHERE 1=1 ";
         Result s = minCalculator.calculate("java:comp/env/jdbc/bigdata", q, params);
-        model.addAttribute("result", s.getResultText());
+        model.addAttribute("result", s.getResultTextAsHtml());
 
         return "spark-test";
     }
@@ -212,6 +230,7 @@ public class SiteController {
         model.addAttribute("layout", ApplicationConfig.layout);
         return "data-manager-meresi-eredmeny-lezer";
     }
+
     @RequestMapping("/data-manager-meresi-eredmeny-cement")
     public String dataManagerMeresiEredmenyCement(Model model) {
         model.addAttribute("layout", ApplicationConfig.layout);
@@ -225,17 +244,17 @@ public class SiteController {
     }
 
     // Login form
-    @RequestMapping(value="/login", method = RequestMethod.GET)
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login(Model model) {
         model.addAttribute("layout", "layout-login");
-        String title = ApplicationConfig.mode== ApplicationConfig.MODE.CEMENT?
+        String title = ApplicationConfig.mode == ApplicationConfig.MODE.CEMENT ?
                 "Kőzet, cementpalást, acélcső kőzetmodelleken végzett\n" +
                         " laboratóriumi kísérleti eredmények adatbázisainak feldolgozása"
                 :
                 "Kőzet, függőleges furatú, vízszintes lézeres befúrású kőzetmodelleken végzett\n" +
                         " laboratóriumi kísérleti eredmények adatbázisainak feldolgozása";
         model.addAttribute("title", title);
-        model.addAttribute("navbarCss", ApplicationConfig.mode== ApplicationConfig.MODE.CEMENT ?"css/navbar.css":"css/navbar2.css");
+        model.addAttribute("navbarCss", ApplicationConfig.mode == ApplicationConfig.MODE.CEMENT ? "css/navbar.css" : "css/navbar2.css");
         return "login";
     }
 
@@ -247,10 +266,10 @@ public class SiteController {
         return "login";
     }
 
-    @RequestMapping(value="/logout", method = RequestMethod.GET)
-    public String logoutPage (HttpServletRequest request, HttpServletResponse response) {
+    @RequestMapping(value = "/logout", method = RequestMethod.GET)
+    public String logoutPage(HttpServletRequest request, HttpServletResponse response) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (auth != null){
+        if (auth != null) {
             new SecurityContextLogoutHandler().logout(request, response, auth);
         }
         return "redirect:/login?logout";

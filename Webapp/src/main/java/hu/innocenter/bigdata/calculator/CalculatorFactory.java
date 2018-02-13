@@ -26,7 +26,13 @@ public class CalculatorFactory {
                 calculator = new VarianceCalculator();
                 break;
             case "linear-regression":
-                calculator = new LinearRegressionCalculator2();
+                calculator = new ScalaLinearRegressionCalculatorLBFGS();
+                break;
+            case "principal-analysis":
+                calculator = new ScalaLinearRegressionCalculatorLBFGS();
+                break;
+            case "kmeans-cluster":
+                calculator = new ClusterCalculator();
                 break;
         }
 

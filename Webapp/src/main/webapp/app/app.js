@@ -3,6 +3,8 @@
  */
 
 var VERSION = '1';
+var PRIMARY_KEY = PRIMARY_KEY || "id";
+
 
 (function () {
     "use strict";

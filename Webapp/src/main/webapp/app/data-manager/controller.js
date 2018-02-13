@@ -22,7 +22,7 @@
             $scope.modell = {};
         }
 
-        $scope.config=configFactoryService;
+        $scope.config = configFactoryService;
         $scope.fieldConfig = configFactoryService.formFieldConfig;
         $scope.gridConfig = configFactoryService.gridConfig;
 
@@ -34,8 +34,14 @@
         $scope.update = update;
         $scope.delete = deleteModell;
 
+        $scope.printModal = function () {
+            $.print('.modal-content table:first');
+        }
 
 
+        $scope.getId = function (item) {
+            return item[PRIMARY_KEY];
+        }
 
 
         function save() {

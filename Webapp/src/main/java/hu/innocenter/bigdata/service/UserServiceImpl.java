@@ -42,7 +42,8 @@ public class UserServiceImpl implements UserService {
         User entity = dao. findById(user.getUsername());
 
         if (entity != null) {
-            BeanUtils.copyProperties(user, entity, "id", "created");
+            entity.getRoles().clear();
+            BeanUtils.copyProperties(user, entity, "created");
             dao.saveUser(entity);
         }
 

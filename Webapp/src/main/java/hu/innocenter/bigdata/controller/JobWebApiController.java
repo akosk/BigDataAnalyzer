@@ -31,6 +31,9 @@ public class JobWebApiController {
         List<Job> jobs = jobService.findAllJobs();
         for (Job job : jobs) {
             job.setCalculation_configuration_name(job.getCalculationConfiguration().getName());
+            if (job.getSpark_output() != null) {
+                job.setSpark_output(job.getSpark_output().replaceAll("\n", "<br/>"));
+            }
         }
         return jobs;
 

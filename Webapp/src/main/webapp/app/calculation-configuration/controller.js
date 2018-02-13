@@ -319,12 +319,10 @@
                         min: 1
                     },
                     {
-                        id: 'y',
-                        name: 'Y',
-                        min: 1,
+                        id: 'id',
+                        name: 'Kód',
                         max: 1
                     }
-
                 ]
             }
         ];

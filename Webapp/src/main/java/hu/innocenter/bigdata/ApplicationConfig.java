@@ -24,7 +24,7 @@ public class ApplicationConfig {
 
     public enum MODE {CEMENT, LASER}
 
-    public static MODE mode = MODE.LASER;
+    public static MODE mode = MODE.CEMENT;
 
     public static String layout = mode == MODE.LASER ? "layout-laser" : "layout-cement";
 
@@ -37,4 +37,5 @@ public class ApplicationConfig {
 //        viewResolver.setSuffix(".jsp");
 //        return viewResolver;
 //    }
+
 }

@@ -70,7 +70,6 @@ public abstract class Calculator {
             double y = 0.0;
             double[] x = new double[columnCount - 1];
 
-
             for (int i = 1; i <= columnCount; i++) {
                 if (i == 1)
                     y = r.getDouble(i);
@@ -79,7 +78,6 @@ public abstract class Calculator {
 
             }
             LabeledPoint lp = new LabeledPoint(y, Vectors.dense(x));
-            out.println(lp.toString());
             return lp;
        }
     }
@@ -131,8 +129,6 @@ public abstract class Calculator {
     
     static JavaRDD<LabeledPoint> readLabeledPointsFromDB(final String dataSource, String query) {
 
-        System.out.println(query);
-
         return JdbcRDD.create(
                 sc,
                 new JdbcRDD.ConnectionFactory() {
@@ -156,8 +152,10 @@ public abstract class Calculator {
 
                     }
                 },
-                query + " AND 0 >= ? AND 2 <= ?",
-                0, 2, 1,
+                query+" AND ?=0 AND ?=1 ",
+                0,
+                1,
+                1,
                 new ResultSetToLabeledPoint()
 
         ).cache();

@@ -85,7 +85,7 @@ public class LinearRegressionCalculator2 extends Calculator {
             LinearRegressionModel model = LinearRegressionWithSGD.train(labeledPoints.rdd(), iterations, stepSize);
             out.println("Regression weights: " + model.weights());
 
-            result.setResultText("Regression weights: " + model.weights());
+            result.appendResultText("Regression weights: " + model.weights());
             
             // Calculate regression metrics
             
@@ -100,19 +100,19 @@ public class LinearRegressionCalculator2 extends Calculator {
             
             
             out.println("Regression explained variance: " + metrics.explainedVariance());
-            result.setResultText("Regression explained variance: " + metrics.explainedVariance());
+            result.appendResultText("Regression explained variance: " + metrics.explainedVariance());
             out.println("Regression mean absolute error: " + metrics.meanAbsoluteError());
-            result.setResultText("Regression mean absolute error: " + metrics.meanAbsoluteError());
+            result.appendResultText("Regression mean absolute error: " + metrics.meanAbsoluteError());
             out.println("Regression mean squared error: " + metrics.meanSquaredError());
-            result.setResultText("Regression mean squared error: " + metrics.meanSquaredError());
+            result.appendResultText("Regression mean squared error: " + metrics.meanSquaredError());
             out.println("Regression root main squared error: " + metrics.rootMeanSquaredError());
-            result.setResultText("Regression root main squared error: " + metrics.rootMeanSquaredError());
+            result.appendResultText("Regression root main squared error: " + metrics.rootMeanSquaredError());
 
             sc.stop();
 
         } catch (Exception e) {
             out.println("****** " + e.getMessage());
-            result.setResultText(e.getMessage());
+            result.appendResultText(e.getMessage());
 
         }
 

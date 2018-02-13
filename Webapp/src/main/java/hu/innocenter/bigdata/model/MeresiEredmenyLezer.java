@@ -42,6 +42,8 @@ public class MeresiEredmenyLezer implements Serializable {
     private Date created;
     private Date updated;
 
+    private Integer deleted;
+
     public Integer getId() {
         return id;
     }
@@ -166,4 +168,11 @@ public class MeresiEredmenyLezer implements Serializable {
         this.updated = updated;
     }
 
+    public Integer getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(Integer deleted) {
+        this.deleted = deleted;
+    }
 }

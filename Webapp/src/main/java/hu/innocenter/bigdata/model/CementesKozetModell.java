@@ -82,6 +82,8 @@ public class CementesKozetModell implements Serializable {
     private Date created;
     private Date updated;
 
+    private Integer deleted;
+
 
     public Integer getId() {
         return id;
@@ -483,5 +485,11 @@ public class CementesKozetModell implements Serializable {
         this.cementpalast_keszito_neve = cementpalast_keszito_neve;
     }
 
+    public Integer getDeleted() {
+        return deleted;
+    }
 
+    public void setDeleted(Integer deleted) {
+        this.deleted = deleted;
+    }
 }

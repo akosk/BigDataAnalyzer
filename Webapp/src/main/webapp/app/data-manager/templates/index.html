@@ -13,7 +13,7 @@
                 <td ng-repeat="col in gridConfig.dataColumns">{{item[col.id]}}</td>
 
                 <td ng-if="gridConfig.actions===undefined">
-                    <a ng-href="#/data-manager/{{item.id}}/edit"><i class="fa fa-pencil"></i> </a>
+                    <a ng-href="#/data-manager/{{getId(item)}}/edit"><i class="fa fa-pencil"></i> </a>
                     <a href="" ng-click="delete(item)"><i class="fa fa-trash"></i> </a>
                 </td>
 
@@ -43,6 +43,9 @@
             <div class="panel-body">
 
             </div>
+
+            <button type="button" class="btn btn-primary" ng-click="printModal()">Nyomtatás</button>
+
         </div>
     </div>
 </div>

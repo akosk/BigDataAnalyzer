@@ -57,6 +57,7 @@ public class LezeresKozetModell implements Serializable {
     private Double preselesi_nyomas;
 
     private Double preselesi_homerseklet;
+
     private java.sql.Time preselesi_ido;
 
     private String preseles_keszito_neve;
@@ -69,9 +70,13 @@ public class LezeresKozetModell implements Serializable {
     private Date kulso_kozetkopeny_keszitesi_datum;
     private String kulso_kozetkopeny_keszito_neve;
 
+
+    private Double lezerfurt_terfogat;
+
     private Date created;
     private Date updated;
 
+    private Integer deleted;
 
     public Integer getId() {
         return id;
@@ -371,5 +376,21 @@ public class LezeresKozetModell implements Serializable {
 
     public void setUpdated(Date updated) {
         this.updated = updated;
+    }
+
+    public Integer getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(Integer deleted) {
+        this.deleted = deleted;
+    }
+
+    public Double getLezerfurt_terfogat() {
+        return lezerfurt_terfogat;
+    }
+
+    public void setLezerfurt_terfogat(Double lezerfurt_terfogat) {
+        this.lezerfurt_terfogat = lezerfurt_terfogat;
     }
 }

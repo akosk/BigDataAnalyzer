@@ -49,9 +49,18 @@ public class MeresiEredmenyCement implements Serializable {
     private Double kozetfluidum_belepo_nyomasa;
     private Double kozetfluidum_kilepo_nyomasa;
     private Double ultrahang_jelzes_ideje;
+    private Double repedesek_szama_elotte;
+    private Double repedesek_szama_utana;
+    private Double repedesek_hossza_elotte;
+    private Double repedesek_hossza_utana;
+    private Double linearis_permeabilitas;
+    private Double linearis_permeabilitas_elotte;
+    private Double linearis_permeabilitas_utana;
 
     private Date created;
     private Date updated;
+
+    private Integer deleted;
 
     public Integer getId() {
         return id;
@@ -247,6 +256,62 @@ public class MeresiEredmenyCement implements Serializable {
         this.ultrahang_jelzes_ideje = ultrahang_jelzes_ideje;
     }
 
+    public Double getRepedesek_szama_elotte() {
+        return repedesek_szama_elotte;
+    }
+
+    public void setRepedesek_szama_elotte(Double repedesek_szama_elotte) {
+        this.repedesek_szama_elotte = repedesek_szama_elotte;
+    }
+
+    public Double getRepedesek_szama_utana() {
+        return repedesek_szama_utana;
+    }
+
+    public void setRepedesek_szama_utana(Double repedesek_szama_utana) {
+        this.repedesek_szama_utana = repedesek_szama_utana;
+    }
+
+    public Double getRepedesek_hossza_elotte() {
+        return repedesek_hossza_elotte;
+    }
+
+    public void setRepedesek_hossza_elotte(Double repedesek_hossza_elotte) {
+        this.repedesek_hossza_elotte = repedesek_hossza_elotte;
+    }
+
+    public Double getRepedesek_hossza_utana() {
+        return repedesek_hossza_utana;
+    }
+
+    public void setRepedesek_hossza_utana(Double repedesek_hossza_utana) {
+        this.repedesek_hossza_utana = repedesek_hossza_utana;
+    }
+
+    public Double getLinearis_permeabilitas() {
+        return linearis_permeabilitas;
+    }
+
+    public void setLinearis_permeabilitas(Double linearis_permeabilitas) {
+        this.linearis_permeabilitas = linearis_permeabilitas;
+    }
+
+    public Double getLinearis_permeabilitas_elotte() {
+        return linearis_permeabilitas_elotte;
+    }
+
+    public void setLinearis_permeabilitas_elotte(Double linearis_permeabilitas_elotte) {
+        this.linearis_permeabilitas_elotte = linearis_permeabilitas_elotte;
+    }
+
+    public Double getLinearis_permeabilitas_utana() {
+        return linearis_permeabilitas_utana;
+    }
+
+    public void setLinearis_permeabilitas_utana(Double linearis_permeabilitas_utana) {
+        this.linearis_permeabilitas_utana = linearis_permeabilitas_utana;
+    }
+
     @JsonSerialize(using = JsonDateTimeSerializer.class)
     public Date getCreated() {
         return created;
@@ -265,4 +330,12 @@ public class MeresiEredmenyCement implements Serializable {
         this.updated = updated;
     }
 
+
+    public Integer getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(Integer deleted) {
+        this.deleted = deleted;
+    }
 }

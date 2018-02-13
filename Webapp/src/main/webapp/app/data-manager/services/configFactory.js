@@ -263,7 +263,6 @@
         function getUserGridConfig() {
             return {
                 dataColumns: [
-                    {id: "id", name: "Id"},
                     {id: "username", name: "Felhasználónév"},
                     {id: "password", name: "Jelszó"},
                     {id: "enabled", name: "Engedélyezve"},
@@ -1375,7 +1374,71 @@
                         max: 8000
                     },
                     validators: {}
+                },
+                {
+                    key: 'repedesek_szama_elotte',
+                    type: 'rangeInput',
+                    templateOptions: {
+                        label: 'Repedések száma előtte',
+                        min: 0,
+                        max: 10000
+                    }
+                },
+                {
+                    key: 'repedesek_szama_utana',
+                    type: 'rangeInput',
+                    templateOptions: {
+                        label: 'Repedések száma utána',
+                        min: 0,
+                        max: 10000
+                    }
+                },
+                {
+                    key: 'repedesek_hossza_elotte',
+                    type: 'rangeInput',
+                    templateOptions: {
+                        label: 'Repedések hossza előtte',
+                        min: 0,
+                        max: 10000
+                    }
+                },
+                {
+                    key: 'repedesek_hossza_utana',
+                    type: 'rangeInput',
+                    templateOptions: {
+                        label: 'Repedések hossza utána',
+                        min: 0,
+                        max: 10000
+                    }
+                },
+                {
+                    key: 'linearis_permeabilitas',
+                    type: 'rangeInput',
+                    templateOptions: {
+                        label: 'Lineáris permeabilitás',
+                        min: 0,
+                        max: 10000
+                    }
+                },
+                {
+                    key: 'linearis_permeabilitas_elotte',
+                    type: 'rangeInput',
+                    templateOptions: {
+                        label: 'Lineáris permeabilitás előtte',
+                        min: 0,
+                        max: 10000
+                    }
+                },
+                {
+                    key: 'linearis_permeabilitas_utana',
+                    type: 'rangeInput',
+                    templateOptions: {
+                        label: 'Lineáris permeabilitás utána',
+                        min: 0,
+                        max: 10000
+                    }
                 }
+
 
 
             ];
